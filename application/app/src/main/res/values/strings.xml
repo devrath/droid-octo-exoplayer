@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">code</string>
     <string name="select_url">Select URL</string>
+    <string name="choose_video_format_to_play">Choose the video format to play</string>
+    <string name="str_mp4">Mp4-URL</string>
+    <string name="str_dash">Dash-URL</string>
+
+    <string-array name="videoFormatsSelectionList">
+        <item>@string/str_mp4</item>
+        <item>@string/str_dash</item>
+    </string-array>
+
 </resources>
