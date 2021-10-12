@@ -1,4 +1,4 @@
-package com.example.code
+package com.example.code.exoplayer
 
 import com.google.android.exoplayer2.util.MimeTypes
 
