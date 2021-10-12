@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.code.Constants.dashUrl
+import com.example.code.Constants.mp3Url
 import com.example.code.Constants.mp4Url
 import com.example.code.databinding.ActivityMainBinding
 import com.google.android.exoplayer2.*
@@ -120,6 +121,7 @@ class MainActivity : AppCompatActivity(), Player.Listener {
             when (which) {
                 0 -> initPlayer(mp4Url, MimeTypes.APPLICATION_MP4)
                 1 -> initPlayer(dashUrl,MimeTypes.APPLICATION_MPD)
+                2 -> initPlayer(mp3Url,MimeTypes.APPLICATION_MP4)
                 else -> Toast.makeText(context,"Invalid",Toast.LENGTH_LONG).show()
             }
             dialog.dismiss()
@@ -152,6 +154,7 @@ class MainActivity : AppCompatActivity(), Player.Listener {
                     .setUri(url)
                     .setMimeType(type)
                     .build()
+
                 exoPlayer.setMediaItem(mediaItem)
                 exoPlayer.playWhenReady = playWhenReady
                 exoPlayer.seekTo(currentWindow, playbackPosition)
