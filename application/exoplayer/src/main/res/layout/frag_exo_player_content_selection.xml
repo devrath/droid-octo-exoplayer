@@ -10,8 +10,8 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/imageView"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="@dimen/select_lotte_width"
+        android:layout_height="@dimen/select_lotte_height"
         android:layout_gravity="center"
         app:lottie_rawRes="@raw/select_option"
         app:lottie_autoPlay="true"
