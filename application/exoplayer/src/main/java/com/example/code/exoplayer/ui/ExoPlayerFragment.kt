@@ -1,4 +1,4 @@
-package com.example.code.exoplayer
+package com.example.code.exoplayer.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -7,11 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.code.exoplayer.Constants
+import com.example.code.exoplayer.core.ExoplayerAction
+import com.example.code.exoplayer.core.ExoplayerLifecycleObserver
+import com.example.code.exoplayer.R
 import com.example.code.exoplayer.databinding.ActivityExoplayerBinding
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dagger.hilt.EntryPoint
 
+@EntryPoint
 class ExoPlayerFragment : Fragment(), Player.Listener {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
@@ -24,7 +30,7 @@ class ExoPlayerFragment : Fragment(), Player.Listener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return binding.root
     }
 

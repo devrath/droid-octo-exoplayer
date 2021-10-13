@@ -10,3 +10,4 @@ rootProject.name = "code"
 include ':app'
 include ':exoplayer'
 include ':extensions'
+include ':styles'

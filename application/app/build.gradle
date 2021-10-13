@@ -39,6 +39,7 @@ android {
 dependencies {
     implementation project(':exoplayer')
     implementation project(':extensions')
+    implementation project(':styles')
 
     implementation "androidx.core:core-ktx:${versions.coreKtx}"
     implementation "androidx.appcompat:appcompat:${versions.appCompat}"
