@@ -56,4 +56,7 @@ dependencies {
 
     // Lottie Animation Library
     implementation "com.airbnb.android:lottie:${exoPlayerLibVersions.lotteanim}"
+
+    // Timber
+    implementation "com.jakewharton.timber:timber:${versions.timber}"
 }

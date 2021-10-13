@@ -1,8 +1,6 @@
 package com.example.code.exoplayer.core
 
-import android.content.ContentValues
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
@@ -14,6 +12,7 @@ import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.exoplayer2.util.Util
+import timber.log.Timber
 
 class ExoplayerLifecycleObserver (
     private val lifecycle: Lifecycle,
@@ -32,17 +31,17 @@ class ExoplayerLifecycleObserver (
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreateEvent() {
-        Log.i(tag, "ON_CREATE Event")
+        Timber.tag(tag).i("ON_CREATE Event");
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onStartEvent() {
-        Log.i(tag, "ON_START event")
+        Timber.tag(tag).i("ON_START Event");
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResumeEvent() {
-        Log.i(tag, "ON_RESUME event")
+        Timber.tag(tag).i("ON_RESUME Event");
         if (Util.SDK_INT <= 23 || simpleExoplayer == null) {
             initializePlayer()
         }
@@ -50,7 +49,7 @@ class ExoplayerLifecycleObserver (
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onPauseEvent() {
-        Log.i(tag, "ON_PAUSE event")
+        Timber.tag(tag).i("ON_PAUSE Event");
         if (Util.SDK_INT <= 23) {
             releasePlayer()
         }
@@ -58,7 +57,7 @@ class ExoplayerLifecycleObserver (
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun onStopEvent() {
-        Log.i(tag, "ON_STOP event")
+        Timber.tag(tag).i("ON_STOP Event");
         if (Util.SDK_INT <= 23) {
             releasePlayer()
         }
@@ -66,7 +65,7 @@ class ExoplayerLifecycleObserver (
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroyEvent() {
-        Log.i(tag, "ON_DESTROY event")
+        Timber.tag(tag).i("ON_DESTROY Event");
         lifecycle.removeObserver(this)
     }
 
@@ -123,10 +122,8 @@ class ExoplayerLifecycleObserver (
             ExoPlayer.STATE_ENDED -> "ExoPlayer.STATE_ENDED"
             else -> "UNKNOWN_STATE"
         }
-        Log.d(tag, "changed state to $stateString")
-
+        Timber.tag(tag).i("changed state to $stateString");
     }
-
 
     fun changeTrack(url: String,type: String) {
         releasePlayer()
