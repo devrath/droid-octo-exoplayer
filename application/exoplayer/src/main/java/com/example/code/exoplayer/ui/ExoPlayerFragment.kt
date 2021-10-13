@@ -1,21 +1,17 @@
 package com.example.code.exoplayer.ui
 
-import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
-import com.example.code.exoplayer.Constants
 import com.example.code.exoplayer.core.ExoplayerAction
 import com.example.code.exoplayer.core.ExoplayerLifecycleObserver
-import com.example.code.exoplayer.R
 import com.example.code.exoplayer.databinding.ActivityExoplayerBinding
 import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.util.MimeTypes
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import android.view.*
+import android.widget.Toast
+import com.example.code.exoplayer.R
+
 
 @AndroidEntryPoint
 class ExoPlayerFragment : Fragment(), Player.Listener, ExoPlayerContentSelCallback {
@@ -25,6 +21,27 @@ class ExoPlayerFragment : Fragment(), Player.Listener, ExoPlayerContentSelCallba
     }
 
     private lateinit var locationListener: ExoplayerLifecycleObserver
+
+    override fun onCreate(@Nullable savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_video_options, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.action_full_Screen -> {
+                Toast.makeText(activity, "Full screen action", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
