@@ -20,7 +20,7 @@ class ExoplayerLifecycleObserver (
     private val context : Context,
     private val callback: (ExoplayerAction) -> Unit) : LifecycleObserver, Player.Listener {
 
-    private val TAG = this.javaClass.simpleName
+    private val tag = this.javaClass.simpleName
 
     private var simpleExoplayer: SimpleExoPlayer? = null
 
@@ -32,17 +32,17 @@ class ExoplayerLifecycleObserver (
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreateEvent() {
-        Log.i(TAG, "ON_CREATE Event")
+        Log.i(tag, "ON_CREATE Event")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onStartEvent() {
-        Log.i(TAG, "ON_START event")
+        Log.i(tag, "ON_START event")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResumeEvent() {
-        Log.i(TAG, "ON_RESUME event")
+        Log.i(tag, "ON_RESUME event")
         if (Util.SDK_INT <= 23 || simpleExoplayer == null) {
             initializePlayer()
         }
@@ -50,7 +50,7 @@ class ExoplayerLifecycleObserver (
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onPauseEvent() {
-        Log.i(TAG, "ON_PAUSE event")
+        Log.i(tag, "ON_PAUSE event")
         if (Util.SDK_INT <= 23) {
             releasePlayer()
         }
@@ -58,7 +58,7 @@ class ExoplayerLifecycleObserver (
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun onStopEvent() {
-        Log.i(TAG, "ON_STOP event")
+        Log.i(tag, "ON_STOP event")
         if (Util.SDK_INT <= 23) {
             releasePlayer()
         }
@@ -66,7 +66,7 @@ class ExoplayerLifecycleObserver (
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroyEvent() {
-        Log.i(TAG, "ON_DESTROY event")
+        Log.i(tag, "ON_DESTROY event")
         lifecycle.removeObserver(this)
     }
 
@@ -123,7 +123,7 @@ class ExoplayerLifecycleObserver (
             ExoPlayer.STATE_ENDED -> "ExoPlayer.STATE_ENDED"
             else -> "UNKNOWN_STATE"
         }
-        Log.d(ContentValues.TAG, "changed state to $stateString")
+        Log.d(tag, "changed state to $stateString")
 
     }
 
