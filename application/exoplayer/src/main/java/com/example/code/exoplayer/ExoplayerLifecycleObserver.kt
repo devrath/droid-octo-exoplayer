@@ -19,21 +19,18 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.exoplayer2.util.Util
 
-class ExoplayerLifecycleObserver (val lifecycle: Lifecycle, val context : Context,
-                                  private val callback: (ExoplayerAction) -> Unit) : LifecycleObserver, Player.Listener {
+class ExoplayerLifecycleObserver (
+    private val lifecycle: Lifecycle,
+    private val context : Context,
+    private val callback: (ExoplayerAction) -> Unit) : LifecycleObserver, Player.Listener {
 
     private val TAG = this.javaClass.simpleName
 
     private var simpleExoplayer: SimpleExoPlayer? = null
-    private val mp4Url = "https://html5demos.com/assets/dizzy.mp4"
-    private val dashUrl = "https://storage.googleapis.com/wvmedia/clear/vp9/tears/tears_uhd.mpd"
-    private val urlList = listOf(mp4Url to "default", dashUrl to "dash")
-
 
     private var playWhenReady = true
     private var currentWindow = 0
     private var playbackPosition = 0L
-
 
     init { lifecycle.addObserver(this) }
 
@@ -103,15 +100,6 @@ class ExoplayerLifecycleObserver (val lifecycle: Lifecycle, val context : Contex
             }
     }
 
-    private fun buildMediaSource(uri: Uri, type: String): MediaSource {
-        val factory = DefaultDataSourceFactory(context, "exoplayer-sample")
-        return if (type == "dash") {
-            DashMediaSource.Factory(factory).createMediaSource(uri)
-        } else {
-            ProgressiveMediaSource.Factory(factory).createMediaSource(uri)
-        }
-    }
-
     private fun releasePlayer() {
         simpleExoplayer?.run {
             playbackPosition = this.currentPosition
@@ -144,7 +132,7 @@ class ExoplayerLifecycleObserver (val lifecycle: Lifecycle, val context : Contex
     }
 
 
-    public fun changeTrack(url: String,type: String) {
+    fun changeTrack(url: String,type: String) {
         releasePlayer()
         initializePlayer(url,type)
     }

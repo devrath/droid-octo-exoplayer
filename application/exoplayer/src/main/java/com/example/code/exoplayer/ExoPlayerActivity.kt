@@ -67,7 +67,7 @@ class ExoPlayerActivity : AppCompatActivity(), Player.Listener {
     }
 
     private fun initExoplayerListener() {
-        locationListener = ExoplayerLifecycleObserver(lifecycle,this) { it ->
+        locationListener = ExoplayerLifecycleObserver(lifecycle,this) {
             when(it) {
                 is ExoplayerAction.BindExoplayer -> binding.exoplayerView.player = it.simpleExoplayer
                 is ExoplayerAction.ProgressBarVisibility -> handleProgressVisibilityOfPlayer(it.isVisible)
