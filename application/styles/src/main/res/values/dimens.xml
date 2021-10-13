@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Dimensions that are common across the project -->
+  <dimen name="bottom_sheet_corner_crop_radius">32dp</dimen>
+  <dimen name="bottom_sheet_no_corners">0dp</dimen>
+  <dimen name="bottom_sheet_button_radius">32dp</dimen>
+
+  <dimen name="bottom_sheet_button_margin_left_right">10dp</dimen>
+
+</resources>

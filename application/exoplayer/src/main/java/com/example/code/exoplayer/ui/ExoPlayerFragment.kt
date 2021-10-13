@@ -15,9 +15,9 @@ import com.example.code.exoplayer.databinding.ActivityExoplayerBinding
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 
-@EntryPoint
+@AndroidEntryPoint
 class ExoPlayerFragment : Fragment(), Player.Listener {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Themes that are common across the project -->
+
+  <!-- Bottom Sheet dialog styles -->
+  <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+    <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
+    <item name="materialButtonStyle">@style/CustomMaterialButtonStyle</item>
+  </style>
+
+  <style name="CustomMaterialButtonStyle" parent="@style/Widget.MaterialComponents.Button">
+    <item name="cornerRadius">@dimen/bottom_sheet_button_radius</item>
+  </style>
+
+  <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+    <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
+  </style>
+
+  <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
+    <item name="android:background">@android:color/transparent</item>
+    <item name="backgroundTint">@android:color/transparent</item>
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSizeTopRight">@dimen/bottom_sheet_corner_crop_radius</item>
+    <item name="cornerSizeTopLeft">@dimen/bottom_sheet_corner_crop_radius</item>
+    <item name="cornerSizeBottomRight">@dimen/bottom_sheet_no_corners</item>
+    <item name="cornerSizeBottomLeft">@dimen/bottom_sheet_no_corners</item>
+  </style>
+
+  <style name="BottomSheetButtonStyle">
+    <item name="android:layout_marginLeft">@dimen/bottom_sheet_button_margin_left_right</item>
+    <item name="android:layout_marginRight">@dimen/bottom_sheet_button_margin_left_right</item>
+  </style>
+  <!-- Bottom Sheet dialog styles -->
+
+</resources>
