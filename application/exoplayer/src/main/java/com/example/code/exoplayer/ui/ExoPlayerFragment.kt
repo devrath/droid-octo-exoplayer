@@ -11,6 +11,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import android.view.*
 import android.widget.Toast
 import com.example.code.exoplayer.R
+import com.example.code.extensions.hide
+import com.example.code.extensions.show
 
 
 @AndroidEntryPoint
@@ -33,7 +35,6 @@ class ExoPlayerFragment : Fragment(), Player.Listener, ExoPlayerContentSelCallba
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle item selection
         return when (item.itemId) {
             R.id.action_url_selection -> {
                 showUrlSelectionSheet()
@@ -48,18 +49,17 @@ class ExoPlayerFragment : Fragment(), Player.Listener, ExoPlayerContentSelCallba
     }
 
     private fun showUrlSelectionSheet() {
-        val dialog = ExoPlayerContentSelFragment()
-        dialog.setOnClickListener(this)
-        dialog.show(childFragmentManager, null)
+        ExoPlayerContentSelFragment().let {
+            it.setOnClickListener(this@ExoPlayerFragment)
+            it.show(childFragmentManager, null)
+        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return binding.root
-    }
+    ): View { return binding.root }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -72,20 +72,17 @@ class ExoPlayerFragment : Fragment(), Player.Listener, ExoPlayerContentSelCallba
 
     private fun initExoplayerListener() {
         activity?.let{
-            locationListener = ExoplayerLifecycleObserver(lifecycle,it) {
-                when(it) {
-                    is ExoplayerAction.BindExoplayer -> binding.exoplayerView.player = it.simpleExoplayer
-                    is ExoplayerAction.ProgressBarVisibility -> handleProgressVisibilityOfPlayer(it.isVisible)
+            locationListener = ExoplayerLifecycleObserver(lifecycle,it) { exoPlayerAction ->
+                when(exoPlayerAction) {
+                    is ExoplayerAction.BindExoplayer -> binding.exoplayerView.player = exoPlayerAction.simpleExoplayer
+                    is ExoplayerAction.ProgressBarVisibility -> handleProgressVisibilityOfPlayer(exoPlayerAction.isVisible)
                 }
             }
         }
     }
 
     private fun handleProgressVisibilityOfPlayer(visible: Boolean) {
-        if (visible)
-            binding.progressBar.visibility = View.VISIBLE
-        else
-            binding.progressBar.visibility = View.INVISIBLE
+        if (visible) { binding.progressBar.show() } else { binding.progressBar.hide() }
     }
 
 }

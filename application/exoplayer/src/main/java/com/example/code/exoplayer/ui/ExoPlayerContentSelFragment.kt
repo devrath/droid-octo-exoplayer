@@ -30,23 +30,15 @@ class ExoPlayerContentSelFragment : BottomSheetDialogFragment(), CoroutineScope 
         FragExoPlayerContentSelectionBinding.inflate(layoutInflater)
     }
 
-    fun setOnClickListener(listener: ExoPlayerContentSelCallback) {
-        this.listener = listener
-    }
+    fun setOnClickListener(listener: ExoPlayerContentSelCallback) { this.listener = listener }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return binding.root.apply {
-            setBackgroundResource(R.drawable.rounded_background);
-        }
-    }
+    ): View { return binding.root.apply { setBackgroundResource(R.drawable.rounded_background); } }
 
-    override fun getTheme(): Int {
-        return R.style.CustomBottomSheetDialog
-    }
+    override fun getTheme(): Int { return R.style.CustomBottomSheetDialog }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
