@@ -35,12 +35,22 @@ class ExoPlayerFragment : Fragment(), Player.Listener, ExoPlayerContentSelCallba
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle item selection
         return when (item.itemId) {
+            R.id.action_url_selection -> {
+                showUrlSelectionSheet()
+                true
+            }
             R.id.action_full_Screen -> {
                 Toast.makeText(activity, "Full screen action", Toast.LENGTH_SHORT).show()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showUrlSelectionSheet() {
+        val dialog = ExoPlayerContentSelFragment()
+        dialog.setOnClickListener(this)
+        dialog.show(childFragmentManager, null)
     }
 
     override fun onCreateView(
@@ -53,20 +63,11 @@ class ExoPlayerFragment : Fragment(), Player.Listener, ExoPlayerContentSelCallba
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setOnClickListener()
         initExoplayerListener()
     }
 
     override fun onClick(url: String, type: String) {
         locationListener.changeTrack(url,type)
-    }
-
-    private fun setOnClickListener() {
-        binding.selectUrlId.setOnClickListener {
-            val dialog = ExoPlayerContentSelFragment()
-            dialog.setOnClickListener(this)
-            dialog.show(childFragmentManager, null)
-        }
     }
 
     private fun initExoplayerListener() {
