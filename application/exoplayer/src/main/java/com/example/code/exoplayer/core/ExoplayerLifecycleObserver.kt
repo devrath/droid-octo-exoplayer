@@ -98,7 +98,7 @@ class ExoplayerLifecycleObserver (
 
     private fun releasePlayer() {
         simpleExoplayer?.run {
-            playbackPosition = this.currentPosition
+            playbackPosition = 0L
             currentWindow = this.currentWindowIndex
             playWhenReady = this.playWhenReady
             release()
