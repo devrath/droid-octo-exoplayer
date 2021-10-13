@@ -45,6 +45,9 @@ dependencies {
     implementation "com.google.android.material:material:${versions.materialDesign}"
     testImplementation "junit:junit:${versions.junit}"
 
+    // Architecture components
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:${versions.architectureComponents}"
+
     //Hilt
     implementation "com.google.dagger:hilt-android:${versions.hilt}"
     kapt "com.google.dagger:hilt-compiler:${versions.hilt}"

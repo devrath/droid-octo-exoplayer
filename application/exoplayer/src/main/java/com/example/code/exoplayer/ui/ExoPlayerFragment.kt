@@ -18,7 +18,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ExoPlayerFragment : Fragment(), Player.Listener {
+class ExoPlayerFragment : Fragment(), Player.Listener, ExoPlayerContentSelCallback {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
         ActivityExoplayerBinding.inflate(layoutInflater)
@@ -40,33 +40,16 @@ class ExoPlayerFragment : Fragment(), Player.Listener {
         initExoplayerListener()
     }
 
-    private fun setOnClickListener() {
-        binding.selectUrlId.setOnClickListener {
-            activity?.let{ selectUrl(it) }
-        }
+    override fun onClick(url: String, type: String) {
+        locationListener.changeTrack(url,type)
     }
 
-    private fun selectUrl(context: Context){
-        // setup alert builder
-        val builder = MaterialAlertDialogBuilder(context)
-        builder.setTitle(getString(R.string.choose_video_format_to_play))
-
-        // add list items
-        val listItems = resources.getStringArray(R.array.videoFormatsSelectionList)
-
-        builder.setItems(listItems) { dialog, which ->
-            when (which) {
-                0 -> locationListener.changeTrack(Constants.mp4Url, MimeTypes.APPLICATION_MP4)
-                1 -> locationListener.changeTrack(Constants.dashUrl, MimeTypes.APPLICATION_MPD)
-                2 -> locationListener.changeTrack(Constants.mp3Url, MimeTypes.APPLICATION_MP4)
-                else -> Toast.makeText(context,"Invalid", Toast.LENGTH_LONG).show()
-            }
-            dialog.dismiss()
+    private fun setOnClickListener() {
+        binding.selectUrlId.setOnClickListener {
+            val dialog = ExoPlayerContentSelFragment()
+            dialog.setOnClickListener(this)
+            dialog.show(childFragmentManager, null)
         }
-
-        // create & show alert dialog
-        val dialog = builder.create()
-        dialog.show()
     }
 
     private fun initExoplayerListener() {
@@ -80,13 +63,11 @@ class ExoPlayerFragment : Fragment(), Player.Listener {
         }
     }
 
-
     private fun handleProgressVisibilityOfPlayer(visible: Boolean) {
         if (visible)
             binding.progressBar.visibility = View.VISIBLE
         else
             binding.progressBar.visibility = View.INVISIBLE
     }
-
 
 }

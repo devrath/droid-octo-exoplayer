@@ -5,7 +5,9 @@
       <map>
         <entry key="../../../../../../layout/custom_preview.xml" value="0.19076923076923077" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.12291666666666666" />
+        <entry key="exoplayer/src/main/res/drawable/rounded_background.xml" value="0.1361111111111111" />
         <entry key="exoplayer/src/main/res/layout/activity_exoplayer.xml" value="0.1" />
+        <entry key="exoplayer/src/main/res/layout/frag_exo_player_content_selection.xml" value="0.1" />
       </map>
     </option>
   </component>
