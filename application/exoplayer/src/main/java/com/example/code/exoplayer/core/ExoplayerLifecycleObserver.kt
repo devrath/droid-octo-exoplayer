@@ -89,7 +89,13 @@ class ExoplayerLifecycleObserver (
                     .build()
 
                 exoPlayer.setMediaItem(mediaItem)
+                // This indicates the player that, Player is ready to start and starts playing
                 exoPlayer.playWhenReady = playWhenReady
+                /**
+                 * ---> This is necessary to resume the player from where its paused.
+                 * ---> This is useful in scenario where app is sent to background and bought to
+                 * foreground the player will resume from position from where is left off
+                 * otherwise player will start playing from the initial position */
                 exoPlayer.seekTo(currentWindow, playbackPosition)
                 exoPlayer.prepare()
             }
