@@ -40,23 +40,9 @@ dependencies {
     implementation project(':extensions')
     implementation project(':styles')
 
-    implementation "androidx.core:core-ktx:${versions.coreKtx}"
-    implementation "androidx.appcompat:appcompat:${versions.appCompat}"
-    implementation "com.google.android.material:material:${versions.materialDesign}"
-    testImplementation "junit:junit:${versions.junit}"
-
-    // Architecture components
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:${versions.architectureComponents}"
-
-    //Hilt
-    implementation "com.google.dagger:hilt-android:${versions.hilt}"
-    kapt "com.google.dagger:hilt-compiler:${versions.hilt}"
-
-    implementation "com.google.android.exoplayer:exoplayer:${exoPlayerLibVersions.exoplayer}"
-
-    // Lottie Animation Library
-    implementation "com.airbnb.android:lottie:${exoPlayerLibVersions.lotteanim}"
-
-    // Timber
-    implementation "com.jakewharton.timber:timber:${versions.timber}"
+    sharedGroup dependencies
+    hiltDependenciesGroup dependencies
+    lifeCycleDependenciesGroup dependencies
+    animationDependenciesGroup dependencies
+    player dependencies
 }

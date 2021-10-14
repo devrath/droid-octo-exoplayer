@@ -36,9 +36,5 @@ android {
 }
 
 dependencies {
-
-    implementation "androidx.core:core-ktx:${versions.coreKtx}"
-    implementation "androidx.appcompat:appcompat:${versions.appCompat}"
-    implementation "com.google.android.material:material:${versions.materialDesign}"
-    testImplementation "junit:junit:${versions.junit}"
+    sharedGroup dependencies
 }
