@@ -3,8 +3,8 @@ package com.example.code.exoplayer.simple.ui
 import android.os.Bundle
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
-import com.example.code.exoplayer.customPlayerControl.core.CustomExoplayerAction
-import com.example.code.exoplayer.customPlayerControl.core.CustomExoplayerLifecycleObserver
+import com.example.code.exoplayer.custom.core.CustomExoplayerAction
+import com.example.code.exoplayer.custom.core.CustomExoplayerLifecycleObserver
 import com.google.android.exoplayer2.Player
 import dagger.hilt.android.AndroidEntryPoint
 import android.view.*

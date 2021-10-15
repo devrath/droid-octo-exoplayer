@@ -1,26 +1,22 @@
-package com.example.code.exoplayer.customPlayerControl.ui
+package com.example.code.exoplayer.custom.ui
 
 import android.os.Bundle
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
-import com.example.code.exoplayer.customPlayerControl.core.CustomExoplayerAction
-import com.example.code.exoplayer.customPlayerControl.core.CustomExoplayerLifecycleObserver
+import com.example.code.exoplayer.custom.core.CustomExoplayerAction
+import com.example.code.exoplayer.custom.core.CustomExoplayerLifecycleObserver
 import com.google.android.exoplayer2.Player
 import dagger.hilt.android.AndroidEntryPoint
 import android.view.*
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import com.example.code.exoplayer.R
-import com.example.code.exoplayer.databinding.ExoPlaybackControlViewBinding
 import com.example.code.exoplayer.databinding.FragmentCustomControlsExoPlayerBinding
-import com.example.code.exoplayer.databinding.LayoutExoplayerControlViewsBinding
 import com.example.code.extensions.hide
 import com.example.code.extensions.show
-import com.google.android.exoplayer2.PlaybackParameters
 
 @AndroidEntryPoint
-class CustomExoPlayerControlFragment : Fragment(), Player.Listener, CustomPlayerCallback {
+class CustomExoPlayerFragment : Fragment(), Player.Listener, CustomPlayerCallback {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
         FragmentCustomControlsExoPlayerBinding.inflate(layoutInflater)
@@ -59,7 +55,7 @@ class CustomExoPlayerControlFragment : Fragment(), Player.Listener, CustomPlayer
 
     private fun showUrlSelectionSheet() {
         ExoPlayerContentSelFragment().let {
-            it.setOnClickListener(this@CustomExoPlayerControlFragment)
+            it.setOnClickListener(this@CustomExoPlayerFragment)
             it.show(childFragmentManager, null)
         }
     }

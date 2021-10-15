@@ -1,4 +1,4 @@
-package com.example.code.exoplayer.customPlayerControl.ui
+package com.example.code.exoplayer.custom.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
