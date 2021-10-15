@@ -23,7 +23,7 @@ class SelectionActivity : AppCompatActivity() {
                 launchActivity<SimpleExoPlayerActivity>()
             }
             customExoPlayerId.setOnClickListener {
-                launchActivity<SimpleExoPlayerActivity>()
+                launchActivity<CustomExoPlayerActivity>()
             }
         }
     }

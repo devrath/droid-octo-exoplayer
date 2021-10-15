@@ -9,10 +9,13 @@ import com.google.android.exoplayer2.Player
 import dagger.hilt.android.AndroidEntryPoint
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.widget.PopupMenu
 import com.example.code.exoplayer.R
+import com.example.code.exoplayer.databinding.ExoPlaybackControlViewBinding
 import com.example.code.exoplayer.databinding.FragmentCustomControlsExoPlayerBinding
 import com.example.code.extensions.hide
 import com.example.code.extensions.show
+import com.google.android.exoplayer2.PlaybackParameters
 
 @AndroidEntryPoint
 class CustomExoPlayerControlFragment : Fragment(), Player.Listener, CustomPlayerCallback {
@@ -20,6 +23,11 @@ class CustomExoPlayerControlFragment : Fragment(), Player.Listener, CustomPlayer
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
         FragmentCustomControlsExoPlayerBinding.inflate(layoutInflater)
     }
+
+    private val bindingCtrl by lazy {
+        ExoPlaybackControlViewBinding.inflate(layoutInflater, binding.root, true)
+    }
+
 
     private lateinit var locationListener: CustomExoplayerLifecycleObserver
 
@@ -63,6 +71,43 @@ class CustomExoPlayerControlFragment : Fragment(), Player.Listener, CustomPlayer
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initExoplayerListener()
+        setClickListener()
+    }
+
+    private fun setClickListener() {
+        activity?.let{ activity ->
+            bindingCtrl.btnSpeed.setOnClickListener {
+                val popup = PopupMenu(activity, it)
+                val inflater: MenuInflater = popup.menuInflater
+                inflater.inflate(R.menu.playback_speed, popup.menu)
+                popup.show()
+
+                popup.setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.half_x -> {
+                            //player?.playbackParameters = PlaybackParameters(0.5f)
+                            true
+                        }
+                        R.id.one_x -> {
+                           // player?.playbackParameters = PlaybackParameters(1f)
+                            true
+                        }
+                        R.id.two_x -> {
+                            //player?.playbackParameters = PlaybackParameters(2f)
+                            true
+                        }
+                        R.id.three_x -> {
+                            //player?.playbackParameters = PlaybackParameters(3f)
+                            true
+                        }
+                        else -> {
+                            //Toast.makeText(this, "Invalid option ", Toast.LENGTH_LONG).show()
+                            true
+                        }
+                    }
+                }
+            }
+        }
     }
 
     override fun onClick(url: String, type: String) {

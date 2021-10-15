@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/half_x"
+        android:title="@string/_0_5x" />
+    <item android:id="@+id/one_x"
+        android:title="@string/_1x" />
+    <item android:id="@+id/two_x"
+        android:title="@string/_2x" />
+    <item android:id="@+id/three_x"
+        android:title="@string/_3x" />
+</menu>

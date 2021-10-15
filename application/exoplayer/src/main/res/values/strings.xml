@@ -6,6 +6,10 @@
     <string name="str_dash">Dash-URL</string>
     <string name="str_mp3">Mp3-URL</string>
     <string name="full_screen">Full Screen</string>
+    <string name="_0_5x">0.5x</string>
+    <string name="_1x">1x</string>
+    <string name="_2x">2x</string>
+    <string name="_3x">3x</string>
 
     <string-array name="videoFormatsSelectionList">
         <item>@string/str_mp4</item>

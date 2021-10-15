@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../../layout/custom_preview.xml" value="0.19076923076923077" />
+        <entry key="../../../../.gradle/caches/transforms-3/562e923f49fb66a7b6f7cfe06cda8216/transformed/jetified-exoplayer-ui-2.15.1/res/layout/exo_player_control_view.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_custom_exo_player.xml" value="0.10005065856129686" />
         <entry key="app/src/main/res/layout/activity_custom_exo_player_controls.xml" value="0.10081053698074975" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.12291666666666666" />
@@ -11,13 +12,16 @@
         <entry key="app/src/main/res/layout/activity_simple_exo_player.xml" value="0.10764944275582573" />
         <entry key="exoplayer/src/main/res/drawable/rounded_background.xml" value="0.1361111111111111" />
         <entry key="exoplayer/src/main/res/layout/activity_exoplayer.xml" value="0.1" />
+        <entry key="exoplayer/src/main/res/layout/exo_playback_control_view.xml" value="0.328149300155521" />
         <entry key="exoplayer/src/main/res/layout/frag_exo_player_content_selection.xml" value="0.1" />
+        <entry key="exoplayer/src/main/res/layout/fragment_custom_controls_exo_player.xml" value="0.12318840579710146" />
         <entry key="exoplayer/src/main/res/layout/fragment_custom_exo_player_controls.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/layout/fragment_custom_exoplayer_controls.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/layout/fragment_exo_player_content_selection.xml" value="0.10185185185185185" />
         <entry key="exoplayer/src/main/res/layout/fragment_simple_exo_player.xml" value="0.10185185185185185" />
         <entry key="exoplayer/src/main/res/layout/fragment_simple_exoplayer.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/menu/menu_video_options.xml" value="0.11944444444444445" />
+        <entry key="exoplayer/src/main/res/menu/playback_speed.xml" value="0.19537037037037036" />
       </map>
     </option>
   </component>

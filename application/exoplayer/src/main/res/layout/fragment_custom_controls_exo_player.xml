@@ -5,6 +5,9 @@
     android:id="@+id/exoplayerView"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
+    app:controller_layout_id="@layout/exo_playback_control_view"
+    app:auto_show="true"
+    app:use_controller="true"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
