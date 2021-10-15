@@ -11,7 +11,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import com.example.code.exoplayer.R
-import com.example.code.exoplayer.databinding.FragmentCustomControlsExoPlayerBinding
+import com.example.code.exoplayer.databinding.FragmentCustomExoPlayerBinding
 import com.example.code.extensions.hide
 import com.example.code.extensions.show
 
@@ -19,7 +19,7 @@ import com.example.code.extensions.show
 class CustomExoPlayerFragment : Fragment(), Player.Listener, CustomPlayerCallback {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
-        FragmentCustomControlsExoPlayerBinding.inflate(layoutInflater)
+        FragmentCustomExoPlayerBinding.inflate(layoutInflater)
     }
 
    /* private val bindingCtrl by lazy {
