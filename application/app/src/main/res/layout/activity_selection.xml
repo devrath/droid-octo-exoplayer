@@ -9,7 +9,7 @@
         android:id="@+id/simpleExoPlayerId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/BottomSheetButtonStyle"
+        style="@style/SelectionButtonStyle"
         android:text="@string/simple_exoplayer" />
 
 
@@ -17,8 +17,16 @@
         android:id="@+id/customExoPlayerId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/BottomSheetButtonStyle"
+        style="@style/SelectionButtonStyle"
         android:text="@string/custom_exoplayer" />
+
+
+    <Button
+        android:id="@+id/styledExoPlayerId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/SelectionButtonStyle"
+        android:text="@string/styled_exoplayer" />
 
 
 </LinearLayout>

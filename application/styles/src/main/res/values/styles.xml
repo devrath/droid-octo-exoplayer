@@ -26,7 +26,7 @@
     <item name="cornerSizeBottomLeft">@dimen/bottom_sheet_no_corners</item>
   </style>
 
-  <style name="BottomSheetButtonStyle">
+  <style name="SelectionButtonStyle">
     <item name="android:layout_marginLeft">@dimen/bottom_sheet_button_margin_left_right</item>
     <item name="android:layout_marginRight">@dimen/bottom_sheet_button_margin_left_right</item>
   </style>

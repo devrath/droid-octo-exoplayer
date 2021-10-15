@@ -8,7 +8,11 @@
     <string name="launch_player">Launch Player</string>
     <string name="selection_screen">Selection Screen</string>
     <string name="simple_exoplayer">Simple Exoplayer</string>
-    <string name="custom_exoplayer">Custom Exoplayer control</string>
+    <string name="custom_exoplayer">Custom Exoplayer</string>
+    <string name="styled_exoplayer">Styled Exoplayer</string>
+    <string name="simple_player">Simple player</string>
+    <string name="custom_player">Custom player</string>
+    <string name="styled_player">Styled player</string>
 
     <string-array name="videoFormatsSelectionList">
         <item>@string/str_mp4</item>

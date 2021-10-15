@@ -21,21 +21,21 @@
         android:id="@+id/contentMp3Id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/BottomSheetButtonStyle"
+        style="@style/SelectionButtonStyle"
         android:text="@string/str_mp3" />
 
     <Button
         android:id="@+id/contentMp4Id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/BottomSheetButtonStyle"
+        style="@style/SelectionButtonStyle"
         android:text="@string/str_mp4" />
 
     <Button
         android:id="@+id/contentDashId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/BottomSheetButtonStyle"
+        style="@style/SelectionButtonStyle"
         android:text="@string/str_dash" />
 
 </LinearLayout>

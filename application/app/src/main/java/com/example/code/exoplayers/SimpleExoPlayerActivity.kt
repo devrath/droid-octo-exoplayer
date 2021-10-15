@@ -1,15 +1,15 @@
-package com.example.code
+package com.example.code.exoplayers
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.code.databinding.ActivityCustomExoPlayerBinding
+import android.os.Bundle
+import com.example.code.databinding.ActivitySimpleExoPlayerBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CustomExoPlayerActivity : AppCompatActivity() {
+class SimpleExoPlayerActivity : AppCompatActivity() {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
-        ActivityCustomExoPlayerBinding.inflate(layoutInflater)
+        ActivitySimpleExoPlayerBinding.inflate(layoutInflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
