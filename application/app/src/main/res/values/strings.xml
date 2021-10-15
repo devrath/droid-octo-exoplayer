@@ -6,6 +6,8 @@
     <string name="str_dash">Dash-URL</string>
     <string name="str_mp3">Mp3-URL</string>
     <string name="launch_player">Launch Player</string>
+    <string name="selection_screen">Selection Screen</string>
+    <string name="simple_exoplayer">Simple Exoplayer</string>
 
     <string-array name="videoFormatsSelectionList">
         <item>@string/str_mp4</item>

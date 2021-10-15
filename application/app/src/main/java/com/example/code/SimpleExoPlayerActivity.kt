@@ -2,15 +2,14 @@ package com.example.code
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.code.databinding.ActivityMainBinding
-import dagger.hilt.EntryPoint
+import com.example.code.databinding.ActivitySimpleExoPlayerBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class SimpleExoPlayerActivity : AppCompatActivity() {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
-        ActivityMainBinding.inflate(layoutInflater)
+        ActivitySimpleExoPlayerBinding.inflate(layoutInflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
