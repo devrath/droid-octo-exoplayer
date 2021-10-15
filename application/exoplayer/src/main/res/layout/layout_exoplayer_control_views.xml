@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
         android:paddingTop="30dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/cross_im"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
