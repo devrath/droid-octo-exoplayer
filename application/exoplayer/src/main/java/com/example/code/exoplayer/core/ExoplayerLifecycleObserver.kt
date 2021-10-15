@@ -58,7 +58,7 @@ class ExoplayerLifecycleObserver (
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun onStopEvent() {
         Timber.tag(tag).i("ON_STOP Event");
-        if (Util.SDK_INT <= 23) {
+        if (Util.SDK_INT > 23) {
             releasePlayer()
         }
     }
