@@ -10,9 +10,18 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.12291666666666666" />
         <entry key="app/src/main/res/layout/activity_selection.xml" value="0.19429347826086957" />
         <entry key="app/src/main/res/layout/activity_simple_exo_player.xml" value="0.10764944275582573" />
+        <entry key="exoplayer/src/main/res/drawable/bg_round_rect_white_50.xml" value="0.121875" />
+        <entry key="exoplayer/src/main/res/drawable/bg_rounded_rectangle_white_corner_rounded.xml" value="0.121875" />
+        <entry key="exoplayer/src/main/res/drawable/gradient_transparent_middle.xml" value="0.121875" />
+        <entry key="exoplayer/src/main/res/drawable/ic_cross_white.xml" value="0.121875" />
+        <entry key="exoplayer/src/main/res/drawable/ic_down_arrow.xml" value="0.121875" />
+        <entry key="exoplayer/src/main/res/drawable/ic_exo_icon_fastforward.xml" value="0.121875" />
+        <entry key="exoplayer/src/main/res/drawable/ic_exo_icon_pause.xml" value="0.121875" />
+        <entry key="exoplayer/src/main/res/drawable/ic_exo_icon_play.xml" value="0.121875" />
+        <entry key="exoplayer/src/main/res/drawable/ic_exo_icon_rewind.xml" value="0.121875" />
         <entry key="exoplayer/src/main/res/drawable/rounded_background.xml" value="0.1361111111111111" />
         <entry key="exoplayer/src/main/res/layout/activity_exoplayer.xml" value="0.1" />
-        <entry key="exoplayer/src/main/res/layout/exo_playback_control_view.xml" value="0.328149300155521" />
+        <entry key="exoplayer/src/main/res/layout/exo_playback_control_view.xml" value="0.15555555555555556" />
         <entry key="exoplayer/src/main/res/layout/frag_exo_player_content_selection.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/layout/fragment_custom_controls_exo_player.xml" value="0.12318840579710146" />
         <entry key="exoplayer/src/main/res/layout/fragment_custom_exo_player_controls.xml" value="0.1" />
@@ -20,6 +29,7 @@
         <entry key="exoplayer/src/main/res/layout/fragment_exo_player_content_selection.xml" value="0.10185185185185185" />
         <entry key="exoplayer/src/main/res/layout/fragment_simple_exo_player.xml" value="0.10185185185185185" />
         <entry key="exoplayer/src/main/res/layout/fragment_simple_exoplayer.xml" value="0.1" />
+        <entry key="exoplayer/src/main/res/layout/layout_exoplayer_control_views.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/menu/menu_video_options.xml" value="0.11944444444444445" />
         <entry key="exoplayer/src/main/res/menu/playback_speed.xml" value="0.19537037037037036" />
       </map>

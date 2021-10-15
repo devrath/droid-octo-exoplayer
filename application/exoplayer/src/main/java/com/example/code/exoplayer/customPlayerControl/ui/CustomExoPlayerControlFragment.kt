@@ -8,11 +8,13 @@ import com.example.code.exoplayer.customPlayerControl.core.CustomExoplayerLifecy
 import com.google.android.exoplayer2.Player
 import dagger.hilt.android.AndroidEntryPoint
 import android.view.*
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import com.example.code.exoplayer.R
 import com.example.code.exoplayer.databinding.ExoPlaybackControlViewBinding
 import com.example.code.exoplayer.databinding.FragmentCustomControlsExoPlayerBinding
+import com.example.code.exoplayer.databinding.LayoutExoplayerControlViewsBinding
 import com.example.code.extensions.hide
 import com.example.code.extensions.show
 import com.google.android.exoplayer2.PlaybackParameters
@@ -24,10 +26,10 @@ class CustomExoPlayerControlFragment : Fragment(), Player.Listener, CustomPlayer
         FragmentCustomControlsExoPlayerBinding.inflate(layoutInflater)
     }
 
-    private val bindingCtrl by lazy {
-        ExoPlaybackControlViewBinding.inflate(layoutInflater, binding.root, true)
+   /* private val bindingCtrl by lazy {
+        LayoutExoplayerControlViewsBinding.inflate(layoutInflater, binding.root, true)
     }
-
+    */
 
     private lateinit var locationListener: CustomExoplayerLifecycleObserver
 
@@ -74,9 +76,48 @@ class CustomExoPlayerControlFragment : Fragment(), Player.Listener, CustomPlayer
         setClickListener()
     }
 
+    fun playbackSpeedOnClick(v: View?) {
+        activity?.let { context ->
+            view?.let { playView ->
+                val popup = PopupMenu(context, playView)
+                val inflater: MenuInflater = popup.menuInflater
+                inflater.inflate(R.menu.playback_speed, popup.menu)
+                popup.show()
+
+                popup.setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.half_x -> {
+                            //player?.playbackParameters = PlaybackParameters(0.5f)
+                            true
+                        }
+                        R.id.one_x -> {
+                            // player?.playbackParameters = PlaybackParameters(1f)
+                            true
+                        }
+                        R.id.two_x -> {
+                            //player?.playbackParameters = PlaybackParameters(2f)
+                            true
+                        }
+                        R.id.three_x -> {
+                            //player?.playbackParameters = PlaybackParameters(3f)
+                            true
+                        }
+                        else -> {
+                            //Toast.makeText(this, "Invalid option ", Toast.LENGTH_LONG).show()
+                            true
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
     private fun setClickListener() {
+       /* findViewById<TextView>(R.id.bindingCtrl)
         activity?.let{ activity ->
-            bindingCtrl.btnSpeed.setOnClickListener {
+
+            bindingCtrl.toggleInfoIm.setOnClickListener {
                 val popup = PopupMenu(activity, it)
                 val inflater: MenuInflater = popup.menuInflater
                 inflater.inflate(R.menu.playback_speed, popup.menu)
@@ -107,7 +148,7 @@ class CustomExoPlayerControlFragment : Fragment(), Player.Listener, CustomPlayer
                     }
                 }
             }
-        }
+        }*/
     }
 
     override fun onClick(url: String, type: String) {
