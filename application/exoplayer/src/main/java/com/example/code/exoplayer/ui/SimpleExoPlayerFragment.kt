@@ -5,21 +5,21 @@ import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import com.example.code.exoplayer.core.ExoplayerAction
 import com.example.code.exoplayer.core.ExoplayerLifecycleObserver
-import com.example.code.exoplayer.databinding.ActivityExoplayerBinding
 import com.google.android.exoplayer2.Player
 import dagger.hilt.android.AndroidEntryPoint
 import android.view.*
 import android.widget.Toast
 import com.example.code.exoplayer.R
+import com.example.code.exoplayer.databinding.FragmentSimpleExoPlayerBinding
 import com.example.code.extensions.hide
 import com.example.code.extensions.show
 
 
 @AndroidEntryPoint
-class ExoPlayerFragment : Fragment(), Player.Listener, ExoPlayerContentSelCallback {
+class SimpleExoPlayerFragment : Fragment(), Player.Listener, ExoPlayerContentSelCallback {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
-        ActivityExoplayerBinding.inflate(layoutInflater)
+        FragmentSimpleExoPlayerBinding.inflate(layoutInflater)
     }
 
     private lateinit var locationListener: ExoplayerLifecycleObserver
@@ -50,7 +50,7 @@ class ExoPlayerFragment : Fragment(), Player.Listener, ExoPlayerContentSelCallba
 
     private fun showUrlSelectionSheet() {
         ExoPlayerContentSelFragment().let {
-            it.setOnClickListener(this@ExoPlayerFragment)
+            it.setOnClickListener(this@SimpleExoPlayerFragment)
             it.show(childFragmentManager, null)
         }
     }

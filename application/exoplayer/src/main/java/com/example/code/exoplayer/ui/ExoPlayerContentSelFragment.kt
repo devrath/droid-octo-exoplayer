@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.example.code.exoplayer.Constants
 import com.example.code.exoplayer.R
-import com.example.code.exoplayer.databinding.FragExoPlayerContentSelectionBinding
+import com.example.code.exoplayer.databinding.FragmentExoPlayerContentSelectionBinding
 import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +27,7 @@ class ExoPlayerContentSelFragment : BottomSheetDialogFragment(), CoroutineScope 
     private var listener : ExoPlayerContentSelCallback? = null
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
-        FragExoPlayerContentSelectionBinding.inflate(layoutInflater)
+        FragmentExoPlayerContentSelectionBinding.inflate(layoutInflater)
     }
 
     fun setOnClickListener(listener: ExoPlayerContentSelCallback) { this.listener = listener }
