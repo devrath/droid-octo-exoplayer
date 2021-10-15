@@ -1,4 +1,4 @@
-package com.example.code.exoplayer.core
+package com.example.code.exoplayer.customPlayerControl.core
 
 import android.content.Context
 import androidx.lifecycle.Lifecycle
@@ -14,10 +14,10 @@ import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.exoplayer2.util.Util
 import timber.log.Timber
 
-class ExoplayerLifecycleObserver (
+class CustomExoplayerLifecycleObserver (
     private val lifecycle: Lifecycle,
     private val context : Context,
-    private val callback: (ExoplayerAction) -> Unit) : LifecycleObserver, Player.Listener {
+    private val callback: (CustomExoplayerAction) -> Unit) : LifecycleObserver, Player.Listener {
 
     private val tag = this.javaClass.simpleName
 
@@ -81,7 +81,7 @@ class ExoplayerLifecycleObserver (
             .build()
             .also { exoPlayer ->
 
-                callback.invoke(ExoplayerAction.BindExoplayer(exoPlayer))
+                callback.invoke(CustomExoplayerAction.BindCustomExoplayer(exoPlayer))
 
                 val mediaItem = MediaItem.Builder()
                     .setUri(url)
@@ -115,9 +115,9 @@ class ExoplayerLifecycleObserver (
     override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
         printPlayerState(playbackState)
         if (playbackState == Player.STATE_BUFFERING)
-            callback.invoke(ExoplayerAction.ProgressBarVisibility(true))
+            callback.invoke(CustomExoplayerAction.ProgressBarVisibility(true))
         else if (playbackState == Player.STATE_READY || playbackState == Player.STATE_ENDED)
-            callback.invoke(ExoplayerAction.ProgressBarVisibility(false))
+            callback.invoke(CustomExoplayerAction.ProgressBarVisibility(false))
     }
 
     private fun printPlayerState(playbackState: Int) {

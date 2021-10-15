@@ -1,4 +1,4 @@
-package com.example.code.exoplayer.ui
+package com.example.code.exoplayer.customPlayerControl.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -24,13 +24,13 @@ class ExoPlayerContentSelFragment : BottomSheetDialogFragment(), CoroutineScope 
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main
 
-    private var listener : ExoPlayerContentSelCallback? = null
+    private var listener : CustomPlayerCallback? = null
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
         FragmentExoPlayerContentSelectionBinding.inflate(layoutInflater)
     }
 
-    fun setOnClickListener(listener: ExoPlayerContentSelCallback) { this.listener = listener }
+    fun setOnClickListener(listener: CustomPlayerCallback) { this.listener = listener }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -76,6 +76,6 @@ class ExoPlayerContentSelFragment : BottomSheetDialogFragment(), CoroutineScope 
 
 }
 
-interface ExoPlayerContentSelCallback {
+interface CustomPlayerCallback {
     fun onClick(url: String,type: String)
 }

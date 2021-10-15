@@ -13,4 +13,12 @@
         android:text="@string/simple_exoplayer" />
 
 
+    <Button
+        android:id="@+id/customExoPlayerId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/BottomSheetButtonStyle"
+        android:text="@string/custom_exoplayer" />
+
+
 </LinearLayout>

@@ -1,10 +1,10 @@
-package com.example.code.exoplayer.ui
+package com.example.code.exoplayer.simple.ui
 
 import android.os.Bundle
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
-import com.example.code.exoplayer.core.ExoplayerAction
-import com.example.code.exoplayer.core.ExoplayerLifecycleObserver
+import com.example.code.exoplayer.customPlayerControl.core.CustomExoplayerAction
+import com.example.code.exoplayer.customPlayerControl.core.CustomExoplayerLifecycleObserver
 import com.google.android.exoplayer2.Player
 import dagger.hilt.android.AndroidEntryPoint
 import android.view.*
@@ -16,13 +16,13 @@ import com.example.code.extensions.show
 
 
 @AndroidEntryPoint
-class SimpleExoPlayerFragment : Fragment(), Player.Listener, ExoPlayerContentSelCallback {
+class SimpleExoPlayerFragment : Fragment(), Player.Listener, SimplePlayerCallback {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
         FragmentSimpleExoPlayerBinding.inflate(layoutInflater)
     }
 
-    private lateinit var locationListener: ExoplayerLifecycleObserver
+    private lateinit var locationListener: CustomExoplayerLifecycleObserver
 
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,10 +72,10 @@ class SimpleExoPlayerFragment : Fragment(), Player.Listener, ExoPlayerContentSel
 
     private fun initExoplayerListener() {
         activity?.let{
-            locationListener = ExoplayerLifecycleObserver(lifecycle,it) { exoPlayerAction ->
+            locationListener = CustomExoplayerLifecycleObserver(lifecycle,it) { exoPlayerAction ->
                 when(exoPlayerAction) {
-                    is ExoplayerAction.BindExoplayer -> binding.exoplayerView.player = exoPlayerAction.simpleExoplayer
-                    is ExoplayerAction.ProgressBarVisibility -> handleProgressVisibilityOfPlayer(exoPlayerAction.isVisible)
+                    is CustomExoplayerAction.BindCustomExoplayer -> binding.exoplayerView.player = exoPlayerAction.simpleExoplayer
+                    is CustomExoplayerAction.ProgressBarVisibility -> handleProgressVisibilityOfPlayer(exoPlayerAction.isVisible)
                 }
             }
         }
