@@ -62,9 +62,10 @@ buildscript {
 
     ext.player = {dependencyHandler->
         delegate = dependencyHandler
-        //implementation "com.google.android.exoplayer:exoplayer:${exoPlayerLibVersions.exoplayer}"
         implementation "com.google.android.exoplayer:exoplayer-core:${exoPlayerLibVersions.exoplayer}"
         implementation "com.google.android.exoplayer:exoplayer-dash:${exoPlayerLibVersions.exoplayer}"
+        implementation "com.google.android.exoplayer:exoplayer-hls:${exoPlayerLibVersions.exoplayer}"
+        implementation "com.google.android.exoplayer:exoplayer:${exoPlayerLibVersions.exoplayer}"
         implementation "com.google.android.exoplayer:exoplayer-ui:${exoPlayerLibVersions.exoplayer}"
         implementation "com.google.android.exoplayer:extension-ima:${exoPlayerLibVersions.exoplayer}"
     }

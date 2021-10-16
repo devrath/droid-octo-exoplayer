@@ -3,26 +3,22 @@ package com.example.code.exoplayer.displayadds.ui
 import android.os.Bundle
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
-import com.example.code.exoplayer.custom.core.CustomExoplayerAction
-import com.example.code.exoplayer.custom.core.CustomExoplayerLifecycleObserver
-import com.google.android.exoplayer2.Player
 import dagger.hilt.android.AndroidEntryPoint
 import android.view.*
 import android.widget.Toast
 import com.example.code.exoplayer.R
-import com.example.code.exoplayer.databinding.FragmentSimpleExoPlayerBinding
+import com.example.code.exoplayer.databinding.FragmentAddsExoPlayerBinding
 import com.example.code.exoplayer.displayadds.core.AddsExoplayerAction
 import com.example.code.exoplayer.displayadds.core.AddsExoplayerLifecycleObserver
-import com.example.code.exoplayer.simple.ui.SimplePlayerCallback
 import com.example.code.extensions.hide
 import com.example.code.extensions.show
 
 
 @AndroidEntryPoint
-class AddsExoPlayerFragment : Fragment(), Player.Listener, AddsPlayerCallback {
+class AddsExoPlayerFragment : Fragment(), AddsPlayerCallback {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
-        FragmentSimpleExoPlayerBinding.inflate(layoutInflater)
+        FragmentAddsExoPlayerBinding.inflate(layoutInflater)
     }
 
     private lateinit var locationListener: AddsExoplayerLifecycleObserver
@@ -30,6 +26,19 @@ class AddsExoPlayerFragment : Fragment(), Player.Listener, AddsPlayerCallback {
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View { return binding.root }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initExoplayerListener()
+    }
+
+    override fun onClick(url: String, type: String) {
+        locationListener.changeTrack(url,type)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -58,24 +67,9 @@ class AddsExoPlayerFragment : Fragment(), Player.Listener, AddsPlayerCallback {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View { return binding.root }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initExoplayerListener()
-    }
-
-    override fun onClick(url: String, type: String) {
-        locationListener.changeTrack(url,type)
-    }
-
     private fun initExoplayerListener() {
         activity?.let{
-            locationListener = AddsExoplayerLifecycleObserver(lifecycle,it) { exoPlayerAction ->
+            locationListener = AddsExoplayerLifecycleObserver(lifecycle,it,binding.exoplayerView) { exoPlayerAction ->
                 when(exoPlayerAction) {
                     is AddsExoplayerAction.BindCustomExoplayer -> binding.exoplayerView.player = exoPlayerAction.simpleExoplayer
                     is AddsExoplayerAction.ProgressBarVisibility -> handleProgressVisibilityOfPlayer(exoPlayerAction.isVisible)

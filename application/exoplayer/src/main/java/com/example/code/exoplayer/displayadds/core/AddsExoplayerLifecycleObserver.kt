@@ -1,28 +1,40 @@
 package com.example.code.exoplayer.displayadds.core
 
 import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.example.code.exoplayer.Constants
-import com.example.code.exoplayer.simple.core.SimpleExoplayerAction
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.SimpleExoPlayer
+import com.example.code.exoplayer.Constants.addUrl
+import com.google.ads.interactivemedia.v3.api.AdErrorEvent
+import com.google.ads.interactivemedia.v3.api.AdEvent
+import com.google.android.exoplayer2.*
+import com.google.android.exoplayer2.ext.ima.ImaAdsLoader
+import com.google.android.exoplayer2.source.DefaultMediaSourceFactory
+import com.google.android.exoplayer2.source.MediaSourceFactory
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
+import com.google.android.exoplayer2.ui.PlayerView
+import com.google.android.exoplayer2.ui.StyledPlayerView
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
+import com.google.android.exoplayer2.upstream.HttpDataSource
 import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.exoplayer2.util.Util
 import timber.log.Timber
 
-class AddsExoplayerLifecycleObserver (
+class AddsExoplayerLifecycleObserver(
     private val lifecycle: Lifecycle,
-    private val context : Context,
-    private val callback: (AddsExoplayerAction) -> Unit) : LifecycleObserver, Player.Listener {
+    private val context: Context,
+    private val playerView: PlayerView,
+    private val callback: (AddsExoplayerAction) -> Unit) : LifecycleObserver,
+    Player.Listener, AdErrorEvent.AdErrorListener,  AdEvent.AdEventListener  {
 
     private val tag = this.javaClass.simpleName
 
     private var simpleExoplayer: SimpleExoPlayer? = null
+    private var adsLoader: ImaAdsLoader? = null
+
 
     private var playWhenReady = true
     private var currentWindow = 0
@@ -77,8 +89,26 @@ class AddsExoplayerLifecycleObserver (
         val trackSelector = DefaultTrackSelector(context).apply {
             setParameters(buildUponParameters().setMaxVideoSizeSd())
         }
+
+        val httpDataSourceFactory: HttpDataSource.Factory = DefaultHttpDataSourceFactory(
+            ExoPlayerLibraryInfo.DEFAULT_USER_AGENT,
+            DefaultHttpDataSource.DEFAULT_CONNECT_TIMEOUT_MILLIS,
+            DefaultHttpDataSource.DEFAULT_READ_TIMEOUT_MILLIS,  /* allowCrossProtocolRedirects= */
+            true
+        )
+
+        val adsProvider : DefaultMediaSourceFactory.AdsLoaderProvider = DefaultMediaSourceFactory.AdsLoaderProvider {
+            getAdsLoaderProvider()
+        }
+
+        val mediaSourceFactory: MediaSourceFactory = DefaultMediaSourceFactory(context)
+            .setAdsLoaderProvider(adsProvider)
+            .setAdViewProvider(playerView)
+            .setDrmHttpDataSourceFactory(httpDataSourceFactory)
+
         simpleExoplayer = SimpleExoPlayer.Builder(context)
             .setTrackSelector(trackSelector)
+            .setMediaSourceFactory(mediaSourceFactory)
             .build()
             .also { exoPlayer ->
 
@@ -86,8 +116,10 @@ class AddsExoplayerLifecycleObserver (
 
                 val mediaItem = MediaItem.Builder()
                     .setUri(url)
+                    .setAdTagUri(Uri.parse(addUrl))
                     .setMimeType(type)
                     .build()
+
 
                 exoPlayer.setMediaItem(mediaItem)
                 // This indicates the player that, Player is ready to start and starts playing
@@ -121,6 +153,18 @@ class AddsExoplayerLifecycleObserver (
             callback.invoke(AddsExoplayerAction.ProgressBarVisibility(false))
     }
 
+    override fun onAdEvent(adEvent: AdEvent?) {
+        adEvent?.type?.name.let {
+            Timber.tag("ADS").i( "AdEvent listener :: $it!!");
+        }
+    }
+
+    override fun onAdError(adErrorEvent: AdErrorEvent?) {
+        adErrorEvent?.error?.message?.let {
+            Timber.tag("ADS").i( "AdError listener :: $it!!");
+        }
+    }
+
     private fun printPlayerState(playbackState: Int) {
         val stateString: String = when (playbackState) {
             ExoPlayer.STATE_IDLE -> "ExoPlayer.STATE_IDLE"
@@ -135,6 +179,15 @@ class AddsExoplayerLifecycleObserver (
     fun changeTrack(url: String,type: String) {
         releasePlayer()
         initializePlayer(url,type)
+    }
+
+    private fun getAdsLoaderProvider() : ImaAdsLoader {
+        adsLoader = ImaAdsLoader.Builder(context)
+            .setAdErrorListener(this)
+            .setAdEventListener(this)
+            .build()
+        adsLoader!!.setPlayer(simpleExoplayer)
+        return adsLoader!!
     }
 
 }
