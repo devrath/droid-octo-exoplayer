@@ -1,11 +1,13 @@
 package com.example.code.exoplayer.displayadds.core
 
 import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.example.code.exoplayer.Constants
 import com.example.code.exoplayer.Constants.addUrl
+import com.example.code.exoplayer.R
 import com.example.code.exoplayer.simple.core.SimpleExoplayerAction
 import com.google.ads.interactivemedia.v3.api.AdErrorEvent
 import com.google.ads.interactivemedia.v3.api.AdEvent
@@ -107,8 +109,8 @@ class AddsExoplayerLifecycleObserver (
                 callback.invoke(AddsExoplayerAction.BindCustomExoplayer(exoPlayer))
 
                 val mediaItem = MediaItem.Builder()
-                    .setUri(url)
-                    .setAdTagUri(addUrl)
+                    .setUri(Uri.parse(url))
+                    .setAdTagUri(Uri.parse(addUrl))
                     .setMimeType(type)
                     .build()
 
