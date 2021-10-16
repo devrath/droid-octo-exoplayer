@@ -7,6 +7,7 @@ import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import com.example.code.exoplayer.R
 import com.example.code.exoplayer.databinding.FragmentSimpleExoPlayerBinding
+import com.example.code.exoplayer.databinding.FragmentStyledExoPlayerBinding
 import com.example.code.exoplayer.styled.core.StyledExoplayerAction
 import com.example.code.exoplayer.styled.core.StyledExoplayerLifecycleObserver
 import com.example.code.extensions.hide
@@ -18,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class StyledExoPlayerFragment : Fragment(), Player.Listener, StyledPlayerCallback {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
-        FragmentSimpleExoPlayerBinding.inflate(layoutInflater)
+        FragmentStyledExoPlayerBinding.inflate(layoutInflater)
     }
 
     private lateinit var locationListener: StyledExoplayerLifecycleObserver
