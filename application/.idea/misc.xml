@@ -31,6 +31,7 @@
         <entry key="exoplayer/src/main/res/layout/fragment_exo_player_content_selection.xml" value="0.10185185185185185" />
         <entry key="exoplayer/src/main/res/layout/fragment_simple_exo_player.xml" value="0.10185185185185185" />
         <entry key="exoplayer/src/main/res/layout/fragment_simple_exoplayer.xml" value="0.1" />
+        <entry key="exoplayer/src/main/res/layout/fragment_styled_exo_player.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/layout/layout_exoplayer_control_views.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/menu/menu_video_options.xml" value="0.11944444444444445" />
         <entry key="exoplayer/src/main/res/menu/playback_speed.xml" value="0.19537037037037036" />
