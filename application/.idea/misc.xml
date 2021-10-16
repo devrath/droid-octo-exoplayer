@@ -5,6 +5,7 @@
       <map>
         <entry key="../../../../../../layout/custom_preview.xml" value="0.19076923076923077" />
         <entry key="../../../../.gradle/caches/transforms-3/562e923f49fb66a7b6f7cfe06cda8216/transformed/jetified-exoplayer-ui-2.15.1/res/layout/exo_player_control_view.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_adds_exo_player.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_custom_exo_player.xml" value="0.10005065856129686" />
         <entry key="app/src/main/res/layout/activity_custom_exo_player_controls.xml" value="0.10081053698074975" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.12291666666666666" />
@@ -24,6 +25,7 @@
         <entry key="exoplayer/src/main/res/layout/activity_exoplayer.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/layout/exo_playback_control_view.xml" value="0.44829583371440845" />
         <entry key="exoplayer/src/main/res/layout/frag_exo_player_content_selection.xml" value="0.1" />
+        <entry key="exoplayer/src/main/res/layout/fragment_adds_exo_player.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/layout/fragment_custom_controls_exo_player.xml" value="0.12318840579710146" />
         <entry key="exoplayer/src/main/res/layout/fragment_custom_exo_player.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/layout/fragment_custom_exo_player_controls.xml" value="0.1" />

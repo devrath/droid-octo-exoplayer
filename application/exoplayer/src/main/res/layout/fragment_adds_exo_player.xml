@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.exoplayer2.ui.StyledPlayerView
+<com.google.android.exoplayer2.ui.PlayerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/exoplayerView"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    app:controller_layout_id="@layout/layout_exoplayer_control_views"
-    app:use_controller="true"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
@@ -18,4 +16,4 @@
         android:layout_gravity="center"
         android:visibility="invisible" />
 
-</com.google.android.exoplayer2.ui.StyledPlayerView>
+</com.google.android.exoplayer2.ui.PlayerView>

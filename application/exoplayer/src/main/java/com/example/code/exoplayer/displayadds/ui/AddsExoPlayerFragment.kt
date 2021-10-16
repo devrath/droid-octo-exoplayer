@@ -1,4 +1,4 @@
-package com.example.code.exoplayer.simple.ui
+package com.example.code.exoplayer.displayadds.ui
 
 import android.os.Bundle
 import androidx.annotation.Nullable
@@ -11,20 +11,21 @@ import android.view.*
 import android.widget.Toast
 import com.example.code.exoplayer.R
 import com.example.code.exoplayer.databinding.FragmentSimpleExoPlayerBinding
-import com.example.code.exoplayer.simple.core.SimpleExoplayerAction
-import com.example.code.exoplayer.simple.core.SimpleExoplayerLifecycleObserver
+import com.example.code.exoplayer.displayadds.core.AddsExoplayerAction
+import com.example.code.exoplayer.displayadds.core.AddsExoplayerLifecycleObserver
+import com.example.code.exoplayer.simple.ui.SimplePlayerCallback
 import com.example.code.extensions.hide
 import com.example.code.extensions.show
 
 
 @AndroidEntryPoint
-class SimpleExoPlayerFragment : Fragment(), Player.Listener, SimplePlayerCallback {
+class AddsExoPlayerFragment : Fragment(), Player.Listener, AddsPlayerCallback {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
         FragmentSimpleExoPlayerBinding.inflate(layoutInflater)
     }
 
-    private lateinit var locationListener: SimpleExoplayerLifecycleObserver
+    private lateinit var locationListener: AddsExoplayerLifecycleObserver
 
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +52,8 @@ class SimpleExoPlayerFragment : Fragment(), Player.Listener, SimplePlayerCallbac
     }
 
     private fun showUrlSelectionSheet() {
-        ExoPlayerContentSelFragment().let {
-            it.setOnClickListener(this@SimpleExoPlayerFragment)
+        AddsExoPlayerContentSelFragment().let {
+            it.setOnClickListener(this@AddsExoPlayerFragment)
             it.show(childFragmentManager, null)
         }
     }
@@ -74,10 +75,10 @@ class SimpleExoPlayerFragment : Fragment(), Player.Listener, SimplePlayerCallbac
 
     private fun initExoplayerListener() {
         activity?.let{
-            locationListener = SimpleExoplayerLifecycleObserver(lifecycle,it) { exoPlayerAction ->
+            locationListener = AddsExoplayerLifecycleObserver(lifecycle,it) { exoPlayerAction ->
                 when(exoPlayerAction) {
-                    is SimpleExoplayerAction.BindCustomExoplayer -> binding.exoplayerView.player = exoPlayerAction.simpleExoplayer
-                    is SimpleExoplayerAction.ProgressBarVisibility -> handleProgressVisibilityOfPlayer(exoPlayerAction.isVisible)
+                    is AddsExoplayerAction.BindCustomExoplayer -> binding.exoplayerView.player = exoPlayerAction.simpleExoplayer
+                    is AddsExoplayerAction.ProgressBarVisibility -> handleProgressVisibilityOfPlayer(exoPlayerAction.isVisible)
                 }
             }
         }

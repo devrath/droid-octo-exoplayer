@@ -10,9 +10,11 @@
     <string name="simple_exoplayer">Simple Exoplayer</string>
     <string name="custom_exoplayer">Custom Exoplayer</string>
     <string name="styled_exoplayer">Styled Exoplayer</string>
+    <string name="adds_exoplayer">Adds Exoplayer</string>
     <string name="simple_player">Simple player</string>
     <string name="custom_player">Custom player</string>
     <string name="styled_player">Styled player</string>
+    <string name="adds_player">Adds player</string>
 
     <string-array name="videoFormatsSelectionList">
         <item>@string/str_mp4</item>
