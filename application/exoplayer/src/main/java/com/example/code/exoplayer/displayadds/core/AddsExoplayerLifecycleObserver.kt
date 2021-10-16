@@ -91,9 +91,8 @@ class AddsExoplayerLifecycleObserver (
             setParameters(buildUponParameters().setMaxVideoSizeSd())
         }
 
-        val adsLoaderProvider : DefaultMediaSourceFactory.AdsLoaderProvider = DefaultMediaSourceFactory.AdsLoaderProvider {
-            getAdsLoaderProvider()
-        }
+        val adsLoaderProvider : DefaultMediaSourceFactory.AdsLoaderProvider =
+            DefaultMediaSourceFactory.AdsLoaderProvider { getAdsLoaderProvider() }
 
         val mediaSourceFactory: MediaSourceFactory = DefaultMediaSourceFactory(context)
             .setAdsLoaderProvider(adsLoaderProvider)

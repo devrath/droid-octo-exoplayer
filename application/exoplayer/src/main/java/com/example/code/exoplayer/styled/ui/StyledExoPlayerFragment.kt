@@ -10,6 +10,7 @@ import com.example.code.exoplayer.databinding.FragmentSimpleExoPlayerBinding
 import com.example.code.exoplayer.databinding.FragmentStyledExoPlayerBinding
 import com.example.code.exoplayer.styled.core.StyledExoplayerAction
 import com.example.code.exoplayer.styled.core.StyledExoplayerLifecycleObserver
+import com.example.code.exoplayer.util.ToggleFullScreen
 import com.example.code.extensions.hide
 import com.example.code.extensions.show
 import com.google.android.exoplayer2.Player
@@ -41,7 +42,8 @@ class StyledExoPlayerFragment : Fragment(), Player.Listener, StyledPlayerCallbac
                 true
             }
             R.id.action_full_Screen -> {
-                Toast.makeText(activity, "Full screen action", Toast.LENGTH_SHORT).show()
+                ToggleFullScreen(activity,view).toggleSystemUI()
+                Toast.makeText(activity, "Full screen", Toast.LENGTH_SHORT).show()
                 true
             }
             else -> super.onOptionsItemSelected(item)

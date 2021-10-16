@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import com.example.code.exoplayer.R
 import com.example.code.exoplayer.databinding.FragmentCustomExoPlayerBinding
+import com.example.code.exoplayer.util.ToggleFullScreen
 import com.example.code.extensions.hide
 import com.example.code.extensions.show
 
@@ -46,7 +47,8 @@ class CustomExoPlayerFragment : Fragment(), CustomPlayerCallback {
                 true
             }
             R.id.action_full_Screen -> {
-                Toast.makeText(activity, "Full screen action", Toast.LENGTH_SHORT).show()
+                ToggleFullScreen(activity,view).toggleSystemUI()
+                Toast.makeText(activity, "Full screen", Toast.LENGTH_SHORT).show()
                 true
             }
             else -> super.onOptionsItemSelected(item)

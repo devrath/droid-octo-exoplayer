@@ -1,15 +1,20 @@
 package com.example.code.exoplayer.displayadds.ui
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import android.view.*
+import android.view.WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 import android.widget.Toast
+import androidx.core.view.WindowCompat
 import com.example.code.exoplayer.R
 import com.example.code.exoplayer.databinding.FragmentAddsExoPlayerBinding
 import com.example.code.exoplayer.displayadds.core.AddsExoplayerAction
 import com.example.code.exoplayer.displayadds.core.AddsExoplayerLifecycleObserver
+import com.example.code.exoplayer.util.ToggleFullScreen
 import com.example.code.extensions.hide
 import com.example.code.extensions.show
 
@@ -40,7 +45,8 @@ class AddsExoPlayerFragment : Fragment(), AddsPlayerCallback {
                 true
             }
             R.id.action_full_Screen -> {
-                Toast.makeText(activity, "Full screen action", Toast.LENGTH_SHORT).show()
+                ToggleFullScreen(activity,view).toggleSystemUI()
+                Toast.makeText(activity, "Full screen", Toast.LENGTH_SHORT).show()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -83,5 +89,6 @@ class AddsExoPlayerFragment : Fragment(), AddsPlayerCallback {
     private fun handleProgressVisibilityOfPlayer(visible: Boolean) {
         if (visible) { binding.progressBar.show() } else { binding.progressBar.hide() }
     }
+
 
 }
