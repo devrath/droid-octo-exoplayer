@@ -28,19 +28,6 @@ class AddsExoPlayerFragment : Fragment(), AddsPlayerCallback {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View { return binding.root }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initExoplayerListener()
-    }
-
-    override fun onClick(url: String, type: String) {
-        locationListener.changeTrack(url,type)
-    }
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_video_options, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -65,6 +52,21 @@ class AddsExoPlayerFragment : Fragment(), AddsPlayerCallback {
             it.setOnClickListener(this@AddsExoPlayerFragment)
             it.show(childFragmentManager, null)
         }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View { return binding.root }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initExoplayerListener()
+    }
+
+    override fun onClick(url: String, type: String) {
+        locationListener.changeTrack(url,type)
     }
 
     private fun initExoplayerListener() {
