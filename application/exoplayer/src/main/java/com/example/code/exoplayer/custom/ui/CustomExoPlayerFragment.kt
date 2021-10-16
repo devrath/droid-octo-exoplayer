@@ -16,7 +16,7 @@ import com.example.code.extensions.hide
 import com.example.code.extensions.show
 
 @AndroidEntryPoint
-class CustomExoPlayerFragment : Fragment(), Player.Listener, CustomPlayerCallback {
+class CustomExoPlayerFragment : Fragment(), CustomPlayerCallback {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
         FragmentCustomExoPlayerBinding.inflate(layoutInflater)

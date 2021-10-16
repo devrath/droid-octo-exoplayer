@@ -18,7 +18,7 @@ import com.example.code.extensions.show
 
 
 @AndroidEntryPoint
-class SimpleExoPlayerFragment : Fragment(), Player.Listener, SimplePlayerCallback {
+class SimpleExoPlayerFragment : Fragment(), SimplePlayerCallback {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
         FragmentSimpleExoPlayerBinding.inflate(layoutInflater)
