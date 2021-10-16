@@ -25,6 +25,7 @@
         <entry key="exoplayer/src/main/res/layout/exo_playback_control_view.xml" value="0.44829583371440845" />
         <entry key="exoplayer/src/main/res/layout/frag_exo_player_content_selection.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/layout/fragment_custom_controls_exo_player.xml" value="0.12318840579710146" />
+        <entry key="exoplayer/src/main/res/layout/fragment_custom_exo_player.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/layout/fragment_custom_exo_player_controls.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/layout/fragment_custom_exoplayer_controls.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/layout/fragment_exo_player_content_selection.xml" value="0.10185185185185185" />
