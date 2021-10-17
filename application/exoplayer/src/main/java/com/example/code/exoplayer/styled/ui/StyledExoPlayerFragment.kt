@@ -76,7 +76,7 @@ class StyledExoPlayerFragment : Fragment(), Player.Listener, StyledPlayerCallbac
         activity?.let{
             locationListener = StyledExoplayerLifecycleObserver(lifecycle,it) { exoPlayerAction ->
                 when(exoPlayerAction) {
-                    is StyledExoplayerAction.BindCustomExoplayer -> binding.exoplayerView.player = exoPlayerAction.simpleExoplayer
+                    is StyledExoplayerAction.BindCustomExoplayer -> binding.exoplayerView.setPlayer(exoPlayerAction.simpleExoplayer)
                     is StyledExoplayerAction.ProgressBarVisibility -> handleProgressVisibilityOfPlayer(exoPlayerAction.isVisible)
                 }
             }
@@ -84,7 +84,7 @@ class StyledExoPlayerFragment : Fragment(), Player.Listener, StyledPlayerCallbac
     }
 
     private fun handleProgressVisibilityOfPlayer(visible: Boolean) {
-        if (visible) { binding.progressBar.show() } else { binding.progressBar.hide() }
+       if (visible) { binding.progressBar.show() } else { binding.progressBar.hide() }
     }
 
 }

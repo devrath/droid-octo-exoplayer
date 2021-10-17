@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/exo_player_controller_background">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/changeQuality"
+        android:layout_width="@dimen/change_quality_icon_size"
+        android:layout_height="@dimen/change_quality_icon_size"
+        android:layout_marginTop="@dimen/change_quality_margin"
+        android:layout_marginEnd="@dimen/change_quality_margin"
+        android:padding="@dimen/change_quality_icon_padding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/quality"
+        app:tint="@color/gb_tracks_icon_tint" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/shareIcon"
+        android:layout_width="@dimen/share_icon_size"
+        android:layout_height="@dimen/share_icon_size"
+        android:padding="@dimen/share_icon_padding"
+        app:layout_constraintBottom_toBottomOf="@+id/changeQuality"
+        app:layout_constraintEnd_toStartOf="@+id/changeQuality"
+        app:layout_constraintTop_toTopOf="@id/changeQuality"
+        app:srcCompat="@drawable/share" />
+
+    <FrameLayout
+        style="@style/ExoStyledControls.Button.Center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/forward_rewind_spacing"
+        android:addStatesFromChildren="true"
+        app:layout_constraintBottom_toBottomOf="@id/exo_play_pause"
+        app:layout_constraintEnd_toStartOf="@id/exo_play_pause"
+        app:layout_constraintTop_toTopOf="@+id/exo_play_pause">
+        <!-- View's don't have foreground until API 23 so we have to nest in a parent. -->
+        <Button
+            android:id="@+id/exo_rew_with_amount"
+            style="@style/ExoStyledControls.Button.Center.RewWithAmount"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:background="@drawable/exo_styled_controls_rewind"
+            android:textColor="@color/new_transparent" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        style="@style/ExoStyledControls.Button.Center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/forward_rewind_spacing"
+        android:addStatesFromChildren="true"
+        app:layout_constraintBottom_toBottomOf="@id/exo_play_pause"
+        app:layout_constraintStart_toEndOf="@id/exo_play_pause"
+        app:layout_constraintTop_toTopOf="@+id/exo_play_pause">
+
+        <Button
+            android:id="@+id/exo_ffwd_with_amount"
+            style="@style/ExoStyledControls.Button.Center.FfwdWithAmount"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:background="@drawable/exo_styled_controls_fastforward"
+            android:textColor="@color/new_transparent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/forward_disabled"
+            android:layout_width="@dimen/exo_icon_size"
+            android:layout_height="@dimen/exo_icon_size"
+            android:visibility="gone"
+            app:srcCompat="@drawable/exo_styled_controls_fastforward"
+            app:tint="@color/track_icon_disabled" />
+
+    </FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@id/exo_play_pause"
+        style="@style/ExoStyledControls.Button.Center.PlayPause"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/closeIcon"
+        android:layout_width="@dimen/close_icon_size"
+        android:layout_height="@dimen/close_icon_size"
+        android:layout_marginStart="@dimen/close_icon_margin"
+        android:layout_marginTop="@dimen/close_icon_margin"
+        android:padding="@dimen/close_icon_paddding"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/player_close" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/exo_position"
+        style="@style/ExoStyledControls.TimeText.Position"
+        android:layout_marginStart="@dimen/exo_position_margin_start"
+        android:layout_marginBottom="4dp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_bottom"
+        app:layout_constraintEnd_toStartOf="@+id/exo_duration"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/divider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/position_divider"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@id/exo_position"
+        app:layout_constraintStart_toEndOf="@+id/exo_position"
+        app:layout_constraintTop_toTopOf="@id/exo_position" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/exo_duration"
+        style="@style/ExoStyledControls.TimeText.Position"
+        android:layout_marginStart="4dp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@id/exo_position"
+        app:layout_constraintStart_toEndOf="@id/exo_position"
+        app:layout_constraintTop_toTopOf="@id/exo_position" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/positionGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="exo_position,divider,exo_duration"
+        tools:visibility="gone" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/goLiveText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/go_live_text_margin_top"
+        android:background="@drawable/live_txt_active"
+        android:paddingHorizontal="@dimen/go_live_text_horizontal_padding"
+        android:paddingVertical="@dimen/go_live_text_vertical_padding"
+        android:text="@string/gb_live"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/live_text_size"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exo_play_pause"
+        tools:visibility="visible" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/chatIcon"
+        android:layout_width="@dimen/chat_icon_size"
+        android:layout_height="28dp"
+        android:paddingHorizontal="@dimen/chat_icon_padding"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_bottom"
+        app:layout_constraintEnd_toStartOf="@+id/rotateScreen"
+        app:srcCompat="@drawable/cmt_on"
+        tools:visibility="visible" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/rotateScreen"
+        android:layout_width="@dimen/rotate_icon_size"
+        android:layout_height="28dp"
+        android:paddingHorizontal="@dimen/rotate_screen_padding"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_bottom"
+        app:layout_constraintEnd_toStartOf="@+id/fullScreen"
+        app:srcCompat="@drawable/rotate"
+        tools:visibility="visible" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/fullScreen"
+        android:layout_width="@dimen/full_screen_icon_size"
+        android:layout_height="28dp"
+        android:layout_marginEnd="@dimen/full_screen_icon_margin"
+        android:paddingHorizontal="@dimen/full_screen_icon_padding"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/fullscreen"
+        tools:visibility="visible" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="26dp" />
+
+
+    <!--<com.example.code.exoplayer.styled.customviews.CustomLiveSeekBar
+        android:id="@+id/mpl_live_seekbar"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/gb_exo_progress_height"
+        android:layout_marginBottom="@dimen/gb_exo_progress_margin_bottom"
+        android:progressBackgroundTint="@color/gb_seek_bar_unplayed"
+        android:progressTint="@color/gb_seek_bar_played"
+        android:secondaryProgressTint="@color/gb_seek_bar_buffer"
+        android:thumbTint="@color/gb_seek_bar_played"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:progress="50"
+        tools:secondaryProgress="70"
+        tools:visibility="visible"/>-->
+
+    <com.google.android.exoplayer2.ui.DefaultTimeBar
+        android:id="@id/exo_progress"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/exo_progress_height"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginBottom="@dimen/exo_progress_margin_bottom"
+        app:bar_height="2dp"
+        app:buffered_color="@color/seek_bar_buffer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:played_color="@color/seek_bar_played"
+        app:scrubber_color="@color/seek_bar_played"
+        app:unplayed_color="@color/seek_bar_unplayed"
+        tools:visibility="gone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

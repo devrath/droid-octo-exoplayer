@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+            <com.google.android.exoplayer2.ui.StyledPlayerView
+                android:id="@+id/playerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:show_timeout="5000"
+                android:background="@android:color/black"
+                app:shutter_background_color="@android:color/black"
+                app:controller_layout_id="@layout/custom_styled_player_control_view"
+                app:animation_enabled="false"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/liveText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintTop_toTopOf="@id/viewerCount"
+                app:layout_constraintBottom_toBottomOf="@id/viewerCount"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/viewerCount"
+                android:paddingVertical="@dimen/live_text_vertical_padding"
+                android:paddingHorizontal="@dimen/live_text_horizontal_padding"
+                android:layout_marginEnd="@dimen/live_header_horizontal_spacing"
+                android:textSize="@dimen/live_text_size"
+                android:background="@drawable/live_txt_bkg"
+                android:text="@string/str_live"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/viewerCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:layout_marginEnd="@dimen/live_header_horizontal_spacing"
+                android:drawableStart="@drawable/view_cnt_icon"
+                android:layout_marginTop="@dimen/live_text_margin_top"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/liveText"
+                app:layout_constraintEnd_toStartOf="@+id/heartCount"
+                android:drawablePadding="@dimen/live_drawable_padding"
+                android:textSize="@dimen/viewers_count_text_size"
+                android:background="@drawable/view_cnt_bkg"
+                android:visibility="invisible"
+                tools:text="10k" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/heartCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                app:layout_constraintTop_toTopOf="@id/viewerCount"
+                app:layout_constraintBottom_toBottomOf="@id/viewerCount"
+                app:layout_constraintStart_toEndOf="@+id/viewerCount"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:drawableStart="@drawable/hearts_cnt"
+                android:drawablePadding="@dimen/live_drawable_padding"
+                android:textSize="@dimen/hearts_count_text_size"
+                android:background="@drawable/view_cnt_bkg"
+                android:visibility="invisible"
+                tools:text="40k" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/replay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:srcCompat="@drawable/replay"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

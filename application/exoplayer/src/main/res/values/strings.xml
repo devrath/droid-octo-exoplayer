@@ -17,4 +17,10 @@
         <item>@string/str_mp3</item>
     </string-array>
 
+
+    <string name="str_live">Live</string>
+    <string name="position_divider">/</string>
+    <string name="gb_live">Go Live</string>
+
+
 </resources>

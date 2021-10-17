@@ -2,4 +2,44 @@
 <resources>
     <dimen name="select_lotte_width">200dp</dimen>
     <dimen name="select_lotte_height">200dp</dimen>
+
+
+    <dimen name="live_text_horizontal_padding">6dp</dimen>
+    <dimen name="live_text_vertical_padding">2dp</dimen>
+    <dimen name="live_text_size">12sp</dimen>
+    <dimen name="live_header_horizontal_spacing">4dp</dimen>
+    <dimen name="live_drawable_padding">4dp</dimen>
+    <dimen name="live_text_margin_top">18dp</dimen>
+    <dimen name="viewers_count_text_size">12sp</dimen>
+    <dimen name="viewers_count_text_horizontal_padding">6dp</dimen>
+    <dimen name="viewers_count_text_vertical_padding">2dp</dimen>
+    <dimen name="viewers_count_radius">4dp</dimen>
+    <dimen name="hearts_count_text_size">12sp</dimen>
+
+    <dimen name="change_quality_icon_size">48dp</dimen>
+    <dimen name="change_quality_margin">4dp</dimen>
+    <dimen name="change_quality_icon_padding">12dp</dimen>
+    <dimen name="forward_rewind_spacing">64dp</dimen>
+    <dimen name="close_icon_size">48dp</dimen>
+    <dimen name="close_icon_margin">4dp</dimen>
+    <dimen name="close_icon_paddding">12dp</dimen>
+    <dimen name="exo_position_margin_start">16dp</dimen>
+    <dimen name="exo_progress_height">18dp</dimen>
+    <dimen name="exo_progress_margin_bottom">8dp</dimen>
+    <dimen name="rotate_screen_padding">12dp</dimen>
+    <dimen name="rotate_icon_size">48dp</dimen>
+    <dimen name="share_icon_size">48dp</dimen>
+    <dimen name="share_icon_padding">12dp</dimen>
+    <dimen name="go_live_text_margin_top">8dp</dimen>
+    <dimen name="go_live_text_horizontal_padding">8dp</dimen>
+    <dimen name="go_live_text_vertical_padding">4dp</dimen>
+    <dimen name="chat_icon_size">48dp</dimen>
+    <dimen name="chat_icon_padding">16dp</dimen>
+    <dimen name="full_screen_icon_size">48dp</dimen>
+    <dimen name="full_screen_icon_margin">4dp</dimen>
+    <dimen name="full_screen_icon_padding">12dp</dimen>
+    <dimen name="live_text_radius">4dp</dimen>
+    <dimen name="progress_bar_size">48dp</dimen>
+
+
 </resources>

@@ -11,4 +11,14 @@
     <color name="black_50">#80000000</color>
     <color name="live_red">#FF3144</color>
 
+    <color name="exo_player_controller_background">#99190A28</color>
+    <color name="seek_bar_buffer">#99FFFFFF</color>
+    <color name="seek_bar_played">#E91051</color>
+    <color name="seek_bar_unplayed">#4DFFFFFF</color>
+    <color name="new_transparent">#00000000</color>
+    <color name="track_icon_disabled">#4DFFFFFF</color>
+    <color name="live_text_background">#E91051</color>
+    <color name="live_text_disabled_background_color">#99FFFFFF</color>
+    <color name="placeholder_background">#30233E</color>
+
 </resources>

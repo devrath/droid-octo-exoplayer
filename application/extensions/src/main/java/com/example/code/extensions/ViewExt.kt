@@ -22,3 +22,16 @@ fun View.hide() : View {
     return this
 }
 
+fun View.setVisible(visibility: Boolean) {
+    if(visibility)
+        this.visibility = View.VISIBLE
+    else
+        this.visibility = View.GONE
+}
+
+fun View.setVisibleOrInvisible(isVisible: Boolean) {
+    if(isVisible)
+        this.visibility = View.VISIBLE
+    else
+        this.visibility = View.INVISIBLE
+}
