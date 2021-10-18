@@ -5,6 +5,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.example.code.exoplayer.styled.util.MplTrack
+import com.example.code.exoplayer.styled.util.MplTrackList
 import com.example.code.exoplayer.styled.util.MplVideo
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.analytics.AnalyticsListener
@@ -38,6 +39,7 @@ class StyledExoPlayer  @Inject constructor(
     var player: SimpleExoPlayer? = null
     private var selectedTrack: MplTrack? = getAutoTrack()
     private var  eventListener: EventListener? = null
+    private var  analyticsListener: CtAnalyticsListener? = null
     private var mplVideo: MplVideo? = null
     private var isPlaying: Boolean? = false
 
@@ -181,7 +183,7 @@ class StyledExoPlayer  @Inject constructor(
 
     private val playbackStatsListener : PlaybackStatsListener = PlaybackStatsListener(false, null)
 
-    private fun initPlayer(mplVideo: MplVideo?,) {
+    fun initPlayer(mplVideo: MplVideo?) {
         Timber.tag(tag).d("initPlayer - Invoked")
 
         releasePlayer()
@@ -266,15 +268,28 @@ class StyledExoPlayer  @Inject constructor(
         eventListener?.onError(error.errorCode, errorString, player?.currentPosition)
     }
 
+    fun setListeners(eventListener: EventListener? = null,
+                     analyticsListener: CtAnalyticsListener? = null) {
+        this.eventListener = eventListener
+        this.analyticsListener = analyticsListener
+    }
+
 
     interface EventListener {
         fun onInitDone()
         fun onPlaybackStateChanged(state: Int)
         fun onLiveStateChanged(isInSyncWithLive: Boolean, hasEndTag: Boolean)
         fun changeForwardIconVisibility(visible: Boolean)
-        //fun onTracksChanged(tracksList: MplTrackList)
-        //fun onTracksSelected(success: Boolean, isSeamless: Boolean, startTime: Long, mplTrack: MplTrack)
+        fun onTracksChanged(tracksList: MplTrackList)
+        fun onTracksSelected(success: Boolean, isSeamless: Boolean, startTime: Long, mplTrack: MplTrack)
         fun onError(type: Int, error : String?, currentPosition: Long?)
+    }
+
+    interface CtAnalyticsListener {
+        fun onPause()
+        fun onPlay()
+        fun onFirsFrameRendered()
+        fun sendBroadcastViewedEvent()
     }
 
 }

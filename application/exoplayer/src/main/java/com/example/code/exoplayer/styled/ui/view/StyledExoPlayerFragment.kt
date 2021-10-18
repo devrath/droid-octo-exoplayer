@@ -10,14 +10,16 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.code.exoplayer.databinding.FragmentAddsExoPlayerBinding
 import com.example.code.exoplayer.databinding.FragmentStyledExoPlayerBinding
+import com.example.code.exoplayer.styled.ui.viewAction.ExoPlayerAction
 import com.example.code.exoplayer.styled.ui.vm.StyledExoPlayerViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class StyledExoPlayerFragment : Fragment() {
 
     private lateinit var mContext : Context
-
+    private val tAG = this.javaClass.simpleName
     private val viewModel : StyledExoPlayerViewModel by viewModels()
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
@@ -35,7 +37,21 @@ class StyledExoPlayerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        registerObservers()
 
+    }
+
+    private fun registerObservers() {
+        viewModel.command.observe(viewLifecycleOwner, {
+            Timber.tag(tAG).d("OnChange $it")
+            when(it) {
+                is ExoPlayerAction.Validation -> validation(it)
+            }
+        })
+    }
+
+    private fun validation(it: ExoPlayerAction.Validation) {
+        Timber.tag(tag).d("Valid URL: $it.isSuccess")
     }
 
 
