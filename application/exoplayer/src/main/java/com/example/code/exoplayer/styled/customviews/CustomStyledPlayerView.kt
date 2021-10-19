@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.SeekBar
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.code.exoplayer.databinding.CustomStyledPlayerControlViewBinding
@@ -37,14 +36,11 @@ class CustomStyledPlayerView @JvmOverloads constructor(
         MplControlDispatcher(fastForwardTimeInMs, rewindTimeInMs)
 
 
-    val playerBinding by lazy(LazyThreadSafetyMode.NONE) {
-        CustomStyledPlayerViewBinding.inflate(LayoutInflater.from(context))
-    }
+    private val playerBinding = CustomStyledPlayerViewBinding.inflate(LayoutInflater.from(context), this, true)
 
     val playerCtrlBinding by lazy(LazyThreadSafetyMode.NONE) {
        CustomStyledPlayerControlViewBinding.inflate(LayoutInflater.from(context))
     }
-
 
     init {
         playerBinding.playerView.apply {
