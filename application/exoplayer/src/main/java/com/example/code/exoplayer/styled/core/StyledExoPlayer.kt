@@ -22,6 +22,7 @@ import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Job
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -64,6 +65,7 @@ class StyledExoPlayer  @Inject constructor(
     fun onPauseEvent() {
         Timber.tag(tag).d("ON_PAUSE Event");
         isPlaying = player?.isPlaying
+        pauseVideo()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
@@ -74,6 +76,7 @@ class StyledExoPlayer  @Inject constructor(
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroyEvent() {
         Timber.tag(tag).d("ON_DESTROY Event");
+        releasePlayer()
     }
     /** ********************************* LIFE CYCLE EVENTS *********************************  **/
 

@@ -3,6 +3,7 @@ package com.example.code.exoplayer.styled.customviews
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -42,6 +43,18 @@ class CustomStyledPlayerView @JvmOverloads constructor(
 
     val playerCtrlBinding by lazy(LazyThreadSafetyMode.NONE) {
        CustomStyledPlayerControlViewBinding.inflate(LayoutInflater.from(context))
+    }
+
+
+    init {
+        playerBinding.playerView.apply {
+            // Set the control dispatcher
+            setControlDispatcher(mplControlDispatcher)
+            // set the visibility listener for controller
+            setControllerVisibilityListener {
+                playerCtrlBinding.mplLiveSeekbar.setControllerVisibility(it == View.VISIBLE)
+            }
+        }
     }
 
 
