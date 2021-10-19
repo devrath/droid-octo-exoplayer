@@ -40,6 +40,8 @@
     <dimen name="full_screen_icon_padding">12dp</dimen>
     <dimen name="live_text_radius">4dp</dimen>
     <dimen name="progress_bar_size">48dp</dimen>
+    <dimen name="gb_exo_progress_margin_bottom">8dp</dimen>
+    <dimen name="gb_exo_progress_height">18dp</dimen>
 
 
 </resources>

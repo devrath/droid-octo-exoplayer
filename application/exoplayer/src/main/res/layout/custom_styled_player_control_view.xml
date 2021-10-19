@@ -189,7 +189,7 @@
         app:layout_constraintGuide_end="26dp" />
 
 
-    <!--<com.example.code.exoplayer.styled.customviews.CustomLiveSeekBar
+    <com.example.code.exoplayer.styled.customviews.MplLiveSeekBar
         android:id="@+id/mpl_live_seekbar"
         android:layout_width="0dp"
         android:layout_height="@dimen/gb_exo_progress_height"
@@ -204,7 +204,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:progress="50"
         tools:secondaryProgress="70"
-        tools:visibility="visible"/>-->
+        tools:visibility="visible"/>
 
     <com.google.android.exoplayer2.ui.DefaultTimeBar
         android:id="@id/exo_progress"

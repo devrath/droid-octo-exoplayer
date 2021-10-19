@@ -20,5 +20,9 @@
     <color name="live_text_background">#E91051</color>
     <color name="live_text_disabled_background_color">#99FFFFFF</color>
     <color name="placeholder_background">#30233E</color>
+    <color name="gb_seek_bar_played">#E91051</color>
+    <color name="gb_seek_bar_buffer">#99FFFFFF</color>
+    <color name="gb_seek_bar_unplayed">#4DFFFFFF</color>
+
 
 </resources>
