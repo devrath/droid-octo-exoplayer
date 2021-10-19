@@ -27,17 +27,14 @@ class StyledExoPlayerFragment : Fragment() {
         FragmentStyledExoPlayerBinding.inflate(layoutInflater)
     }
 
+    /** ************************** LIFE CYCLE METHODS ************************** **/
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return binding.root
-    }
+    override fun onCreateView(inflater: LayoutInflater,
+        container: ViewGroup?, savedInstanceState: Bundle?): View { return binding.root }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,6 +55,7 @@ class StyledExoPlayerFragment : Fragment() {
     }
 
     private fun registerObservers() {
+        Timber.tag(TAG).d("Observers are registered !")
         viewModel.command.observe(viewLifecycleOwner, {
             Timber.tag(TAG).d("OnChange $it")
             when (it) {
@@ -107,13 +105,10 @@ class StyledExoPlayerFragment : Fragment() {
     private fun addClickListeners() {
 
         binding.exoplayerView.apply {
+            Timber.tag(TAG).d("Exo player click listeners are set")
 
-            setOnLiveClickListener {
-                Timber.tag(TAG).d("Live view clicked")
-            }
-
-            setOnGoLiveClickListener {
-                Timber.tag(TAG).d("Go Live view clicked")
+            setOnCloseClickListener {
+                Timber.tag(TAG).d("close cross icon clicked")
             }
 
             setOnFullScreenClickListener {
@@ -124,12 +119,17 @@ class StyledExoPlayerFragment : Fragment() {
                 Timber.tag(TAG).d("Rotate screen clicked")
             }
 
+            setOnQualityChangeClickListener {
+                Timber.tag(TAG).d("quality change clicked")
+            }
+
             setOnReplayClickListener {
                 Timber.tag(TAG).d("Replay clicked")
                 binding.exoplayerView.apply {
                     showPlayPauseIcon(true)
                     showReplayIcon(false)
                 }
+
                 binding.progressBar.setVisible(true)
                 viewModel.seekPlayerTo(0)
             }

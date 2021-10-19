@@ -36,11 +36,8 @@ class CustomStyledPlayerView @JvmOverloads constructor(
         MplControlDispatcher(fastForwardTimeInMs, rewindTimeInMs)
 
 
-    private val playerBinding = CustomStyledPlayerViewBinding.inflate(LayoutInflater.from(context), this, true)
-
-    val playerCtrlBinding by lazy(LazyThreadSafetyMode.NONE) {
-       CustomStyledPlayerControlViewBinding.inflate(LayoutInflater.from(context))
-    }
+    val playerBinding = CustomStyledPlayerViewBinding.inflate(LayoutInflater.from(context), this, true)
+    val playerCtrlBinding = CustomStyledPlayerControlViewBinding.inflate(LayoutInflater.from(context), this, true)
 
     init {
         playerBinding.playerView.apply {
@@ -81,14 +78,6 @@ class CustomStyledPlayerView @JvmOverloads constructor(
 
     fun setOnQualityChangeClickListener(listener: OnClickListener) {
         playerCtrlBinding.changeQuality.setOnClickListener(listener)
-    }
-
-    fun setOnLiveClickListener(listener: OnClickListener) {
-        playerBinding.liveText.setOnClickListener(listener)
-    }
-
-    fun setOnGoLiveClickListener(listener: OnClickListener) {
-        playerCtrlBinding.goLiveText.setOnClickListener(listener)
     }
 
     fun setOnCloseClickListener(listener: OnClickListener) {

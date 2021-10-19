@@ -36,7 +36,7 @@
         <entry key="exoplayer/src/main/res/drawable/red_border.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/drawable/rounded_background.xml" value="0.1361111111111111" />
         <entry key="exoplayer/src/main/res/layout/activity_exoplayer.xml" value="0.1" />
-        <entry key="exoplayer/src/main/res/layout/custom_styled_player_control_view.xml" value="0.1" />
+        <entry key="exoplayer/src/main/res/layout/custom_styled_player_control_view.xml" value="0.125" />
         <entry key="exoplayer/src/main/res/layout/custom_styled_player_view.xml" value="0.125" />
         <entry key="exoplayer/src/main/res/layout/exo_playback_control_view.xml" value="0.44829583371440845" />
         <entry key="exoplayer/src/main/res/layout/frag_exo_player_content_selection.xml" value="0.1" />
