@@ -4,8 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import com.example.code.exoplayer.databinding.CustomStyledPlayerControlViewBinding
 import com.example.code.exoplayer.databinding.CustomStyledPlayerViewBinding
-import com.example.code.exoplayer.databinding.FragmentStyledExoPlayerBinding
 import com.google.android.exoplayer2.SimpleExoPlayer
 
 class CustomStyledPlayerView @JvmOverloads constructor(
@@ -14,13 +14,18 @@ class CustomStyledPlayerView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ): LinearLayout(context, attributes, defStyleAttr) {
 
-    private val binding by lazy(LazyThreadSafetyMode.NONE) {
+    val playerBinding by lazy(LazyThreadSafetyMode.NONE) {
         CustomStyledPlayerViewBinding.inflate(LayoutInflater.from(context))
     }
 
+    val playerCtrlBinding by lazy(LazyThreadSafetyMode.NONE) {
+       CustomStyledPlayerControlViewBinding.inflate(LayoutInflater.from(context))
+    }
+
+
 
     fun setPlayer(simpleExoPlayer: SimpleExoPlayer) {
-        binding.playerView.player = simpleExoPlayer
+        playerBinding.playerView.player = simpleExoPlayer
         //binding.playerView.mpl_live_seekbar.setPlayer(simpleExoPlayer)
         //updateSeekbarVisibility()
     }

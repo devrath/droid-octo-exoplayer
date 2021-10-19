@@ -25,6 +25,10 @@ class StyledExoPlayerFragment : Fragment() {
         FragmentStyledExoPlayerBinding.inflate(layoutInflater)
     }
 
+    /*private val playerCtrlViewBinding by lazy(LazyThreadSafetyMode.NONE) {
+        CustomStyledPlayerControlViewBinding.inflate(LayoutInflater.from(context))
+    }*/
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
@@ -41,6 +45,16 @@ class StyledExoPlayerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         registerObservers()
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        binding.exoplayerView.playerCtrlBinding.mplLiveSeekbar.onUIControllerStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        binding.exoplayerView.playerCtrlBinding.mplLiveSeekbar.onUIControllerStop()
     }
 
     private fun registerObservers() {
