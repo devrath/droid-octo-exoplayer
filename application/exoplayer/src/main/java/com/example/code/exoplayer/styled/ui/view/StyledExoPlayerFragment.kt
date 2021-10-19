@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import com.example.code.exoplayer.databinding.FragmentStyledExoPlayerBinding
 import com.example.code.exoplayer.styled.ui.viewAction.ExoPlayerAction
 import com.example.code.exoplayer.styled.ui.vm.StyledExoPlayerViewModel
+import com.example.code.extensions.setVisible
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -44,7 +45,7 @@ class StyledExoPlayerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         registerObservers()
-
+        updateContentUI(showProgress = false, showError = false)
     }
 
     override fun onStart() {
@@ -72,7 +73,9 @@ class StyledExoPlayerFragment : Fragment() {
                 is ExoPlayerAction.SelectedTrack -> Timber.tag(tAG).d("SelectedTrack")
                 is ExoPlayerAction.SetForwardIconVisibility ->
                     Timber.tag(tAG).d("SetForwardIconVisibility")
-                is ExoPlayerAction.ShowError -> Timber.tag(tAG).d("ShowError")
+                is ExoPlayerAction.ShowError -> {
+                    updateContentUI(showProgress = false, showError = true)
+                }
                 is ExoPlayerAction.ShowPlayPause -> Timber.tag(tAG).d("ShowPlayPause")
                 is ExoPlayerAction.ShowReplay -> Timber.tag(tAG).d("ShowReplay")
                 is ExoPlayerAction.ShowSnackBar -> Timber.tag(tAG).d("ShowSnackBar")
@@ -80,7 +83,7 @@ class StyledExoPlayerFragment : Fragment() {
             }
         })
 
-        viewModel.exoPlayerLiveData.observe(viewLifecycleOwner, Observer { it ->
+        viewModel.exoPlayerLiveData.observe(viewLifecycleOwner, { it ->
             Timber.tag(tAG).d("AddLifecycleToExoPlayer ${it.player}")
             lifecycle.addObserver(it)
             it.player?.let {
@@ -88,6 +91,13 @@ class StyledExoPlayerFragment : Fragment() {
                 binding.exoplayerView.setPlayer(it)
             }
         })
+    }
+
+    private fun updateContentUI(showProgress: Boolean, showError: Boolean) {
+        binding.apply {
+            progressBar.visibility = View.GONE
+            exoplayerView.setVisible(!showProgress && !showError)
+        }
     }
 
     private fun validation(it: ExoPlayerAction.Validation) {
