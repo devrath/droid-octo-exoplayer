@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.code.exoplayer.databinding.FragmentStyledExoPlayerBinding
+import com.example.code.exoplayer.styled.customviews.CustomStyledPlayerView
 import com.example.code.exoplayer.styled.ui.viewAction.ExoPlayerAction
 import com.example.code.exoplayer.styled.ui.vm.StyledExoPlayerViewModel
 import com.example.code.extensions.setVisible
@@ -19,16 +20,12 @@ import timber.log.Timber
 class StyledExoPlayerFragment : Fragment() {
 
     private lateinit var mContext: Context
-    private val tAG = this.javaClass.simpleName
+    private val TAG = this.javaClass.simpleName
     private val viewModel: StyledExoPlayerViewModel by viewModels()
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
         FragmentStyledExoPlayerBinding.inflate(layoutInflater)
     }
-
-    /*private val playerCtrlViewBinding by lazy(LazyThreadSafetyMode.NONE) {
-        CustomStyledPlayerControlViewBinding.inflate(LayoutInflater.from(context))
-    }*/
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -45,6 +42,7 @@ class StyledExoPlayerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         registerObservers()
+        addClickListeners()
         updateContentUI(showProgress = false, showError = false)
         viewModel.initExoPlayer()
     }
@@ -61,34 +59,34 @@ class StyledExoPlayerFragment : Fragment() {
 
     private fun registerObservers() {
         viewModel.command.observe(viewLifecycleOwner, {
-            Timber.tag(tAG).d("OnChange $it")
+            Timber.tag(TAG).d("OnChange $it")
             when (it) {
                 is ExoPlayerAction.Validation -> validation(it)
                 is ExoPlayerAction.DismissVideoQualityBottomSheet ->
-                    Timber.tag(tAG).d("DismissVideoQualityBottomSheet")
-                is ExoPlayerAction.EnableTracks -> Timber.tag(tAG).d("EnableTracks")
+                    Timber.tag(TAG).d("DismissVideoQualityBottomSheet")
+                is ExoPlayerAction.EnableTracks -> Timber.tag(TAG).d("EnableTracks")
                 is ExoPlayerAction.FirstFrameRendered ->
-                    Timber.tag(tAG).d("FirstFrameRendered")
-                is ExoPlayerAction.LiveView -> Timber.tag(tAG).d("LiveView")
-                is ExoPlayerAction.Progressbar -> Timber.tag(tAG).d("Progressbar")
-                is ExoPlayerAction.SelectedTrack -> Timber.tag(tAG).d("SelectedTrack")
+                    Timber.tag(TAG).d("FirstFrameRendered")
+                is ExoPlayerAction.LiveView -> Timber.tag(TAG).d("LiveView")
+                is ExoPlayerAction.Progressbar -> Timber.tag(TAG).d("Progressbar")
+                is ExoPlayerAction.SelectedTrack -> Timber.tag(TAG).d("SelectedTrack")
                 is ExoPlayerAction.SetForwardIconVisibility ->
-                    Timber.tag(tAG).d("SetForwardIconVisibility")
+                    Timber.tag(TAG).d("SetForwardIconVisibility")
                 is ExoPlayerAction.ShowError -> {
                     updateContentUI(showProgress = false, showError = true)
                 }
-                is ExoPlayerAction.ShowPlayPause -> Timber.tag(tAG).d("ShowPlayPause")
-                is ExoPlayerAction.ShowReplay -> Timber.tag(tAG).d("ShowReplay")
-                is ExoPlayerAction.ShowSnackBar -> Timber.tag(tAG).d("ShowSnackBar")
-                is ExoPlayerAction.TracksChange -> Timber.tag(tAG).d("TracksChange")
+                is ExoPlayerAction.ShowPlayPause -> Timber.tag(TAG).d("ShowPlayPause")
+                is ExoPlayerAction.ShowReplay -> Timber.tag(TAG).d("ShowReplay")
+                is ExoPlayerAction.ShowSnackBar -> Timber.tag(TAG).d("ShowSnackBar")
+                is ExoPlayerAction.TracksChange -> Timber.tag(TAG).d("TracksChange")
             }
         })
 
         viewModel.exoPlayerLiveData.observe(viewLifecycleOwner, { it ->
-            Timber.tag(tAG).d("AddLifecycleToExoPlayer ${it.player}")
+            Timber.tag(TAG).d("AddLifecycleToExoPlayer ${it.player}")
             lifecycle.addObserver(it)
             it.player?.let {
-                Timber.tag(tAG).d("Exoplayer setPlayer")
+                Timber.tag(TAG).d("Exoplayer setPlayer")
                 binding.exoplayerView.setPlayer(it)
             }
         })
@@ -102,8 +100,61 @@ class StyledExoPlayerFragment : Fragment() {
     }
 
     private fun validation(it: ExoPlayerAction.Validation) {
-        Timber.tag(tag).d("Valid URL: $it.isSuccess")
+        Timber.tag(TAG).d("Valid URL: $it.isSuccess")
     }
 
+
+    private fun addClickListeners() {
+
+        binding.exoplayerView.apply {
+
+            setOnLiveClickListener {
+                Timber.tag(TAG).d("Live view clicked")
+            }
+
+            setOnGoLiveClickListener {
+                Timber.tag(TAG).d("Go Live view clicked")
+            }
+
+            setOnFullScreenClickListener {
+                Timber.tag(TAG).d("Fullscreen clicked")
+            }
+
+            setOnScreenRotateClickListener {
+                Timber.tag(TAG).d("Rotate screen clicked")
+            }
+
+            setOnReplayClickListener {
+                Timber.tag(TAG).d("Replay clicked")
+                binding.exoplayerView.apply {
+                    showPlayPauseIcon(true)
+                    showReplayIcon(false)
+                }
+                binding.progressBar.setVisible(true)
+                viewModel.seekPlayerTo(0)
+            }
+
+
+
+            setCallback(object : CustomStyledPlayerView.Callback{
+                override fun onPlayWhenReady(playWhenReady: Boolean) {
+                    Timber.tag(TAG).d("onPlayWhenReady")
+                }
+
+                override fun onFastForward(startTime: Long, targetTime: Long) {
+                    Timber.tag(TAG).d("onFastForward")
+                }
+
+                override fun onRewind(startTime: Long, targetTime: Long) {
+                    Timber.tag(TAG).d("onRewind")
+                }
+
+                override fun onSeek(startTime: Long, targetTime: Long) {
+                    Timber.tag(TAG).d("onSeek")
+                }
+            })
+        }
+
+    }
 
 }
