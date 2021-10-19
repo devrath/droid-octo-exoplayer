@@ -46,6 +46,7 @@ class StyledExoPlayerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         registerObservers()
         updateContentUI(showProgress = false, showError = false)
+        viewModel.initExoPlayer()
     }
 
     override fun onStart() {

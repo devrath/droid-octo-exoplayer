@@ -39,7 +39,7 @@ class StyledExoPlayerViewModel @Inject constructor(
                                 isVOD = true,startPosition=0)
     }
 
-    private fun initExoPlayer(){
+    fun initExoPlayer(){
 
         if(validateUrl(mplVideo.url)){
             player.setListeners(eventListener, analyticsListener)

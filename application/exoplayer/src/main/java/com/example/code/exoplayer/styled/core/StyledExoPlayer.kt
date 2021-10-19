@@ -240,15 +240,9 @@ class StyledExoPlayer  @Inject constructor(
             player?.setMediaSource(dashMediaSource, false)
         }
 
-        if (mplVideo.isVOD && mplVideo.startPosition > 0) {
-            player?.seekTo(mplVideo.startPosition)
-        } else {
-            player?.seekToDefaultPosition()
-        }
+        player?.seekToDefaultPosition()
 
         playVideo()
-
-        selectedTrack = getAutoTrack()
     }
 
     private fun isBehindLiveWindow(e: PlaybackException): Boolean {
