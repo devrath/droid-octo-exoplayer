@@ -31,8 +31,6 @@ class CustomStyledPlayerView @JvmOverloads constructor(
        CustomStyledPlayerControlViewBinding.inflate(LayoutInflater.from(context))
     }
 
-
-
     fun setPlayer(simpleExoPlayer: SimpleExoPlayer) {
         this.player = simpleExoPlayer
         playerBinding.playerView.player = simpleExoPlayer
