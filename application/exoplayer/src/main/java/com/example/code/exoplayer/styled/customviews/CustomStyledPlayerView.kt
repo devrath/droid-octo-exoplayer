@@ -5,16 +5,18 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.SeekBar
+import androidx.appcompat.widget.AppCompatImageButton
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.code.exoplayer.databinding.CustomStyledPlayerControlViewBinding
+import com.example.code.exoplayer.R
 import com.example.code.exoplayer.databinding.CustomStyledPlayerViewBinding
 import com.example.code.exoplayer.styled.core.MplControlDispatcher
 import com.example.code.extensions.setVisible
 import com.example.code.extensions.setVisibleOrInvisible
 import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.ui.DefaultTimeBar
+import com.google.android.material.textview.MaterialTextView
 import timber.log.Timber
-import kotlinx.android.synthetic.main.custom_styled_player_control_view.view.*
-import kotlinx.android.synthetic.main.exo_playback_control_view.view.*
 
 
 class CustomStyledPlayerView @JvmOverloads constructor(
@@ -47,8 +49,16 @@ class CustomStyledPlayerView @JvmOverloads constructor(
             setControlDispatcher(mplControlDispatcher)
             // set the visibility listener for controller
             setControllerVisibilityListener {
-                mpl_live_seekbar.setControllerVisibility(it == View.VISIBLE)
+                findViewById<MplLiveSeekBar>(R.id.mpl_live_seekbar).setControllerVisibility(it == View.VISIBLE)
             }
+        }
+    }
+
+    fun setStartAndStopSeekBar(isStart : Boolean = true) {
+        if(isStart){
+            findViewById<MplLiveSeekBar>(R.id.mpl_live_seekbar).onUIControllerStart()
+        }else{
+            findViewById<MplLiveSeekBar>(R.id.mpl_live_seekbar).onUIControllerStop()
         }
     }
 
@@ -61,13 +71,13 @@ class CustomStyledPlayerView @JvmOverloads constructor(
     fun setPlayer(simpleExoPlayer: SimpleExoPlayer) {
         this.player = simpleExoPlayer
         playerBinding.playerView.player = simpleExoPlayer
-        playerBinding.playerView.mpl_live_seekbar.setPlayer(simpleExoPlayer)
+        findViewById<MplLiveSeekBar>(R.id.mpl_live_seekbar).setPlayer(simpleExoPlayer)
         updateSeekbarVisibility()
     }
 
     /*** *************************** Set click listeners *************************** ***/
     fun showPlayPauseIcon(show: Boolean) {
-        playerBinding.playerView.exo_pause.setVisibleOrInvisible(show)
+        findViewById<AppCompatImageButton>(R.id.exo_play_pause).setVisibleOrInvisible(show)
     }
 
     fun showReplayIcon(show: Boolean) {
@@ -75,11 +85,11 @@ class CustomStyledPlayerView @JvmOverloads constructor(
     }
 
     fun setTracksEnabled(enable: Boolean) {
-        playerBinding.playerView.changeQuality.isEnabled = enable
+        findViewById<AppCompatImageButton>(R.id.changeQuality).isEnabled  = enable
     }
 
     fun setOnQualityChangeClickListener(listener: OnClickListener) {
-        playerBinding.playerView.changeQuality.setOnClickListener(listener)
+        findViewById<AppCompatImageView>(R.id.changeQuality).setOnClickListener(listener)
     }
 
     fun setOnLiveClickListener(listener: OnClickListener) {
@@ -87,19 +97,19 @@ class CustomStyledPlayerView @JvmOverloads constructor(
     }
 
     fun setOnGoLiveClickListener(listener: OnClickListener) {
-        playerBinding.playerView.goLiveText.setOnClickListener(listener)
+        findViewById<MaterialTextView>(R.id.goLiveText).setOnClickListener(listener)
     }
 
     fun setOnCloseClickListener(listener: OnClickListener) {
-        playerBinding.playerView.closeIcon.setOnClickListener(listener)
+        findViewById<AppCompatImageView>(R.id.closeIcon).setOnClickListener(listener)
     }
 
     fun setOnFullScreenClickListener(listener: OnClickListener) {
-        playerBinding.playerView.fullScreen.setOnClickListener(listener)
+        findViewById<AppCompatImageView>(R.id.fullScreen).setOnClickListener(listener)
     }
 
     fun setOnScreenRotateClickListener(listener: OnClickListener) {
-        playerBinding.playerView.rotateScreen.setOnClickListener(listener)
+        findViewById<AppCompatImageView>(R.id.rotateScreen).setOnClickListener(listener)
     }
 
     fun setOnReplayClickListener(listener: OnClickListener) {
@@ -107,8 +117,8 @@ class CustomStyledPlayerView @JvmOverloads constructor(
     }
 
     private fun setFullscreenIconsVisibility(showRotateIcon: Boolean, showFullScreenIcon: Boolean) {
-        playerBinding.playerView.rotateScreen.setVisible(showRotateIcon)
-        playerBinding.playerView.fullScreen.setVisible(showFullScreenIcon)
+        findViewById<AppCompatImageView>(R.id.fullScreen).setVisible(showFullScreenIcon)
+        findViewById<AppCompatImageView>(R.id.rotateScreen).setVisible(showRotateIcon)
     }
 
     fun showHeartsCount(show: Boolean) {
@@ -128,7 +138,7 @@ class CustomStyledPlayerView @JvmOverloads constructor(
     }
 
     fun setOnShareClickListener(listener: OnClickListener) {
-        playerBinding.playerView.shareIcon.setOnClickListener(listener)
+        findViewById<AppCompatImageView>(R.id.shareIcon).setOnClickListener(listener)
     }
     /*** *************************** Set click listeners *************************** ***/
 
@@ -141,7 +151,7 @@ class CustomStyledPlayerView @JvmOverloads constructor(
 
     override fun onStopTrackingTouch(seekBar: SeekBar) {
         playerBinding.playerView.controllerShowTimeoutMs = controllerTimeOutInMs
-        playerBinding.playerView.mpl_live_seekbar.onStopTrackingTouch(seekBar)
+        findViewById<MplLiveSeekBar>(R.id.mpl_live_seekbar).onStopTrackingTouch(seekBar)
     }
     /*** ******************* SEEK-BAR Over-Ridden Methods ******************* ***/
 
@@ -155,10 +165,10 @@ class CustomStyledPlayerView @JvmOverloads constructor(
     private fun updateSeekbarVisibility(player: SimpleExoPlayer) {
         Timber.tag(TAG).d("isCurrentWindowLive -> ${player.isCurrentWindowLive}")
         playerBinding.playerView.apply {
-            playerBinding.playerView.mpl_live_seekbar.setVisible(true)
-            playerBinding.playerView.mpl_live_seekbar.setOnSeekBarChangeListener(this@CustomStyledPlayerView)
-            playerBinding.playerView.exo_progress.setVisible(false)
-            playerBinding.playerView.mpl_live_seekbar.setLiveOffset(behindLiveOffset)
+            findViewById<MplLiveSeekBar>(R.id.mpl_live_seekbar).setVisible(true)
+            findViewById<MplLiveSeekBar>(R.id.mpl_live_seekbar).setOnSeekBarChangeListener(this@CustomStyledPlayerView)
+            findViewById<MplLiveSeekBar>(R.id.mpl_live_seekbar).setLiveOffset(behindLiveOffset)
+            findViewById<DefaultTimeBar>(R.id.exo_progress).setVisible(false)
         }
     }
 

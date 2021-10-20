@@ -14,7 +14,6 @@ import com.example.code.exoplayer.styled.ui.viewAction.ExoPlayerAction
 import com.example.code.exoplayer.styled.ui.vm.StyledExoPlayerViewModel
 import com.example.code.extensions.setVisible
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.custom_styled_player_control_view.view.*
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -50,12 +49,12 @@ class StyledExoPlayerFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        binding.exoplayerView.mpl_live_seekbar.onUIControllerStart()
+        binding.exoplayerView.setStartAndStopSeekBar(isStart = true)
     }
 
     override fun onStop() {
         super.onStop()
-        binding.exoplayerView.mpl_live_seekbar.onUIControllerStop()
+        binding.exoplayerView.setStartAndStopSeekBar(isStart = false)
     }
 
     private fun registerObservers() {
