@@ -13,6 +13,9 @@ import com.example.code.extensions.setVisible
 import com.example.code.extensions.setVisibleOrInvisible
 import com.google.android.exoplayer2.SimpleExoPlayer
 import timber.log.Timber
+import kotlinx.android.synthetic.main.custom_styled_player_control_view.view.*
+import kotlinx.android.synthetic.main.exo_playback_control_view.view.*
+
 
 class CustomStyledPlayerView @JvmOverloads constructor(
     context: Context,
@@ -38,17 +41,13 @@ class CustomStyledPlayerView @JvmOverloads constructor(
 
     private val playerBinding = CustomStyledPlayerViewBinding.inflate(LayoutInflater.from(context), this, true)
 
-    val playerCtrlBinding by lazy(LazyThreadSafetyMode.NONE) {
-       CustomStyledPlayerControlViewBinding.inflate(LayoutInflater.from(context))
-    }
-
     init {
         playerBinding.playerView.apply {
             // Set the control dispatcher
             setControlDispatcher(mplControlDispatcher)
             // set the visibility listener for controller
             setControllerVisibilityListener {
-                playerCtrlBinding.mplLiveSeekbar.setControllerVisibility(it == View.VISIBLE)
+                mpl_live_seekbar.setControllerVisibility(it == View.VISIBLE)
             }
         }
     }
@@ -62,13 +61,13 @@ class CustomStyledPlayerView @JvmOverloads constructor(
     fun setPlayer(simpleExoPlayer: SimpleExoPlayer) {
         this.player = simpleExoPlayer
         playerBinding.playerView.player = simpleExoPlayer
-        playerCtrlBinding.mplLiveSeekbar.setPlayer(simpleExoPlayer)
+        playerBinding.playerView.mpl_live_seekbar.setPlayer(simpleExoPlayer)
         updateSeekbarVisibility()
     }
 
     /*** *************************** Set click listeners *************************** ***/
     fun showPlayPauseIcon(show: Boolean) {
-        playerCtrlBinding.exoPlayPause.setVisibleOrInvisible(show)
+        playerBinding.playerView.exo_pause.setVisibleOrInvisible(show)
     }
 
     fun showReplayIcon(show: Boolean) {
@@ -76,11 +75,11 @@ class CustomStyledPlayerView @JvmOverloads constructor(
     }
 
     fun setTracksEnabled(enable: Boolean) {
-        playerCtrlBinding.changeQuality.isEnabled = enable
+        playerBinding.playerView.changeQuality.isEnabled = enable
     }
 
     fun setOnQualityChangeClickListener(listener: OnClickListener) {
-        playerCtrlBinding.changeQuality.setOnClickListener(listener)
+        playerBinding.playerView.changeQuality.setOnClickListener(listener)
     }
 
     fun setOnLiveClickListener(listener: OnClickListener) {
@@ -88,19 +87,19 @@ class CustomStyledPlayerView @JvmOverloads constructor(
     }
 
     fun setOnGoLiveClickListener(listener: OnClickListener) {
-        playerCtrlBinding.goLiveText.setOnClickListener(listener)
+        playerBinding.playerView.goLiveText.setOnClickListener(listener)
     }
 
     fun setOnCloseClickListener(listener: OnClickListener) {
-        playerCtrlBinding.closeIcon.setOnClickListener(listener)
+        playerBinding.playerView.closeIcon.setOnClickListener(listener)
     }
 
     fun setOnFullScreenClickListener(listener: OnClickListener) {
-        playerCtrlBinding.fullScreen.setOnClickListener(listener)
+        playerBinding.playerView.fullScreen.setOnClickListener(listener)
     }
 
     fun setOnScreenRotateClickListener(listener: OnClickListener) {
-        playerCtrlBinding.rotateScreen.setOnClickListener(listener)
+        playerBinding.playerView.rotateScreen.setOnClickListener(listener)
     }
 
     fun setOnReplayClickListener(listener: OnClickListener) {
@@ -108,8 +107,8 @@ class CustomStyledPlayerView @JvmOverloads constructor(
     }
 
     private fun setFullscreenIconsVisibility(showRotateIcon: Boolean, showFullScreenIcon: Boolean) {
-        playerCtrlBinding.rotateScreen.setVisible(showRotateIcon)
-        playerCtrlBinding.fullScreen.setVisible(showFullScreenIcon)
+        playerBinding.playerView.rotateScreen.setVisible(showRotateIcon)
+        playerBinding.playerView.fullScreen.setVisible(showFullScreenIcon)
     }
 
     fun showHeartsCount(show: Boolean) {
@@ -129,7 +128,7 @@ class CustomStyledPlayerView @JvmOverloads constructor(
     }
 
     fun setOnShareClickListener(listener: OnClickListener) {
-        playerCtrlBinding.shareIcon.setOnClickListener(listener)
+        playerBinding.playerView.shareIcon.setOnClickListener(listener)
     }
     /*** *************************** Set click listeners *************************** ***/
 
@@ -142,7 +141,7 @@ class CustomStyledPlayerView @JvmOverloads constructor(
 
     override fun onStopTrackingTouch(seekBar: SeekBar) {
         playerBinding.playerView.controllerShowTimeoutMs = controllerTimeOutInMs
-        playerCtrlBinding.mplLiveSeekbar.onStopTrackingTouch(seekBar)
+        playerBinding.playerView.mpl_live_seekbar.onStopTrackingTouch(seekBar)
     }
     /*** ******************* SEEK-BAR Over-Ridden Methods ******************* ***/
 
@@ -156,10 +155,10 @@ class CustomStyledPlayerView @JvmOverloads constructor(
     private fun updateSeekbarVisibility(player: SimpleExoPlayer) {
         Timber.tag(TAG).d("isCurrentWindowLive -> ${player.isCurrentWindowLive}")
         playerBinding.playerView.apply {
-            playerCtrlBinding.mplLiveSeekbar.setVisible(true)
-            playerCtrlBinding.mplLiveSeekbar.setOnSeekBarChangeListener(this@CustomStyledPlayerView)
-            playerCtrlBinding.exoProgress.setVisible(false)
-            playerCtrlBinding.mplLiveSeekbar.setLiveOffset(behindLiveOffset)
+            playerBinding.playerView.mpl_live_seekbar.setVisible(true)
+            playerBinding.playerView.mpl_live_seekbar.setOnSeekBarChangeListener(this@CustomStyledPlayerView)
+            playerBinding.playerView.exo_progress.setVisible(false)
+            playerBinding.playerView.mpl_live_seekbar.setLiveOffset(behindLiveOffset)
         }
     }
 
