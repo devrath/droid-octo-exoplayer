@@ -16,6 +16,7 @@ import com.google.android.exoplayer2.source.MediaLoadData
 import com.google.android.exoplayer2.source.TrackGroupArray
 import com.google.android.exoplayer2.source.dash.DashMediaSource
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray
 import com.google.android.exoplayer2.upstream.BandwidthMeter
 import com.google.android.exoplayer2.upstream.DataSource
@@ -43,6 +44,13 @@ class StyledExoPlayer  @Inject constructor(
     private var  analyticsListener: CtAnalyticsListener? = null
     private var mplVideo: MplVideo? = null
     private var isPlaying: Boolean? = false
+
+
+
+    // For track selection -------------------------------- >
+    private lateinit var trackSelector: DefaultTrackSelector
+    private lateinit var mplAdaptiveTrackSelectionFactory: MplAdaptiveTrackSelection.Factory
+
 
     /** ********************************* LIFE CYCLE EVENTS *********************************  **/
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -195,7 +203,13 @@ class StyledExoPlayer  @Inject constructor(
             .Builder(context)
             .build()
 
+        mplAdaptiveTrackSelectionFactory = MplAdaptiveTrackSelection.Factory()
+        trackSelector = DefaultTrackSelector(context, mplAdaptiveTrackSelectionFactory)
+        trackSelector.parameters = DefaultTrackSelector.ParametersBuilder(context).build()
+
+
         player = SimpleExoPlayer.Builder(context)
+            .setTrackSelector(trackSelector)
             .setBandwidthMeter(bandwidthMeter)
             .build()
 
