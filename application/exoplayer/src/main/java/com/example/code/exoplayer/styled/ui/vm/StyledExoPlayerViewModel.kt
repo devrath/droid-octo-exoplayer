@@ -191,4 +191,10 @@ class StyledExoPlayerViewModel @Inject constructor(
     }
 
 
+
+
+
+    fun test() {
+        player.test()
+    }
 }

@@ -125,6 +125,10 @@ class StyledExoPlayerFragment : Fragment() {
                 Timber.tag(TAG).d("Rotate screen clicked")
             }
 
+            setOnQualityChangeClickListener {
+                viewModel.test()
+            }
+
             setOnReplayClickListener {
                 Timber.tag(TAG).d("Replay clicked")
                 binding.exoplayerView.apply {

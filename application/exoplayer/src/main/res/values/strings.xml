@@ -21,6 +21,7 @@
     <string name="str_live">Live</string>
     <string name="position_divider">/</string>
     <string name="gb_live">Go Live</string>
+    <string name="video_track_name">%sp</string>
 
 
 </resources>
