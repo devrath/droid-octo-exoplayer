@@ -160,7 +160,7 @@ class StyledExoPlayer  @Inject constructor(
         override fun onTracksChanged(trackGroups: TrackGroupArray, trackSelections: TrackSelectionArray) {
             super.onTracksChanged(trackGroups, trackSelections)
             Timber.tag(tag).d("onTracksChanged - Invoked")
-            val tracksList : MplTrackList = getTracksByType(C.TRACK_TYPE_VIDEO)
+            //val tracksList : MplTrackList = getTracksByType(C.TRACK_TYPE_VIDEO)
 
         }
 
@@ -286,52 +286,6 @@ class StyledExoPlayer  @Inject constructor(
         this.analyticsListener = analyticsListener
     }
 
-    fun getTracksByType(type: Int) : MplTrackList {
-
-        val tracksList = MplTrackList()
-
-        Timber.tag(tag).e("getTracksByType : $type")
-
-        trackSelector.currentMappedTrackInfo?.let {
-
-            for (rendererIndex in 0 until it.rendererCount) {
-
-                val trackType = it.getRendererType(rendererIndex)
-
-                if (type == trackType) {
-
-                    val trackGroupArray = it.getTrackGroups(rendererIndex)
-
-                    for (groupIndex in 0 until trackGroupArray.length) {
-
-                        val trackGroup : TrackGroup = trackGroupArray[groupIndex]
-
-                        for (trackIndex in 0 until trackGroup.length) {
-
-                            val trackName = String.format(context.getString(R.string.video_track_name), trackGroup.getFormat(trackIndex).width)
-
-                            val isTrackSupported = it.getTrackSupport(rendererIndex, groupIndex, trackIndex) == C.FORMAT_HANDLED
-
-                            val logStr = "track item $groupIndex: trackName: $trackName, isTrackSupported: $isTrackSupported"
-                            Timber.tag(tag).e(logStr)
-
-                            if (isTrackSupported) {
-                                tracksList.add(MplTrack(trackName, false, groupIndex, trackIndex, false, trackGroup.getFormat(trackIndex)))
-                            }
-                        }
-
-                    }
-
-                }
-            }
-
-        }
-
-        return tracksList
-
-    }
-
-
     interface EventListener {
         fun onInitDone()
         fun onPlaybackStateChanged(state: Int)
@@ -350,8 +304,7 @@ class StyledExoPlayer  @Inject constructor(
     }
 
 
-    fun test(){
-        val tracksList : MplTrackList = getTracksByType(C.TRACK_TYPE_VIDEO)
-        Timber.tag("TRACKS-LIST").d((tracksList+"").toString())
+    fun getTrackSelector(): DefaultTrackSelector {
+        return trackSelector
     }
 }

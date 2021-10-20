@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.example.code.exoplayer.databinding.FragmentStyledExoPlayerBinding
 import com.example.code.exoplayer.styled.customviews.CustomStyledPlayerView
 import com.example.code.exoplayer.styled.ui.viewAction.ExoPlayerAction
@@ -126,7 +125,9 @@ class StyledExoPlayerFragment : Fragment() {
             }
 
             setOnQualityChangeClickListener {
-                viewModel.test()
+                val list = viewModel.getTrackList()
+                Timber.tag("TRACKS-LIST").d((list).toString())
+
             }
 
             setOnReplayClickListener {
