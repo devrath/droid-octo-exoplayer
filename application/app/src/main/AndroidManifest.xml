@@ -43,6 +43,11 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:theme="@style/Theme.Code"/>
 
+        <activity android:name=".exoplayers.SegmentedExoPlayerActivity"
+            android:label="@string/segmented_exoplayer"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:theme="@style/Theme.Code"/>
+
     </application>
 
 </manifest>
