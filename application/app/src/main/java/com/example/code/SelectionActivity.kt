@@ -32,9 +32,6 @@ class SelectionActivity : AppCompatActivity() {
             addsExoPlayerId.setOnClickListener {
                 launchActivity<AddsExoPlayerActivity>()
             }
-            segmentedExoPlayerId.setOnClickListener {
-                launchActivity<SegmentedExoPlayerActivity>()
-            }
         }
     }
 

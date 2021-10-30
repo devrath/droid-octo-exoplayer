@@ -32,7 +32,7 @@ class YoutubeDefaultTimeBar : DefaultTimeBar {
     private var player: Player? = null
     var durationSet : Boolean = false
     var realDurationMillis : Long = 0
-    
+
     // List of points for creating sections
     var indicatorPositions: List<Float> = listOf(0.13F, 0.34F, 0.57F, 0.85F, 0.92F)
 

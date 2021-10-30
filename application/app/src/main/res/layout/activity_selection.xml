@@ -33,11 +33,4 @@
         style="@style/SelectionButtonStyle"
         android:text="@string/adds_exoplayer" />
 
-    <Button
-        android:id="@+id/segmentedExoPlayerId"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/SelectionButtonStyle"
-        android:text="@string/segmented_exoplayer" />
-
 </LinearLayout>
