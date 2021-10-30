@@ -20,7 +20,7 @@ import com.google.android.exoplayer2.ExoPlayer
 
 
 
-class YoutubeDefaultTimeBar : DefaultTimeBar, Player.Listener  {
+class YoutubeDefaultTimeBar : DefaultTimeBar {
 
     private val TAG = "YoutubeDefaultTimeBar"
 
@@ -32,12 +32,7 @@ class YoutubeDefaultTimeBar : DefaultTimeBar, Player.Listener  {
     private var player: Player? = null
     var durationSet : Boolean = false
     var realDurationMillis : Long = 0
-
-    fun setPlayer(player: SimpleExoPlayer) {
-        this.player = player
-        Timber.tag(TAG).d("Player Duration : ${player.duration}")
-    }
-
+    
     // List of points for creating sections
     var indicatorPositions: List<Float> = listOf(0.13F, 0.34F, 0.57F, 0.85F, 0.92F)
 
@@ -80,22 +75,6 @@ class YoutubeDefaultTimeBar : DefaultTimeBar, Player.Listener  {
         val barRect = RectF(progressLeft, progressTop.toFloat(),
             progressRight, progressBottom.toFloat())
         canvas.drawRoundRect(barRect, 50F, 50F, paint)
-    }
-
-    override fun onPlayWhenReadyChanged(playWhenReady: Boolean, reason: Int) {
-        super.onPlayWhenReadyChanged(playWhenReady, reason)
-        player?.let{
-            if (playWhenReady && !durationSet) {
-                realDurationMillis = it.duration
-                durationSet = true
-            }
-        }
-    }
-
-    override fun onDetachedFromWindow() {
-        this.player?.removeListener(this)
-        player = null
-        super.onDetachedFromWindow()
     }
 
 }
