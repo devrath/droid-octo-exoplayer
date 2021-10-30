@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.example.code.exoplayer.databinding.FragmentStyledExoPlayerBinding
 import com.example.code.exoplayer.styled.customviews.CustomStyledPlayerView
 import com.example.code.exoplayer.styled.ui.viewAction.ExoPlayerAction
@@ -111,6 +110,7 @@ class StyledExoPlayerFragment : Fragment() {
 
             setOnLiveClickListener {
                 Timber.tag(TAG).d("Live view clicked")
+
             }
 
             setOnGoLiveClickListener {
@@ -123,10 +123,13 @@ class StyledExoPlayerFragment : Fragment() {
 
             setOnScreenRotateClickListener {
                 Timber.tag(TAG).d("Rotate screen clicked")
+                binding.exoplayerView.setPosition()
             }
 
             setOnQualityChangeClickListener {
-                viewModel.test()
+                val list = viewModel.getTrackList()
+                Timber.tag("TRACKS-LIST").d((list).toString())
+
             }
 
             setOnReplayClickListener {

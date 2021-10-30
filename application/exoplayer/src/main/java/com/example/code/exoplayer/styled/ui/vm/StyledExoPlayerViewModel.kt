@@ -8,10 +8,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.code.exoplayer.Constants.dashUrl
+import com.example.code.exoplayer.R
 import com.example.code.exoplayer.styled.core.StyledExoPlayer
 import com.example.code.exoplayer.styled.ui.viewAction.ExoPlayerAction
 import com.example.code.exoplayer.styled.util.*
+import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.Player
+import com.google.android.exoplayer2.source.TrackGroup
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
@@ -20,7 +23,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class StyledExoPlayerViewModel @Inject constructor(
-    @ApplicationContext context: Context,
+    @ApplicationContext val context: Context,
     private val player : StyledExoPlayer
 ) : ViewModel() {
 
@@ -28,7 +31,7 @@ class StyledExoPlayerViewModel @Inject constructor(
     private lateinit var mplVideo: MplVideo
     val command: MutableLiveData<ExoPlayerAction> = MutableLiveData()
     val exoPlayerLiveData: MutableLiveData<StyledExoPlayer> = MutableLiveData()
-    private var tracksList: MplTrackList? = null
+    private var tracksList: MplTrackList = MplTrackList()
     var currentBroadcast: Broadcast? = null
 
     init { setMplVideo() }
@@ -194,7 +197,40 @@ class StyledExoPlayerViewModel @Inject constructor(
 
 
 
-    fun test() {
-        player.test()
+    fun getTrackList(): MplTrackList? {
+        val track = C.TRACK_TYPE_VIDEO
+        player.getTrackSelector().currentMappedTrackInfo?.let {
+            for (rendererIndex in 0 until it.rendererCount) {
+
+                val trackType = it.getRendererType(rendererIndex)
+
+                if (track == trackType) {
+
+                    val trackGroupArray = it.getTrackGroups(rendererIndex)
+
+                    for (groupIndex in 0 until trackGroupArray.length) {
+
+                        val trackGroup : TrackGroup = trackGroupArray[groupIndex]
+
+                        for (trackIndex in 0 until trackGroup.length) {
+
+                            val trackName = String.format(context.getString(R.string.video_track_name), trackGroup.getFormat(trackIndex).width)
+
+                            val isTrackSupported = it.getTrackSupport(rendererIndex, groupIndex, trackIndex) == C.FORMAT_HANDLED
+
+                            val logStr = "track item $groupIndex: trackName: $trackName, isTrackSupported: $isTrackSupported"
+                            Timber.tag(tag).e(logStr)
+
+                            if (isTrackSupported) {
+                                tracksList?.add(MplTrack(trackName, false, groupIndex, trackIndex, false, trackGroup.getFormat(trackIndex)))
+                            }
+                        }
+
+                    }
+
+                }
+            }
+        }
+        return tracksList
     }
 }

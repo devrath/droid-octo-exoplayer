@@ -3,10 +3,7 @@ package com.example.code
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.code.databinding.ActivitySelectionBinding
-import com.example.code.exoplayers.AddsExoPlayerActivity
-import com.example.code.exoplayers.CustomExoPlayerActivity
-import com.example.code.exoplayers.SimpleExoPlayerActivity
-import com.example.code.exoplayers.StyledExoPlayerActivity
+import com.example.code.exoplayers.*
 import com.example.code.extensions.launchActivity
 
 class SelectionActivity : AppCompatActivity() {

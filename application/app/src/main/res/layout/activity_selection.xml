@@ -33,5 +33,4 @@
         style="@style/SelectionButtonStyle"
         android:text="@string/adds_exoplayer" />
 
-
 </LinearLayout>

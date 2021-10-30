@@ -24,5 +24,10 @@
     <color name="gb_seek_bar_buffer">#99FFFFFF</color>
     <color name="gb_seek_bar_unplayed">#4DFFFFFF</color>
 
+    <color name="color_thumb_tint">#E91051</color>
+    <color name="screen_background">#30233E</color>
+    <color name="color_progress_bkg_tint">#4DFFFFFF</color>
+    <color name="color_secondary_progress_tint">#99FFFFFF</color>
+
 
 </resources>
