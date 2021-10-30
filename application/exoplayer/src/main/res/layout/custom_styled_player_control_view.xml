@@ -206,7 +206,7 @@
         tools:secondaryProgress="70"
         tools:visibility="visible"/>
 
-    <com.google.android.exoplayer2.ui.DefaultTimeBar
+    <com.example.code.exoplayer.styled.customviews.YoutubeDefaultTimeBar
         android:id="@id/exo_progress"
         android:layout_width="0dp"
         android:layout_height="@dimen/exo_progress_height"

@@ -110,6 +110,7 @@ class StyledExoPlayerFragment : Fragment() {
 
             setOnLiveClickListener {
                 Timber.tag(TAG).d("Live view clicked")
+
             }
 
             setOnGoLiveClickListener {
@@ -122,6 +123,7 @@ class StyledExoPlayerFragment : Fragment() {
 
             setOnScreenRotateClickListener {
                 Timber.tag(TAG).d("Rotate screen clicked")
+                binding.exoplayerView.setPosition()
             }
 
             setOnQualityChangeClickListener {

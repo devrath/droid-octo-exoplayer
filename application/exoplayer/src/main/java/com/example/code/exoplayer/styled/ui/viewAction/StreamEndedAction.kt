@@ -1,4 +1,4 @@
-package com.mpl.androidapp.kotlin.viewAction
+package com.example.code.exoplayer.styled.ui.viewAction
 
 sealed class StreamEndedAction {
 

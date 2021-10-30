@@ -1,6 +1,7 @@
 package com.example.code.exoplayer.styled.customviews
 
 import android.content.Context
+import android.os.SystemClock
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,11 @@ import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.ui.DefaultTimeBar
 import com.google.android.material.textview.MaterialTextView
 import timber.log.Timber
+import android.view.MotionEvent
+import android.widget.ImageButton
+import com.google.android.exoplayer2.ExoPlaybackException
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.SeekParameters.CLOSEST_SYNC
 
 
 class CustomStyledPlayerView @JvmOverloads constructor(
@@ -56,9 +62,9 @@ class CustomStyledPlayerView @JvmOverloads constructor(
 
     fun setStartAndStopSeekBar(isStart : Boolean = true) {
         if(isStart){
-            findViewById<MplLiveSeekBar>(R.id.mpl_live_seekbar).onUIControllerStart()
+            //findViewById<MplLiveSeekBar>(R.id.mpl_live_seekbar).onUIControllerStart()
         }else{
-            findViewById<MplLiveSeekBar>(R.id.mpl_live_seekbar).onUIControllerStop()
+            //findViewById<MplLiveSeekBar>(R.id.mpl_live_seekbar).onUIControllerStop()
         }
     }
 
@@ -71,7 +77,6 @@ class CustomStyledPlayerView @JvmOverloads constructor(
     fun setPlayer(simpleExoPlayer: SimpleExoPlayer) {
         this.player = simpleExoPlayer
         playerBinding.playerView.player = simpleExoPlayer
-        findViewById<MplLiveSeekBar>(R.id.mpl_live_seekbar).setPlayer(simpleExoPlayer)
         updateSeekbarVisibility()
     }
 
@@ -165,11 +170,26 @@ class CustomStyledPlayerView @JvmOverloads constructor(
     private fun updateSeekbarVisibility(player: SimpleExoPlayer) {
         Timber.tag(TAG).d("isCurrentWindowLive -> ${player.isCurrentWindowLive}")
         playerBinding.playerView.apply {
-            findViewById<MplLiveSeekBar>(R.id.mpl_live_seekbar).setVisible(true)
-            findViewById<MplLiveSeekBar>(R.id.mpl_live_seekbar).setOnSeekBarChangeListener(this@CustomStyledPlayerView)
-            findViewById<MplLiveSeekBar>(R.id.mpl_live_seekbar).setLiveOffset(behindLiveOffset)
-            findViewById<DefaultTimeBar>(R.id.exo_progress).setVisible(false)
+            findViewById<DefaultTimeBar>(R.id.exo_progress).setVisible(true)
         }
+    }
+
+    fun setPosition() {
+
+        val defaultTimeBar = findViewById<DefaultTimeBar>(R.id.exo_progress)
+
+        //if(defaultTimeBar.isd)
+
+       /* player?.let{
+            val maxValue = it.maxSeekToPreviousPosition
+            val currentValue = it.currentPosition
+
+            it.seekTo(it.currentPosition + 5000)
+        }
+
+        player?.addListener(ExoPlayer)*/
+
+
     }
 
     override fun onDetachedFromWindow() {
@@ -184,5 +204,8 @@ class CustomStyledPlayerView @JvmOverloads constructor(
         fun onRewind(startTime: Long, targetTime: Long)
         fun onSeek(startTime: Long, targetTime: Long)
     }
+
+
+
 
 }
