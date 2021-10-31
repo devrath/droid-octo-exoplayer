@@ -40,4 +40,11 @@
         style="@style/SelectionButtonStyle"
         android:text="@string/playlist_exoplayer" />
 
+    <Button
+        android:id="@+id/transformMediaId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/SelectionButtonStyle"
+        android:text="@string/transform_media" />
+
 </LinearLayout>

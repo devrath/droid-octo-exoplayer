@@ -1,4 +1,5 @@
-package com.example.code.exoplayer.features.playlist.ui
+package com.example.code.exoplayer.features.transformMedia.ui
+
 
 import android.os.Bundle
 import androidx.annotation.Nullable
@@ -7,22 +8,23 @@ import dagger.hilt.android.AndroidEntryPoint
 import android.view.*
 import android.widget.Toast
 import com.example.code.exoplayer.R
-import com.example.code.exoplayer.databinding.FragmentPlaylistExoPlayerBinding
 import com.example.code.exoplayer.databinding.FragmentSimpleExoPlayerBinding
-import com.example.code.exoplayer.features.playlist.core.PlaylistExoplayerAction
-import com.example.code.exoplayer.features.playlist.core.PlaylistExoplayerLifecycleObserver
+import com.example.code.exoplayer.features.transformMedia.core.TransformMediaExoplayerAction
+import com.example.code.exoplayer.features.transformMedia.core.TransformMediaExoplayerLifecycleObserver
+import com.example.code.exoplayer.types.simple.ui.SimplePlayerCallback
 import com.example.code.exoplayer.util.ToggleFullScreen
 import com.example.code.extensions.hide
 import com.example.code.extensions.show
 
 
 @AndroidEntryPoint
-class PlaylistExoPlayerFragment : Fragment() {
+class TransformMediaExoPlayerFragment : Fragment() {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
-        FragmentPlaylistExoPlayerBinding.inflate(layoutInflater)
+        FragmentSimpleExoPlayerBinding.inflate(layoutInflater)
     }
-    private lateinit var locationListener: PlaylistExoplayerLifecycleObserver
+
+    private lateinit var locationListener: TransformMediaExoplayerLifecycleObserver
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,10 +39,10 @@ class PlaylistExoPlayerFragment : Fragment() {
 
     private fun initExoplayerListener() {
         activity?.let{
-            locationListener = PlaylistExoplayerLifecycleObserver(lifecycle,it) { exoPlayerAction ->
+            locationListener = TransformMediaExoplayerLifecycleObserver(lifecycle,it) { exoPlayerAction ->
                 when(exoPlayerAction) {
-                    is PlaylistExoplayerAction.BindCustomExoplayer -> binding.exoplayerView.player = exoPlayerAction.simpleExoplayer
-                    is PlaylistExoplayerAction.ProgressBarVisibility -> handleProgressVisibilityOfPlayer(exoPlayerAction.isVisible)
+                    is TransformMediaExoplayerAction.BindCustomExoplayer -> binding.exoplayerView.player = exoPlayerAction.simpleExoplayer
+                    is TransformMediaExoplayerAction.ProgressBarVisibility -> handleProgressVisibilityOfPlayer(exoPlayerAction.isVisible)
                 }
             }
         }
