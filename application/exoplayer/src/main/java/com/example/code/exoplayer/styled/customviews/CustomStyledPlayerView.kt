@@ -22,6 +22,7 @@ import android.view.MotionEvent
 import android.widget.ImageButton
 import com.google.android.exoplayer2.ExoPlaybackException
 import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SeekParameters.CLOSEST_SYNC
 
 
@@ -29,7 +30,7 @@ class CustomStyledPlayerView @JvmOverloads constructor(
     context: Context,
     attributes: AttributeSet? = null,
     defStyleAttr: Int = 0
-): ConstraintLayout(context, attributes, defStyleAttr), SeekBar.OnSeekBarChangeListener {
+): ConstraintLayout(context, attributes, defStyleAttr), SeekBar.OnSeekBarChangeListener, Player.Listener  {
 
     companion object {
         const val TAG = "ExoPlayer : MplPlayerView"
@@ -45,6 +46,8 @@ class CustomStyledPlayerView @JvmOverloads constructor(
     private var callback: Callback? = null
     private var mplControlDispatcher: MplControlDispatcher =
         MplControlDispatcher(fastForwardTimeInMs, rewindTimeInMs)
+
+    private var durationSet = false
 
 
     private val playerBinding = CustomStyledPlayerViewBinding.inflate(LayoutInflater.from(context), this, true)
@@ -171,12 +174,13 @@ class CustomStyledPlayerView @JvmOverloads constructor(
         Timber.tag(TAG).d("isCurrentWindowLive -> ${player.isCurrentWindowLive}")
         playerBinding.playerView.apply {
             findViewById<DefaultTimeBar>(R.id.exo_progress).setVisible(true)
+            findViewById<MaterialTextView>(R.id.exo_duration).setVisible(true)
         }
     }
 
     fun setPosition() {
 
-        val defaultTimeBar = findViewById<DefaultTimeBar>(R.id.exo_progress)
+       // val defaultTimeBar = findViewById<DefaultTimeBar>(R.id.exo_progress)
 
         //if(defaultTimeBar.isd)
 
@@ -188,7 +192,7 @@ class CustomStyledPlayerView @JvmOverloads constructor(
         }
 
         player?.addListener(ExoPlayer)*/
-
+        seekToPointTest()
 
     }
 
@@ -206,6 +210,29 @@ class CustomStyledPlayerView @JvmOverloads constructor(
     }
 
 
+    override fun onPlayWhenReadyChanged(playWhenReady: Boolean, reason: Int) {
+        super.onPlayWhenReadyChanged(playWhenReady, reason)
+       // updateProgress()
+        if (reason == ExoPlayer.STATE_READY && !durationSet) {
+            player?.let {
+                val realDurationMillis: Long = it.duration
+                durationSet = true
+                Timber.tag(TAG).d(realDurationMillis.toString())
+            }
+        }
+
+    }
+
+    /*** Segmentation ***/
+    fun seekToPointTest() {
+        player?.let {
+            val realDurationMillis: Long = it.duration
+            val halfTheProgress = realDurationMillis/2
+            val currentValue = it.currentPosition
+            it.seekTo(currentValue+ halfTheProgress)
+        }
+    }
+    /*** Segmentation ***/
 
 
 }
