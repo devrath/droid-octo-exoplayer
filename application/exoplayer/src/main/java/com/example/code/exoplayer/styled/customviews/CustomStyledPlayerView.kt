@@ -179,21 +179,7 @@ class CustomStyledPlayerView @JvmOverloads constructor(
     }
 
     fun setPosition() {
-
-       // val defaultTimeBar = findViewById<DefaultTimeBar>(R.id.exo_progress)
-
-        //if(defaultTimeBar.isd)
-
-       /* player?.let{
-            val maxValue = it.maxSeekToPreviousPosition
-            val currentValue = it.currentPosition
-
-            it.seekTo(it.currentPosition + 5000)
-        }
-
-        player?.addListener(ExoPlayer)*/
         seekToPointTest()
-
     }
 
     override fun onDetachedFromWindow() {
@@ -224,7 +210,7 @@ class CustomStyledPlayerView @JvmOverloads constructor(
     }
 
     /*** Segmentation ***/
-    fun seekToPointTest() {
+    private fun seekToPointTest() {
         player?.let {
             val realDurationMillis: Long = it.duration
             val halfTheProgress = realDurationMillis/2
