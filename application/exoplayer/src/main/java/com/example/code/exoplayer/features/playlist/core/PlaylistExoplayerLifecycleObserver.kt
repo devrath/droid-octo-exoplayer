@@ -6,10 +6,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.example.code.exoplayer.util.playlists.PlayList.dashItemList
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.exoplayer2.util.Util
@@ -72,6 +69,12 @@ class PlaylistExoplayerLifecycleObserver (
     fun onDestroyEvent() {
         Timber.tag(tag).i("ON_DESTROY Event");
         lifecycle.removeObserver(this)
+    }
+
+    override fun onPlayerError(error: PlaybackException) {
+        super.onPlayerError(error)
+        val errorName =  error.errorCodeName
+        Timber.tag(tag).i(errorName);
     }
 
     private fun initializePlayer() {
