@@ -18,7 +18,7 @@ import timber.log.Timber
 class SimpleExoplayerLifecycleObserver (
     private val lifecycle: Lifecycle,
     private val context : Context,
-    private val callback: (PlaylistExoplayerAction) -> Unit) : LifecycleObserver, Player.Listener {
+    private val callback: (SimpleExoplayerAction) -> Unit) : LifecycleObserver, Player.Listener {
 
     private val tag = this.javaClass.simpleName
 
@@ -82,7 +82,7 @@ class SimpleExoplayerLifecycleObserver (
             .build()
             .also { exoPlayer ->
 
-                callback.invoke(PlaylistExoplayerAction.BindCustomExoplayer(exoPlayer))
+                callback.invoke(SimpleExoplayerAction.BindCustomExoplayer(exoPlayer))
 
                 val mediaItem = MediaItem.Builder()
                     .setUri(url)
@@ -116,9 +116,9 @@ class SimpleExoplayerLifecycleObserver (
     override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
         printPlayerState(playbackState)
         if (playbackState == Player.STATE_BUFFERING)
-            callback.invoke(PlaylistExoplayerAction.ProgressBarVisibility(true))
+            callback.invoke(SimpleExoplayerAction.ProgressBarVisibility(true))
         else if (playbackState == Player.STATE_READY || playbackState == Player.STATE_ENDED)
-            callback.invoke(PlaylistExoplayerAction.ProgressBarVisibility(false))
+            callback.invoke(SimpleExoplayerAction.ProgressBarVisibility(false))
     }
 
     private fun printPlayerState(playbackState: Int) {

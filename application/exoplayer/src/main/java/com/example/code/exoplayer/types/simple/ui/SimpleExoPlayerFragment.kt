@@ -10,6 +10,8 @@ import com.example.code.exoplayer.R
 import com.example.code.exoplayer.databinding.FragmentSimpleExoPlayerBinding
 import com.example.code.exoplayer.features.playlist.core.PlaylistExoplayerAction
 import com.example.code.exoplayer.features.playlist.core.PlaylistExoplayerLifecycleObserver
+import com.example.code.exoplayer.types.simple.core.SimpleExoplayerAction
+import com.example.code.exoplayer.types.simple.core.SimpleExoplayerLifecycleObserver
 import com.example.code.exoplayer.util.ToggleFullScreen
 import com.example.code.extensions.hide
 import com.example.code.extensions.show
@@ -22,7 +24,7 @@ class SimpleExoPlayerFragment : Fragment(), SimplePlayerCallback {
         FragmentSimpleExoPlayerBinding.inflate(layoutInflater)
     }
 
-    private lateinit var locationListener: PlaylistExoplayerLifecycleObserver
+    private lateinit var locationListener: SimpleExoplayerLifecycleObserver
 
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,10 +75,10 @@ class SimpleExoPlayerFragment : Fragment(), SimplePlayerCallback {
 
     private fun initExoplayerListener() {
         activity?.let{
-            locationListener = PlaylistExoplayerLifecycleObserver(lifecycle,it) { exoPlayerAction ->
+            locationListener = SimpleExoplayerLifecycleObserver(lifecycle,it) { exoPlayerAction ->
                 when(exoPlayerAction) {
-                    is PlaylistExoplayerAction.BindCustomExoplayer -> binding.exoplayerView.player = exoPlayerAction.simpleExoplayer
-                    is PlaylistExoplayerAction.ProgressBarVisibility -> handleProgressVisibilityOfPlayer(exoPlayerAction.isVisible)
+                    is SimpleExoplayerAction.BindCustomExoplayer -> binding.exoplayerView.player = exoPlayerAction.simpleExoplayer
+                    is SimpleExoplayerAction.ProgressBarVisibility -> handleProgressVisibilityOfPlayer(exoPlayerAction.isVisible)
                 }
             }
         }
