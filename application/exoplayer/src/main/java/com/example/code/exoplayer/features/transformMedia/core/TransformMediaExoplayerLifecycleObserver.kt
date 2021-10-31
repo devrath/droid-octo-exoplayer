@@ -108,8 +108,9 @@ class TransformMediaExoplayerLifecycleObserver (
                     .build()
 
                 transformer.startTransformation(mediaItem, file.absolutePath);
-
+                // Initiate the exo player
                 exoPlayer.prepare()
+                // Start the progress
                 callback.invoke(TransformMediaExoplayerAction.ProgressBarVisibility(true))
             }
     }
