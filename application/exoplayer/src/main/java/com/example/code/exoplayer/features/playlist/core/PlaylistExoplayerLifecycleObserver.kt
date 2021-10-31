@@ -70,8 +70,8 @@ class PlaylistExoplayerLifecycleObserver (
     }
 
     private fun initializePlayer(
-        url: String= Constants.mp4Url,
-        type: String= MimeTypes.APPLICATION_MP4
+        url: String= "https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8",
+        type: String= MimeTypes.APPLICATION_M3U8
     ) {
         val trackSelector = DefaultTrackSelector(context).apply {
             setParameters(buildUponParameters().setMaxVideoSizeSd())
