@@ -4,7 +4,8 @@ import android.content.Context
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
-import com.example.code.exoplayer.Constants
+import com.example.code.exoplayer.util.playlists.PlayList.dashItemList
+import com.example.code.exoplayer.util.playlists.PlayList.hlsList
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
@@ -69,10 +70,7 @@ class PlaylistExoplayerLifecycleObserver (
         lifecycle.removeObserver(this)
     }
 
-    private fun initializePlayer(
-        url: String= "https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8",
-        type: String= MimeTypes.APPLICATION_M3U8
-    ) {
+    private fun initializePlayer() {
         val trackSelector = DefaultTrackSelector(context).apply {
             setParameters(buildUponParameters().setMaxVideoSizeSd())
         }
@@ -83,12 +81,21 @@ class PlaylistExoplayerLifecycleObserver (
 
                 callback.invoke(PlaylistExoplayerAction.BindCustomExoplayer(exoPlayer))
 
-                val mediaItem = MediaItem.Builder()
-                    .setUri(url)
-                    .setMimeType(type)
-                    .build()
+                val videosList = dashItemList()
+                val type: String = MimeTypes.APPLICATION_MPD // -> DASH
+                //val type: String = MimeTypes.APPLICATION_M3U8 // -> HLS
+                val mediaItems: MutableList<MediaItem> = ArrayList()
+                for (i in 0 until videosList.size) {
+                    val mediaItem = MediaItem.Builder()
+                        // Add the url to be played
+                        .setUri(videosList[i].uri)
+                        // Set the mime type for playing video
+                        .setMimeType(type)
+                        .build()
+                    mediaItems.add(mediaItem)
+                }
 
-                exoPlayer.setMediaItem(mediaItem)
+                exoPlayer.setMediaItems(mediaItems)
                 // This indicates the player that, Player is ready to start and starts playing
                 exoPlayer.playWhenReady = playWhenReady
                 /**
@@ -133,7 +140,7 @@ class PlaylistExoplayerLifecycleObserver (
 
     fun changeTrack(url: String,type: String) {
         releasePlayer()
-        initializePlayer(url,type)
+        initializePlayer()
     }
 
 }
