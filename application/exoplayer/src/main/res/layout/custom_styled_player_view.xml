@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.code.exoplayer.styled.customviews.CustomStyledPlayerView">
+    tools:context=".types.styled.customviews.CustomStyledPlayerView">
 
             <com.google.android.exoplayer2.ui.StyledPlayerView
                 android:id="@+id/playerView"

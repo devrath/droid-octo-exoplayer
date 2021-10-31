@@ -5,9 +5,9 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/placeholder_background"
-    tools:context="com.example.code.exoplayer.styled.ui.view.StyledExoPlayerFragment">
+    tools:context=".types.styled.ui.view.StyledExoPlayerFragment">
 
-    <com.example.code.exoplayer.styled.customviews.CustomStyledPlayerView
+    <com.example.code.exoplayer.types.styled.customviews.CustomStyledPlayerView
         android:id="@+id/exoplayerView"
         android:layout_width="0dp"
         android:layout_height="0dp"

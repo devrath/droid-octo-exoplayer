@@ -189,7 +189,7 @@
         app:layout_constraintGuide_end="26dp" />
 
 
-    <com.example.code.exoplayer.styled.customviews.MplLiveSeekBar
+    <com.example.code.exoplayer.types.styled.customviews.MplLiveSeekBar
         android:id="@+id/mpl_live_seekbar"
         android:layout_width="0dp"
         android:layout_height="@dimen/gb_exo_progress_height"
@@ -206,7 +206,7 @@
         tools:secondaryProgress="70"
         tools:visibility="visible"/>
 
-    <com.example.code.exoplayer.styled.customviews.YoutubeDefaultTimeBar
+    <com.example.code.exoplayer.types.styled.customviews.YoutubeDefaultTimeBar
         android:id="@id/exo_progress"
         android:layout_width="0dp"
         android:layout_height="@dimen/exo_progress_height"
