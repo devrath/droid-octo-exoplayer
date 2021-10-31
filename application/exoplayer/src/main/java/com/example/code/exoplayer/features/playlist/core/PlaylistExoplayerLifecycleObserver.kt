@@ -1,11 +1,11 @@
 package com.example.code.exoplayer.features.playlist.core
 
 import android.content.Context
+import androidx.annotation.Nullable
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.example.code.exoplayer.util.playlists.PlayList.dashItemList
-import com.example.code.exoplayer.util.playlists.PlayList.hlsList
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
@@ -14,6 +14,10 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.exoplayer2.util.Util
 import timber.log.Timber
+
+
+
+
 
 class PlaylistExoplayerLifecycleObserver (
     private val lifecycle: Lifecycle,
@@ -106,6 +110,24 @@ class PlaylistExoplayerLifecycleObserver (
                 exoPlayer.seekTo(currentWindow, playbackPosition)
                 exoPlayer.prepare()
             }
+
+        setPlayerMediaTransistion()
+    }
+
+    private fun setPlayerMediaTransistion() {
+        simpleExoplayer?.addListener(object : Player.Listener { // player listener
+
+            override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
+                when (playbackState) { // check player play back state
+                    Player.MEDIA_ITEM_TRANSITION_REASON_SEEK ->{
+                        Timber.tag(tag).i("MEDIA_ITEM_TRANSITION_REASON_SEEK");
+                    }
+                    Player.MEDIA_ITEM_TRANSITION_REASON_PLAYLIST_CHANGED ->{
+                        Timber.tag(tag).i("MEDIA_ITEM_TRANSITION_REASON_PLAYLIST_CHANGED");
+                    }
+                }
+            }
+        })
     }
 
     private fun releasePlayer() {
