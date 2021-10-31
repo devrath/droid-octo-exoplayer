@@ -13,6 +13,7 @@
         <entry key="app/src/main/res/layout/activity_selection.xml" value="0.19429347826086957" />
         <entry key="app/src/main/res/layout/activity_simple_exo_player.xml" value="0.10764944275582573" />
         <entry key="app/src/main/res/layout/activity_styled_exo_player.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_playlist_exo_player.xml" value="0.12001811594202899" />
         <entry key="exoplayer/src/main/res/drawable/bg_round_rect_white_50.xml" value="0.121875" />
         <entry key="exoplayer/src/main/res/drawable/bg_rounded_rectangle_white_corner_rounded.xml" value="0.121875" />
         <entry key="exoplayer/src/main/res/drawable/gb_close_icon.xml" value="0.1" />
@@ -47,6 +48,7 @@
         <entry key="exoplayer/src/main/res/layout/fragment_custom_exo_player_controls.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/layout/fragment_custom_exoplayer_controls.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/layout/fragment_exo_player_content_selection.xml" value="0.10185185185185185" />
+        <entry key="exoplayer/src/main/res/layout/fragment_playlist_exo_player.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/layout/fragment_segmented_exo_player.xml" value="0.10764944275582573" />
         <entry key="exoplayer/src/main/res/layout/fragment_simple_exo_player.xml" value="0.10185185185185185" />
         <entry key="exoplayer/src/main/res/layout/fragment_simple_exoplayer.xml" value="0.1" />
