@@ -1,11 +1,10 @@
-package com.example.code.exoplayer.types.simple.core
+package com.example.code.exoplayer.features.playlist.core
 
 import android.content.Context
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.example.code.exoplayer.Constants
-import com.example.code.exoplayer.features.playlist.core.PlaylistExoplayerAction
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
@@ -15,7 +14,7 @@ import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.exoplayer2.util.Util
 import timber.log.Timber
 
-class SimpleExoplayerLifecycleObserver (
+class PlaylistExoplayerLifecycleObserver (
     private val lifecycle: Lifecycle,
     private val context : Context,
     private val callback: (PlaylistExoplayerAction) -> Unit) : LifecycleObserver, Player.Listener {
@@ -71,8 +70,8 @@ class SimpleExoplayerLifecycleObserver (
     }
 
     private fun initializePlayer(
-        url: String= Constants.mp4Url,
-        type: String= MimeTypes.APPLICATION_MP4
+        url: String= "https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8",
+        type: String= MimeTypes.APPLICATION_M3U8
     ) {
         val trackSelector = DefaultTrackSelector(context).apply {
             setParameters(buildUponParameters().setMaxVideoSizeSd())

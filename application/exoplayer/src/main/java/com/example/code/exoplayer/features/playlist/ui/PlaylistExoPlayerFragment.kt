@@ -1,4 +1,4 @@
-package com.example.code.exoplayer.types.simple.ui
+package com.example.code.exoplayer.features.playlist.ui
 
 import android.os.Bundle
 import androidx.annotation.Nullable
@@ -7,6 +7,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import android.view.*
 import android.widget.Toast
 import com.example.code.exoplayer.R
+import com.example.code.exoplayer.databinding.FragmentPlaylistExoPlayerBinding
 import com.example.code.exoplayer.databinding.FragmentSimpleExoPlayerBinding
 import com.example.code.exoplayer.features.playlist.core.PlaylistExoplayerAction
 import com.example.code.exoplayer.features.playlist.core.PlaylistExoplayerLifecycleObserver
@@ -16,10 +17,10 @@ import com.example.code.extensions.show
 
 
 @AndroidEntryPoint
-class SimpleExoPlayerFragment : Fragment(), SimplePlayerCallback {
+class PlaylistExoPlayerFragment : Fragment() {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
-        FragmentSimpleExoPlayerBinding.inflate(layoutInflater)
+        FragmentPlaylistExoPlayerBinding.inflate(layoutInflater)
     }
 
     private lateinit var locationListener: PlaylistExoplayerLifecycleObserver
@@ -37,7 +38,7 @@ class SimpleExoPlayerFragment : Fragment(), SimplePlayerCallback {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_url_selection -> {
-                showUrlSelectionSheet()
+                //showUrlSelectionSheet()
                 true
             }
             R.id.action_full_Screen -> {
@@ -46,13 +47,6 @@ class SimpleExoPlayerFragment : Fragment(), SimplePlayerCallback {
                 true
             }
             else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun showUrlSelectionSheet() {
-        ExoPlayerContentSelFragment().let {
-            it.setOnClickListener(this@SimpleExoPlayerFragment)
-            it.show(childFragmentManager, null)
         }
     }
 
@@ -65,10 +59,6 @@ class SimpleExoPlayerFragment : Fragment(), SimplePlayerCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initExoplayerListener()
-    }
-
-    override fun onClick(url: String, type: String) {
-        locationListener.changeTrack(url,type)
     }
 
     private fun initExoplayerListener() {
