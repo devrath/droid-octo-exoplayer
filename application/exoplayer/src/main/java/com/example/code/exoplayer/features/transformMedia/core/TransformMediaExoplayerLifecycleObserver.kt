@@ -2,6 +2,7 @@ package com.example.code.exoplayer.features.transformMedia.core
 
 import android.content.Context
 import android.os.Environment
+import android.os.Handler
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
@@ -109,6 +110,7 @@ class TransformMediaExoplayerLifecycleObserver (
                 transformer.startTransformation(mediaItem, file.absolutePath);
 
                 exoPlayer.prepare()
+                callback.invoke(TransformMediaExoplayerAction.ProgressBarVisibility(true))
             }
     }
 
@@ -154,6 +156,7 @@ class TransformMediaExoplayerLifecycleObserver (
                 it.setMediaItem(mediaItem)
                 it.seekTo(currentWindow, playbackPosition)
                 it.play()
+                callback.invoke(TransformMediaExoplayerAction.ProgressBarVisibility(false))
             }
         }
 
