@@ -70,7 +70,9 @@ buildscript {
         implementation "com.google.android.exoplayer:exoplayer-hls:${exoPlayerLibVersions.exoplayer}"
         implementation "com.google.android.exoplayer:exoplayer-ui:${exoPlayerLibVersions.exoplayer}"
         implementation "com.google.android.exoplayer:extension-ima:${exoPlayerLibVersions.exoplayer}"
+        implementation "com.google.android.exoplayer:exoplayer-transformer:${exoPlayerLibVersions.exoplayer}"
     }
+
 
     repositories {
         google()
