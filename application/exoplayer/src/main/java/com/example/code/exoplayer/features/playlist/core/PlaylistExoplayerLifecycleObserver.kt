@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import com.example.code.exoplayer.util.playlists.PlayList.dashItemList
 import com.example.code.exoplayer.util.playlists.PlayList.hlsList
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
@@ -80,8 +81,9 @@ class PlaylistExoplayerLifecycleObserver (
 
                 callback.invoke(PlaylistExoplayerAction.BindCustomExoplayer(exoPlayer))
 
-                val videosList = hlsList()
-                val type: String = MimeTypes.APPLICATION_M3U8
+                val videosList = dashItemList()
+                val type: String = MimeTypes.APPLICATION_MPD // -> DASH
+                //val type: String = MimeTypes.APPLICATION_M3U8 // -> HLS
                 val mediaItems: MutableList<MediaItem> = ArrayList()
                 for (i in 0 until videosList.size) {
                     val mediaItem = MediaItem.Builder()
