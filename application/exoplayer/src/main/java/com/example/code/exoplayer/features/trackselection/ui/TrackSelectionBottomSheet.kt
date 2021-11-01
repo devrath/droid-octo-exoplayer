@@ -12,6 +12,7 @@ import com.example.code.exoplayer.R
 import com.example.code.exoplayer.databinding.FragmentExoPlayerContentSelectionBinding
 import com.example.code.exoplayer.databinding.FragmentTrackSelectionBottomSheetBinding
 import com.example.code.exoplayer.features.trackselection.adapter.CustomAdapter
+import com.example.code.exoplayer.features.trackselection.model.TrackInfo
 import com.example.code.exoplayer.types.simple.ui.SimplePlayerCallback
 import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -24,7 +25,10 @@ import kotlin.coroutines.CoroutineContext
 
 @AndroidEntryPoint
 class TrackSelectionBottomSheet : BottomSheetDialogFragment(), CoroutineScope {
+
     //listener?.onClick(Constants.mp3Url, MimeTypes.APPLICATION_MP4)
+    var itemsList =  ArrayList<TrackInfo>()
+
     private val job = Job()
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main
@@ -54,9 +58,9 @@ class TrackSelectionBottomSheet : BottomSheetDialogFragment(), CoroutineScope {
 
     private fun initRecyclerView() {
 
-        /*binding.recyclerview.layoutManager = LinearLayoutManager(activity)
-        val adapter = CustomAdapter(data)
-        binding.recyclerview.adapter = adapter*/
+        binding.recyclerview.layoutManager = LinearLayoutManager(activity)
+        val adapter = CustomAdapter(itemsList)
+        binding.recyclerview.adapter = adapter
 
     }
 
@@ -69,6 +73,11 @@ class TrackSelectionBottomSheet : BottomSheetDialogFragment(), CoroutineScope {
         binding.apply {
 
         }
+    }
+
+    fun setItems(items: ArrayList<TrackInfo>) {
+        itemsList.clear()
+        itemsList.addAll(items)
     }
 
 }

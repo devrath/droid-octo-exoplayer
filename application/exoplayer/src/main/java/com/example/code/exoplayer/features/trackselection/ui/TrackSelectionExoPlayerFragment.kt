@@ -35,11 +35,11 @@ class TrackSelectionExoPlayerFragment : Fragment(), TrackSelectionCallback {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.listSelection -> {
-                showUrlSelectionSheet()
+                displayTrackListForSelection()
                 true
             }
             R.id.printLog -> {
-                initiateTrackSelection()
+                locationListener.printTrackLogsToExoPlayer()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -83,8 +83,14 @@ class TrackSelectionExoPlayerFragment : Fragment(), TrackSelectionCallback {
         if (visible) { binding.progressBar.show() } else { binding.progressBar.hide() }
     }
 
-    private fun initiateTrackSelection() {
-        locationListener.listVideoTracks()
+    private fun displayTrackListForSelection() {
+        val items = locationListener.listVideoTracks()
+
+        TrackSelectionBottomSheet().let {
+            it.setOnClickListener(this@TrackSelectionExoPlayerFragment)
+            it.setItems(items)
+            it.show(childFragmentManager, null)
+        }
     }
 
 }
