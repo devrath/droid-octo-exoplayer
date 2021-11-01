@@ -1,25 +1,28 @@
-package com.example.code.exoplayer.features.playlist.core
+package com.example.code.exoplayer.features.transformMedia.core
 
 import android.content.Context
-import androidx.annotation.Nullable
+import android.os.Environment
+import android.os.Handler
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
-import com.example.code.exoplayer.util.playlists.PlayList.dashItemList
-import com.google.android.exoplayer2.*
+import com.example.code.exoplayer.Constants
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.Player
+import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
+import com.google.android.exoplayer2.transformer.Transformer
 import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.exoplayer2.util.Util
 import timber.log.Timber
+import java.io.File
+import java.lang.Exception
 
-
-
-
-
-class PlaylistExoplayerLifecycleObserver (
+class TransformMediaExoplayerLifecycleObserver (
     private val lifecycle: Lifecycle,
     private val context : Context,
-    private val callback: (PlaylistExoplayerAction) -> Unit) : LifecycleObserver, Player.Listener {
+    private val callback: (TransformMediaExoplayerAction) -> Unit) : LifecycleObserver, Player.Listener {
 
     private val tag = this.javaClass.simpleName
 
@@ -71,13 +74,10 @@ class PlaylistExoplayerLifecycleObserver (
         lifecycle.removeObserver(this)
     }
 
-    override fun onPlayerError(error: PlaybackException) {
-        super.onPlayerError(error)
-        val errorName =  error.errorCodeName
-        Timber.tag(tag).i(errorName);
-    }
-
-    private fun initializePlayer() {
+    private fun initializePlayer(
+        url: String= Constants.dashUrl,
+        type: String= MimeTypes.APPLICATION_MPD
+    ) {
         val trackSelector = DefaultTrackSelector(context).apply {
             setParameters(buildUponParameters().setMaxVideoSizeSd())
         }
@@ -86,51 +86,33 @@ class PlaylistExoplayerLifecycleObserver (
             .build()
             .also { exoPlayer ->
 
-                callback.invoke(PlaylistExoplayerAction.BindCustomExoplayer(exoPlayer))
+                callback.invoke(TransformMediaExoplayerAction.BindCustomExoplayer(exoPlayer))
 
-                val videosList = dashItemList()
-                val type: String = MimeTypes.APPLICATION_MPD // -> DASH
-                //val type: String = MimeTypes.APPLICATION_M3U8 // -> HLS
-                val mediaItems: MutableList<MediaItem> = ArrayList()
-                for (i in 0 until videosList.size) {
-                    val mediaItem = MediaItem.Builder()
-                        // Add the url to be played
-                        .setUri(videosList[i].uri)
-                        // Set the mime type for playing video
-                        .setMimeType(type)
-                        .build()
-                    mediaItems.add(mediaItem)
-                }
+                val mediaItem = MediaItem.Builder()
+                    .setUri(url)
+                    .setMimeType(type)
+                    .build()
 
-                exoPlayer.setMediaItems(mediaItems)
-                // This indicates the player that, Player is ready to start and starts playing
-                exoPlayer.playWhenReady = playWhenReady
-                /**
-                 * ---> This is necessary to resume the player from where its paused.
-                 * ---> This is useful in scenario where app is sent to background and bought to
-                 * foreground the player will resume from position from where is left off
-                 * otherwise player will start playing from the initial position */
-                exoPlayer.seekTo(currentWindow, playbackPosition)
+                val mime = MimeTypes.VIDEO_MP4
+                val fileExtension = ".mp4"
+                val fileName = "test"
+
+                val file : File = getFileToBeWritten(context=context, fileName = fileName,
+                                                    extension = fileExtension)
+
+                val transformer: Transformer = Transformer.Builder()
+                    .setContext(context)
+                    .setRemoveAudio(true)
+                    .setOutputMimeType(mime)
+                    .setListener(transformerListener)
+                    .build()
+
+                transformer.startTransformation(mediaItem, file.absolutePath);
+                // Initiate the exo player
                 exoPlayer.prepare()
+                // Start the progress
+                callback.invoke(TransformMediaExoplayerAction.ProgressBarVisibility(true))
             }
-
-        setPlayerMediaTransistion()
-    }
-
-    private fun setPlayerMediaTransistion() {
-        simpleExoplayer?.addListener(object : Player.Listener { // player listener
-
-            override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
-                when (playbackState) { // check player play back state
-                    Player.MEDIA_ITEM_TRANSITION_REASON_SEEK ->{
-                        Timber.tag(tag).i("MEDIA_ITEM_TRANSITION_REASON_SEEK");
-                    }
-                    Player.MEDIA_ITEM_TRANSITION_REASON_PLAYLIST_CHANGED ->{
-                        Timber.tag(tag).i("MEDIA_ITEM_TRANSITION_REASON_PLAYLIST_CHANGED");
-                    }
-                }
-            }
-        })
     }
 
     private fun releasePlayer() {
@@ -147,9 +129,9 @@ class PlaylistExoplayerLifecycleObserver (
     override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
         printPlayerState(playbackState)
         if (playbackState == Player.STATE_BUFFERING)
-            callback.invoke(PlaylistExoplayerAction.ProgressBarVisibility(true))
+            callback.invoke(TransformMediaExoplayerAction.ProgressBarVisibility(true))
         else if (playbackState == Player.STATE_READY || playbackState == Player.STATE_ENDED)
-            callback.invoke(PlaylistExoplayerAction.ProgressBarVisibility(false))
+            callback.invoke(TransformMediaExoplayerAction.ProgressBarVisibility(false))
     }
 
     private fun printPlayerState(playbackState: Int) {
@@ -165,7 +147,32 @@ class PlaylistExoplayerLifecycleObserver (
 
     fun changeTrack(url: String,type: String) {
         releasePlayer()
-        initializePlayer()
+        initializePlayer(url,type)
     }
+
+
+    private var transformerListener: Transformer.Listener = object : Transformer.Listener {
+        override fun onTransformationCompleted(mediaItem: MediaItem) {
+            simpleExoplayer?.let{
+                it.setMediaItem(mediaItem)
+                it.seekTo(currentWindow, playbackPosition)
+                it.play()
+                callback.invoke(TransformMediaExoplayerAction.ProgressBarVisibility(false))
+            }
+        }
+
+        override fun onTransformationError(inputMediaItem: MediaItem, e: Exception) {
+            Timber.tag(tag).e("ERROR: ${e.message}");
+        }
+    }
+
+    private fun getFileToBeWritten(context: Context,
+                                   fileName:String,
+                                   extension:String): File {
+        val file = File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), fileName.plus(extension))
+        if (!file.exists()) file.parentFile.mkdir()
+        return file
+    }
+
 
 }

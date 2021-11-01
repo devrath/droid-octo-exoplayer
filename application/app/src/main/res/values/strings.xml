@@ -17,6 +17,8 @@
     <string name="adds_player">Adds player</string>
     <string name="segmented_exoplayer">Segmented Exoplayer</string>
     <string name="playlist_exoplayer">Playlist Exoplayer</string>
+    <string name="transform_media">Transform Media</string>
+    <string name="track_selection">Track Selection</string>
 
     <string-array name="videoFormatsSelectionList">
         <item>@string/str_mp4</item>
