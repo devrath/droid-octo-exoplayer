@@ -77,8 +77,8 @@ class TrackSelectionExoplayerLifecycleObserver(
     }
 
     private fun initializePlayer(
-        url: String = Constants.mp4Url,
-        type: String = MimeTypes.APPLICATION_MP4
+        url: String = Constants.hls,
+        type: String = MimeTypes.APPLICATION_M3U8
     ) {
         trackSelector = DefaultTrackSelector(context).apply {
             setParameters(buildUponParameters().setMaxVideoSizeSd())
@@ -161,12 +161,16 @@ class TrackSelectionExoplayerLifecycleObserver(
 
             Timber.tag(tag).d("<----- Track item index: $rendererIndex -------------->")
             Timber.tag(tag).d("<----- Track item  name: $trackName ------------------>")
-            Timber.tag(tag).d("<----- Track item  name: $trackName ------------------>")
+            Timber.tag(tag).d("<----- Is renderer Disabled: $isRendererDisabled ----->")
+            Timber.tag(tag).d("<----------------------------------------------------->")
+            Timber.tag(tag).d("<----- Selection Override ---------------------------->")
+            Timber.tag(tag).d(Gson().toJson(selectionOverride))
+            Timber.tag(tag).d("<----- Selection Override ---------------------------->")
+            Timber.tag(tag).d("<----------------------------------------------------->")
             Timber.tag(tag).d("<----- Track group Array ----------------------------->")
             Timber.tag(tag).d(Gson().toJson(trackGroupArray))
             Timber.tag(tag).d("<----- Track group Array ----------------------------->")
-
-
+            Timber.tag(tag).d("<----------------------------------------------------->")
 
             for (groupIndex in 0 until trackGroupArray.length) {
                 for (trackIndex in 0 until trackGroupArray[groupIndex].length) {
@@ -179,8 +183,6 @@ class TrackSelectionExoplayerLifecycleObserver(
                 }
             }
 
-            Timber.tag(tag).d("isRendererDisabled: $isRendererDisabled")
-            Timber.tag(tag).d("selectionOverride: ".plus(Gson().toJson(selectionOverride)))
 
         }
 
