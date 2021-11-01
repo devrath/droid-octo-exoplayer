@@ -6,6 +6,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.example.code.exoplayer.Constants
+import com.example.code.exoplayer.types.styled.util.MplTrack
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.DefaultTrackNameProvider
@@ -228,7 +229,35 @@ class TrackSelectionExoplayerLifecycleObserver(
             }
         }
 
+        selectTrack(reason = C.SELECTION_REASON_MANUAL,groupIndex = 0, trackIndex = 2)
     }
 
+
+    private fun selectTrack(reason: Int, groupIndex: Int, trackIndex: Int) {
+        trackSelector.currentMappedTrackInfo?.let {mappedTrackInfo ->
+            val builder = trackSelector.parameters.buildUpon()
+
+            for (rendererIndex in 0 until mappedTrackInfo.rendererCount) {
+
+                val trackType = mappedTrackInfo.getRendererType(rendererIndex)
+
+                if (trackType == C.TRACK_TYPE_VIDEO) {
+
+                    builder.clearSelectionOverrides(rendererIndex).setRendererDisabled(rendererIndex, false)
+
+                    if (reason == C.SELECTION_REASON_MANUAL) {
+                        val override = DefaultTrackSelector.SelectionOverride(groupIndex, trackIndex)
+                        builder.setSelectionOverride(rendererIndex, mappedTrackInfo.getTrackGroups(rendererIndex), override)
+                    } else {
+                        builder.setAllowMultipleAdaptiveSelections(true)
+                    }
+
+                }
+            }
+
+            trackSelector.setParameters(builder)
+
+        }
+    }
 
 }
