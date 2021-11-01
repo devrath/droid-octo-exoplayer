@@ -57,6 +57,7 @@
         <entry key="exoplayer/src/main/res/layout/fragment_styled_exo_player.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/layout/fragment_track_selection_exo_player.xml" value="0.13949275362318841" />
         <entry key="exoplayer/src/main/res/layout/layout_exoplayer_control_views.xml" value="0.1" />
+        <entry key="exoplayer/src/main/res/menu/menu_track_selection.xml" value="0.16770833333333332" />
         <entry key="exoplayer/src/main/res/menu/menu_video_options.xml" value="0.11944444444444445" />
         <entry key="exoplayer/src/main/res/menu/playback_speed.xml" value="0.19537037037037036" />
       </map>
