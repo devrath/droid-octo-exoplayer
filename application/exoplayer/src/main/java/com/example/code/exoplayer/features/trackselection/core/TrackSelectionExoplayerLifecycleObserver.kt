@@ -6,6 +6,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.example.code.exoplayer.Constants
+import com.example.code.exoplayer.features.trackselection.model.TrackInfo
 import com.example.code.exoplayer.types.styled.util.MplTrack
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
@@ -198,6 +199,9 @@ class TrackSelectionExoplayerLifecycleObserver(
     }
 
     fun listVideoTracks() {
+
+        val tracksForSelection = ArrayList<TrackInfo>()
+
         val mappedTrackInfo = Assertions.checkNotNull(trackSelector.currentMappedTrackInfo)
         val parameters = trackSelector.parameters
 
@@ -224,16 +228,22 @@ class TrackSelectionExoplayerLifecycleObserver(
                         if(isTrackSupported){
                             Timber.tag(tag).d("track item $groupIndex: trackName: $trackName, isTrackSupported: $isTrackSupported")
                         }
+
+                        // Add item 
+                        tracksForSelection.add(
+                            TrackInfo(trackName = trackName, groupIndex = groupIndex, trackIndex = trackIndex)
+                        )
                     }
                 }
             }
         }
 
-        selectTrack(reason = C.SELECTION_REASON_MANUAL,groupIndex = 0, trackIndex = 2)
+        //selectTrack(reason = C.SELECTION_REASON_MANUAL,groupIndex = 0, trackIndex = 2)
     }
 
 
     private fun selectTrack(reason: Int, groupIndex: Int, trackIndex: Int) {
+
         trackSelector.currentMappedTrackInfo?.let {mappedTrackInfo ->
             val builder = trackSelector.parameters.buildUpon()
 
