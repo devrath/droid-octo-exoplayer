@@ -248,7 +248,7 @@ class TrackSelectionExoplayerLifecycleObserver(
     }
 
 
-    private fun selectTrack(reason: Int, groupIndex: Int, trackIndex: Int) {
+    fun selectTrack(reason: Int, groupIndex: Int, trackIndex: Int) {
 
         trackSelector.currentMappedTrackInfo?.let {mappedTrackInfo ->
             val builder = trackSelector.parameters.buildUpon()

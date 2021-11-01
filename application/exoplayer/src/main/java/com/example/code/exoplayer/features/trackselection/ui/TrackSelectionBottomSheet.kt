@@ -2,8 +2,10 @@ package com.example.code.exoplayer.features.trackselection.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -51,7 +53,6 @@ class TrackSelectionBottomSheet : BottomSheetDialogFragment(), CoroutineScope {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initListeners()
         initRecyclerView()
         dialog?.setCanceledOnTouchOutside(false)
     }
@@ -62,6 +63,26 @@ class TrackSelectionBottomSheet : BottomSheetDialogFragment(), CoroutineScope {
         val adapter = CustomAdapter(itemsList)
         binding.recyclerview.adapter = adapter
 
+        binding.recyclerview.addOnItemTouchListener(object : RecyclerView.SimpleOnItemTouchListener() {
+            var downTouch = false
+            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                when (e.action) {
+                    MotionEvent.ACTION_DOWN -> downTouch = true
+                    MotionEvent.ACTION_UP -> if (downTouch) {
+                        downTouch = false
+                        binding.recyclerview.findChildViewUnder(e.x, e.y)?.let {
+                            val position = rv.getChildAdapterPosition(it)
+                            Toast.makeText(rv.context, "clicked on $position", Toast.LENGTH_SHORT).show()
+                            listener?.onClick(itemsList[position])
+                            dismiss()
+                        }
+                    }
+                    else -> downTouch = false
+                }
+                return super.onInterceptTouchEvent(rv, e)
+            }
+        })
+
     }
 
     override fun onDestroy() {
@@ -69,11 +90,6 @@ class TrackSelectionBottomSheet : BottomSheetDialogFragment(), CoroutineScope {
         job.cancel()
     }
 
-    private fun initListeners() {
-        binding.apply {
-
-        }
-    }
 
     fun setItems(items: ArrayList<TrackInfo>) {
         itemsList.clear()
@@ -83,5 +99,5 @@ class TrackSelectionBottomSheet : BottomSheetDialogFragment(), CoroutineScope {
 }
 
 interface TrackSelectionCallback {
-    fun onClick(url: String,type: String)
+    fun onClick(info: TrackInfo)
 }

@@ -9,8 +9,10 @@ import com.example.code.exoplayer.R
 import com.example.code.exoplayer.databinding.FragmentTrackSelectionExoPlayerBinding
 import com.example.code.exoplayer.features.trackselection.core.TrackSelectionExoplayerAction
 import com.example.code.exoplayer.features.trackselection.core.TrackSelectionExoplayerLifecycleObserver
+import com.example.code.exoplayer.features.trackselection.model.TrackInfo
 import com.example.code.extensions.hide
 import com.example.code.extensions.show
+import com.google.android.exoplayer2.C
 
 
 @AndroidEntryPoint
@@ -64,8 +66,12 @@ class TrackSelectionExoPlayerFragment : Fragment(), TrackSelectionCallback {
         initExoplayerListener()
     }
 
-    override fun onClick(url: String, type: String) {
-        locationListener.changeTrack(url,type)
+    override fun onClick(info: TrackInfo) {
+        locationListener.selectTrack(
+            reason = C.SELECTION_REASON_MANUAL,
+            groupIndex = info.groupIndex,
+            trackIndex = info.trackIndex
+        )
     }
 
     private fun initExoplayerListener() {
