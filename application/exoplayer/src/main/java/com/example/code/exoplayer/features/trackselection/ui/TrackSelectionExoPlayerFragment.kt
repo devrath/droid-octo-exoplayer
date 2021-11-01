@@ -32,19 +32,18 @@ class TrackSelectionExoPlayerFragment : Fragment(), TrackSelectionCallback {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_video_options, menu)
+        inflater.inflate(R.menu.menu_track_selection, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_url_selection -> {
+            R.id.listSelection -> {
                 showUrlSelectionSheet()
                 true
             }
-            R.id.action_full_Screen -> {
-                ToggleFullScreen(activity,view).toggleSystemUI()
-                Toast.makeText(activity, "Full screen", Toast.LENGTH_SHORT).show()
+            R.id.printLog -> {
+                initiateTrackSelection()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -86,6 +85,10 @@ class TrackSelectionExoPlayerFragment : Fragment(), TrackSelectionCallback {
 
     private fun handleProgressVisibilityOfPlayer(visible: Boolean) {
         if (visible) { binding.progressBar.show() } else { binding.progressBar.hide() }
+    }
+
+    private fun initiateTrackSelection() {
+        locationListener.trackSelectionList()
     }
 
 }

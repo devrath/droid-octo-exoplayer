@@ -1,23 +1,26 @@
 package com.example.code.exoplayer.features.trackselection.core
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.example.code.exoplayer.Constants
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
+import com.google.android.exoplayer2.ui.DefaultTrackNameProvider
+import com.google.android.exoplayer2.util.Assertions
 import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.exoplayer2.util.Util
+import com.google.gson.Gson
 import timber.log.Timber
 
-class TrackSelectionExoplayerLifecycleObserver (
+
+class TrackSelectionExoplayerLifecycleObserver(
     private val lifecycle: Lifecycle,
-    private val context : Context,
-    private val callback: (TrackSelectionExoplayerAction) -> Unit) : LifecycleObserver, Player.Listener {
+    private val context: Context,
+    private val callback: (TrackSelectionExoplayerAction) -> Unit
+) : LifecycleObserver, Player.Listener {
 
     private val tag = this.javaClass.simpleName
 
@@ -27,7 +30,11 @@ class TrackSelectionExoplayerLifecycleObserver (
     private var currentWindow = 0
     private var playbackPosition = 0L
 
-    init { lifecycle.addObserver(this) }
+    lateinit var trackSelector: DefaultTrackSelector
+
+    init {
+        lifecycle.addObserver(this)
+    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreateEvent() {
@@ -70,10 +77,10 @@ class TrackSelectionExoplayerLifecycleObserver (
     }
 
     private fun initializePlayer(
-        url: String= Constants.mp4Url,
-        type: String= MimeTypes.APPLICATION_MP4
+        url: String = Constants.mp4Url,
+        type: String = MimeTypes.APPLICATION_MP4
     ) {
-        val trackSelector = DefaultTrackSelector(context).apply {
+        trackSelector = DefaultTrackSelector(context).apply {
             setParameters(buildUponParameters().setMaxVideoSizeSd())
         }
         simpleExoplayer = SimpleExoPlayer.Builder(context)
@@ -131,9 +138,62 @@ class TrackSelectionExoplayerLifecycleObserver (
         Timber.tag(tag).i("changed state to $stateString");
     }
 
-    fun changeTrack(url: String,type: String) {
+    fun changeTrack(url: String, type: String) {
         releasePlayer()
-        initializePlayer(url,type)
+        initializePlayer(url, type)
     }
+
+
+    fun trackSelectionList() {
+        val mappedTrackInfo = Assertions.checkNotNull(trackSelector.currentMappedTrackInfo)
+        val parameters = trackSelector.parameters
+
+        for (rendererIndex in 0 until mappedTrackInfo.rendererCount) {
+            // ----> Returns the track type in int integer.
+            val trackType = mappedTrackInfo.getRendererType(rendererIndex)
+            // ----> Returns the name of the track based on track type
+            val trackName = trackTypeToName(trackType)
+            // ----> Returns the TrackGroups mapped to the renderer at the specified index.
+            val trackGroupArray = mappedTrackInfo.getTrackGroups(rendererIndex)
+            // ----> Returns whether the renderer is disabled.
+            val isRendererDisabled = parameters.getRendererDisabled(rendererIndex)
+            val selectionOverride = parameters.getSelectionOverride(rendererIndex, trackGroupArray)
+
+            Timber.tag(tag).d("<----- Track item index: $rendererIndex -------------->")
+            Timber.tag(tag).d("<----- Track item  name: $trackName ------------------>")
+            Timber.tag(tag).d("<----- Track item  name: $trackName ------------------>")
+            Timber.tag(tag).d("<----- Track group Array ----------------------------->")
+            Timber.tag(tag).d(Gson().toJson(trackGroupArray))
+            Timber.tag(tag).d("<----- Track group Array ----------------------------->")
+
+
+
+            for (groupIndex in 0 until trackGroupArray.length) {
+                for (trackIndex in 0 until trackGroupArray[groupIndex].length) {
+                    val trackName = DefaultTrackNameProvider(context.resources).getTrackName(
+                        trackGroupArray[groupIndex].getFormat(trackIndex)
+                    )
+                    val isTrackSupported = mappedTrackInfo.getTrackSupport(
+                        rendererIndex, groupIndex, trackIndex) == RendererCapabilities.FORMAT_HANDLED
+                    Timber.tag(tag).d("track item $groupIndex: trackName: $trackName, isTrackSupported: $isTrackSupported")
+                }
+            }
+
+            Timber.tag(tag).d("isRendererDisabled: $isRendererDisabled")
+            Timber.tag(tag).d("selectionOverride: ".plus(Gson().toJson(selectionOverride)))
+
+        }
+
+    }
+
+    private fun trackTypeToName(trackType: Int): String {
+        return when (trackType) {
+            C.TRACK_TYPE_VIDEO -> "TRACK_TYPE_VIDEO"
+            C.TRACK_TYPE_AUDIO -> "TRACK_TYPE_AUDIO"
+            C.TRACK_TYPE_TEXT -> "TRACK_TYPE_TEXT"
+            else -> "Invalid track type"
+        }
+    }
+
 
 }
