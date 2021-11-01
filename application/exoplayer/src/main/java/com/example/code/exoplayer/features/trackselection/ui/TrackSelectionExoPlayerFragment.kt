@@ -5,16 +5,14 @@ import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import android.view.*
-import android.widget.Toast
 import com.example.code.exoplayer.R
-import com.example.code.exoplayer.databinding.FragmentSimpleExoPlayerBinding
 import com.example.code.exoplayer.databinding.FragmentTrackSelectionExoPlayerBinding
 import com.example.code.exoplayer.features.trackselection.core.TrackSelectionExoplayerAction
 import com.example.code.exoplayer.features.trackselection.core.TrackSelectionExoplayerLifecycleObserver
-import com.example.code.exoplayer.types.simple.ui.SimplePlayerCallback
-import com.example.code.exoplayer.util.ToggleFullScreen
+import com.example.code.exoplayer.features.trackselection.model.TrackInfo
 import com.example.code.extensions.hide
 import com.example.code.extensions.show
+import com.google.android.exoplayer2.C
 
 
 @AndroidEntryPoint
@@ -39,11 +37,11 @@ class TrackSelectionExoPlayerFragment : Fragment(), TrackSelectionCallback {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.listSelection -> {
-                showUrlSelectionSheet()
+                displayTrackListForSelection()
                 true
             }
             R.id.printLog -> {
-                initiateTrackSelection()
+                locationListener.printTrackLogsToExoPlayer()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -51,7 +49,7 @@ class TrackSelectionExoPlayerFragment : Fragment(), TrackSelectionCallback {
     }
 
     private fun showUrlSelectionSheet() {
-        ExoPlayerContentSelFragment().let {
+        TrackSelectionBottomSheet().let {
             it.setOnClickListener(this@TrackSelectionExoPlayerFragment)
             it.show(childFragmentManager, null)
         }
@@ -68,8 +66,12 @@ class TrackSelectionExoPlayerFragment : Fragment(), TrackSelectionCallback {
         initExoplayerListener()
     }
 
-    override fun onClick(url: String, type: String) {
-        locationListener.changeTrack(url,type)
+    override fun onClick(info: TrackInfo) {
+        locationListener.selectTrack(
+            reason = C.SELECTION_REASON_MANUAL,
+            groupIndex = info.groupIndex,
+            trackIndex = info.trackIndex
+        )
     }
 
     private fun initExoplayerListener() {
@@ -87,8 +89,14 @@ class TrackSelectionExoPlayerFragment : Fragment(), TrackSelectionCallback {
         if (visible) { binding.progressBar.show() } else { binding.progressBar.hide() }
     }
 
-    private fun initiateTrackSelection() {
-        locationListener.trackSelectionList()
+    private fun displayTrackListForSelection() {
+        val items = locationListener.listVideoTracks()
+
+        TrackSelectionBottomSheet().let {
+            it.setOnClickListener(this@TrackSelectionExoPlayerFragment)
+            it.setItems(items)
+            it.show(childFragmentManager, null)
+        }
     }
 
 }

@@ -6,6 +6,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.example.code.exoplayer.Constants
+import com.example.code.exoplayer.features.trackselection.model.TrackInfo
+import com.example.code.exoplayer.types.styled.util.MplTrack
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.DefaultTrackNameProvider
@@ -77,12 +79,13 @@ class TrackSelectionExoplayerLifecycleObserver(
     }
 
     private fun initializePlayer(
-        url: String = Constants.mp4Url,
-        type: String = MimeTypes.APPLICATION_MP4
+        url: String = Constants.hls,
+        type: String = MimeTypes.APPLICATION_M3U8
     ) {
         trackSelector = DefaultTrackSelector(context).apply {
             setParameters(buildUponParameters().setMaxVideoSizeSd())
         }
+
         simpleExoplayer = SimpleExoPlayer.Builder(context)
             .setTrackSelector(trackSelector)
             .build()
@@ -144,7 +147,7 @@ class TrackSelectionExoplayerLifecycleObserver(
     }
 
 
-    fun trackSelectionList() {
+    fun printTrackLogsToExoPlayer() {
         val mappedTrackInfo = Assertions.checkNotNull(trackSelector.currentMappedTrackInfo)
         val parameters = trackSelector.parameters
 
@@ -161,12 +164,16 @@ class TrackSelectionExoplayerLifecycleObserver(
 
             Timber.tag(tag).d("<----- Track item index: $rendererIndex -------------->")
             Timber.tag(tag).d("<----- Track item  name: $trackName ------------------>")
-            Timber.tag(tag).d("<----- Track item  name: $trackName ------------------>")
+            Timber.tag(tag).d("<----- Is renderer Disabled: $isRendererDisabled ----->")
+            Timber.tag(tag).d("<----------------------------------------------------->")
+            Timber.tag(tag).d("<----- Selection Override ---------------------------->")
+            Timber.tag(tag).d(Gson().toJson(selectionOverride))
+            Timber.tag(tag).d("<----- Selection Override ---------------------------->")
+            Timber.tag(tag).d("<----------------------------------------------------->")
             Timber.tag(tag).d("<----- Track group Array ----------------------------->")
             Timber.tag(tag).d(Gson().toJson(trackGroupArray))
             Timber.tag(tag).d("<----- Track group Array ----------------------------->")
-
-
+            Timber.tag(tag).d("<----------------------------------------------------->")
 
             for (groupIndex in 0 until trackGroupArray.length) {
                 for (trackIndex in 0 until trackGroupArray[groupIndex].length) {
@@ -178,10 +185,6 @@ class TrackSelectionExoplayerLifecycleObserver(
                     Timber.tag(tag).d("track item $groupIndex: trackName: $trackName, isTrackSupported: $isTrackSupported")
                 }
             }
-
-            Timber.tag(tag).d("isRendererDisabled: $isRendererDisabled")
-            Timber.tag(tag).d("selectionOverride: ".plus(Gson().toJson(selectionOverride)))
-
         }
 
     }
@@ -195,5 +198,82 @@ class TrackSelectionExoplayerLifecycleObserver(
         }
     }
 
+    fun listVideoTracks(): ArrayList<TrackInfo> {
+
+        trackSelector?.let{
+            val tracksForSelection = ArrayList<TrackInfo>()
+
+            val mappedTrackInfo = Assertions.checkNotNull(trackSelector.currentMappedTrackInfo)
+            val parameters = trackSelector.parameters
+
+            for (rendererIndex in 0 until mappedTrackInfo.rendererCount) {
+                // ----> Returns the track type in int integer.
+                val trackType = mappedTrackInfo.getRendererType(rendererIndex)
+                // ----> Returns the name of the track based on track type
+                val trackName = trackTypeToName(trackType)
+                // ----> Returns the TrackGroups mapped to the renderer at the specified index.
+                val trackGroupArray = mappedTrackInfo.getTrackGroups(rendererIndex)
+                // ----> Returns whether the renderer is disabled.
+                val isRendererDisabled = parameters.getRendererDisabled(rendererIndex)
+                val selectionOverride = parameters.getSelectionOverride(rendererIndex, trackGroupArray)
+
+                if(trackName.equals("TRACK_TYPE_VIDEO",true)
+                    && !isRendererDisabled ){
+                    for (groupIndex in 0 until trackGroupArray.length) {
+                        for (trackIndex in 0 until trackGroupArray[groupIndex].length) {
+                            val trackName = DefaultTrackNameProvider(context.resources).getTrackName(
+                                trackGroupArray[groupIndex].getFormat(trackIndex)
+                            )
+                            val isTrackSupported = mappedTrackInfo.getTrackSupport(
+                                rendererIndex, groupIndex, trackIndex) == C.FORMAT_HANDLED
+                            if(isTrackSupported){
+                                Timber.tag(tag).d("track item $groupIndex: trackName: $trackName, isTrackSupported: $isTrackSupported")
+                            }
+
+                            // Add item
+                            tracksForSelection.add(
+                                TrackInfo(trackName = trackName, groupIndex = groupIndex, trackIndex = trackIndex)
+                            )
+                        }
+                    }
+                }
+            }
+
+            return tracksForSelection
+        }
+
+
+
+        //selectTrack(reason = C.SELECTION_REASON_MANUAL,groupIndex = 0, trackIndex = 2)
+    }
+
+
+    fun selectTrack(reason: Int, groupIndex: Int, trackIndex: Int) {
+
+        trackSelector.currentMappedTrackInfo?.let {mappedTrackInfo ->
+            val builder = trackSelector.parameters.buildUpon()
+
+            for (rendererIndex in 0 until mappedTrackInfo.rendererCount) {
+
+                val trackType = mappedTrackInfo.getRendererType(rendererIndex)
+
+                if (trackType == C.TRACK_TYPE_VIDEO) {
+
+                    builder.clearSelectionOverrides(rendererIndex).setRendererDisabled(rendererIndex, false)
+
+                    if (reason == C.SELECTION_REASON_MANUAL) {
+                        val override = DefaultTrackSelector.SelectionOverride(groupIndex, trackIndex)
+                        builder.setSelectionOverride(rendererIndex, mappedTrackInfo.getTrackGroups(rendererIndex), override)
+                    } else {
+                        builder.setAllowMultipleAdaptiveSelections(true)
+                    }
+
+                }
+            }
+
+            trackSelector.setParameters(builder)
+
+        }
+    }
 
 }

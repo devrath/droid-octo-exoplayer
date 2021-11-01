@@ -40,6 +40,7 @@
         <entry key="exoplayer/src/main/res/drawable/red_border.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/drawable/rounded_background.xml" value="0.1361111111111111" />
         <entry key="exoplayer/src/main/res/layout/activity_exoplayer.xml" value="0.1" />
+        <entry key="exoplayer/src/main/res/layout/card_view_design.xml" value="0.22708333333333333" />
         <entry key="exoplayer/src/main/res/layout/custom_styled_player_control_view.xml" value="0.14174048983845752" />
         <entry key="exoplayer/src/main/res/layout/custom_styled_player_view.xml" value="0.125" />
         <entry key="exoplayer/src/main/res/layout/exo_playback_control_view.xml" value="0.44829583371440845" />
@@ -55,6 +56,7 @@
         <entry key="exoplayer/src/main/res/layout/fragment_simple_exo_player.xml" value="0.10185185185185185" />
         <entry key="exoplayer/src/main/res/layout/fragment_simple_exoplayer.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/layout/fragment_styled_exo_player.xml" value="0.1" />
+        <entry key="exoplayer/src/main/res/layout/fragment_track_selection_bottom_sheet.xml" value="0.22708333333333333" />
         <entry key="exoplayer/src/main/res/layout/fragment_track_selection_exo_player.xml" value="0.13949275362318841" />
         <entry key="exoplayer/src/main/res/layout/layout_exoplayer_control_views.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/menu/menu_track_selection.xml" value="0.16770833333333332" />
