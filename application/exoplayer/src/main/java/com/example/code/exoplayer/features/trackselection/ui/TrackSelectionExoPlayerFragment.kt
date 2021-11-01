@@ -5,14 +5,10 @@ import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import android.view.*
-import android.widget.Toast
 import com.example.code.exoplayer.R
-import com.example.code.exoplayer.databinding.FragmentSimpleExoPlayerBinding
 import com.example.code.exoplayer.databinding.FragmentTrackSelectionExoPlayerBinding
 import com.example.code.exoplayer.features.trackselection.core.TrackSelectionExoplayerAction
 import com.example.code.exoplayer.features.trackselection.core.TrackSelectionExoplayerLifecycleObserver
-import com.example.code.exoplayer.types.simple.ui.SimplePlayerCallback
-import com.example.code.exoplayer.util.ToggleFullScreen
 import com.example.code.extensions.hide
 import com.example.code.extensions.show
 
@@ -51,7 +47,7 @@ class TrackSelectionExoPlayerFragment : Fragment(), TrackSelectionCallback {
     }
 
     private fun showUrlSelectionSheet() {
-        ExoPlayerContentSelFragment().let {
+        TrackSelectionBottomSheet().let {
             it.setOnClickListener(this@TrackSelectionExoPlayerFragment)
             it.show(childFragmentManager, null)
         }

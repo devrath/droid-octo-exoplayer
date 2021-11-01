@@ -198,7 +198,7 @@ class TrackSelectionExoplayerLifecycleObserver(
         }
     }
 
-    fun listVideoTracks() {
+    fun listVideoTracks(): ArrayList<TrackInfo> {
 
         val tracksForSelection = ArrayList<TrackInfo>()
 
@@ -229,7 +229,7 @@ class TrackSelectionExoplayerLifecycleObserver(
                             Timber.tag(tag).d("track item $groupIndex: trackName: $trackName, isTrackSupported: $isTrackSupported")
                         }
 
-                        // Add item 
+                        // Add item
                         tracksForSelection.add(
                             TrackInfo(trackName = trackName, groupIndex = groupIndex, trackIndex = trackIndex)
                         )
@@ -237,6 +237,8 @@ class TrackSelectionExoplayerLifecycleObserver(
                 }
             }
         }
+
+        return tracksForSelection
 
         //selectTrack(reason = C.SELECTION_REASON_MANUAL,groupIndex = 0, trackIndex = 2)
     }
