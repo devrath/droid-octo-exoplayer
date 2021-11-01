@@ -83,6 +83,7 @@ class TrackSelectionExoplayerLifecycleObserver(
         trackSelector = DefaultTrackSelector(context).apply {
             setParameters(buildUponParameters().setMaxVideoSizeSd())
         }
+
         simpleExoplayer = SimpleExoPlayer.Builder(context)
             .setTrackSelector(trackSelector)
             .build()
@@ -182,8 +183,6 @@ class TrackSelectionExoplayerLifecycleObserver(
                     Timber.tag(tag).d("track item $groupIndex: trackName: $trackName, isTrackSupported: $isTrackSupported")
                 }
             }
-
-
         }
 
     }
@@ -195,6 +194,40 @@ class TrackSelectionExoplayerLifecycleObserver(
             C.TRACK_TYPE_TEXT -> "TRACK_TYPE_TEXT"
             else -> "Invalid track type"
         }
+    }
+
+    fun listVideoTracks() {
+        val mappedTrackInfo = Assertions.checkNotNull(trackSelector.currentMappedTrackInfo)
+        val parameters = trackSelector.parameters
+
+        for (rendererIndex in 0 until mappedTrackInfo.rendererCount) {
+            // ----> Returns the track type in int integer.
+            val trackType = mappedTrackInfo.getRendererType(rendererIndex)
+            // ----> Returns the name of the track based on track type
+            val trackName = trackTypeToName(trackType)
+            // ----> Returns the TrackGroups mapped to the renderer at the specified index.
+            val trackGroupArray = mappedTrackInfo.getTrackGroups(rendererIndex)
+            // ----> Returns whether the renderer is disabled.
+            val isRendererDisabled = parameters.getRendererDisabled(rendererIndex)
+            val selectionOverride = parameters.getSelectionOverride(rendererIndex, trackGroupArray)
+
+            if(trackName.equals("TRACK_TYPE_VIDEO",true)
+                && !isRendererDisabled ){
+                for (groupIndex in 0 until trackGroupArray.length) {
+                    for (trackIndex in 0 until trackGroupArray[groupIndex].length) {
+                        val trackName = DefaultTrackNameProvider(context.resources).getTrackName(
+                            trackGroupArray[groupIndex].getFormat(trackIndex)
+                        )
+                        val isTrackSupported = mappedTrackInfo.getTrackSupport(
+                            rendererIndex, groupIndex, trackIndex) == C.FORMAT_HANDLED
+                        if(isTrackSupported){
+                            Timber.tag(tag).d("track item $groupIndex: trackName: $trackName, isTrackSupported: $isTrackSupported")
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
 

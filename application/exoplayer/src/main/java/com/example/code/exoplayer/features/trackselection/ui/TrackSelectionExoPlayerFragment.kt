@@ -88,7 +88,7 @@ class TrackSelectionExoPlayerFragment : Fragment(), TrackSelectionCallback {
     }
 
     private fun initiateTrackSelection() {
-        locationListener.trackSelectionList()
+        locationListener.listVideoTracks()
     }
 
 }
