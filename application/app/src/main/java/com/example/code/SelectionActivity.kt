@@ -38,6 +38,9 @@ class SelectionActivity : AppCompatActivity() {
             transformMediaId.setOnClickListener {
                 launchActivity<TransformMediaExoPlayerActivity>()
             }
+            trackSelectionId.setOnClickListener {
+                launchActivity<TrackSelectionExoPlayerActivity>()
+            }
         }
     }
 

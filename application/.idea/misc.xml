@@ -13,6 +13,7 @@
         <entry key="app/src/main/res/layout/activity_selection.xml" value="0.19429347826086957" />
         <entry key="app/src/main/res/layout/activity_simple_exo_player.xml" value="0.10764944275582573" />
         <entry key="app/src/main/res/layout/activity_styled_exo_player.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_track_selection_exo_player.xml" value="0.13949275362318841" />
         <entry key="app/src/main/res/layout/activity_transform_media_exo_player.xml" value="0.12228260869565218" />
         <entry key="app/src/main/res/layout/fragment_playlist_exo_player.xml" value="0.12001811594202899" />
         <entry key="exoplayer/src/main/res/drawable/bg_round_rect_white_50.xml" value="0.121875" />
@@ -54,6 +55,7 @@
         <entry key="exoplayer/src/main/res/layout/fragment_simple_exo_player.xml" value="0.10185185185185185" />
         <entry key="exoplayer/src/main/res/layout/fragment_simple_exoplayer.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/layout/fragment_styled_exo_player.xml" value="0.1" />
+        <entry key="exoplayer/src/main/res/layout/fragment_track_selection_exo_player.xml" value="0.13949275362318841" />
         <entry key="exoplayer/src/main/res/layout/layout_exoplayer_control_views.xml" value="0.1" />
         <entry key="exoplayer/src/main/res/menu/menu_video_options.xml" value="0.11944444444444445" />
         <entry key="exoplayer/src/main/res/menu/playback_speed.xml" value="0.19537037037037036" />

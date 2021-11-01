@@ -53,6 +53,11 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:theme="@style/Theme.Code"/>
 
+        <activity android:name=".exoplayers.TrackSelectionExoPlayerActivity"
+            android:label="@string/track_selection"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:theme="@style/Theme.Code"/>
+
     </application>
 
 </manifest>

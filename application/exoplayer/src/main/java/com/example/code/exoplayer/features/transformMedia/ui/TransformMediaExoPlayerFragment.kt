@@ -2,17 +2,12 @@ package com.example.code.exoplayer.features.transformMedia.ui
 
 
 import android.os.Bundle
-import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import android.view.*
-import android.widget.Toast
-import com.example.code.exoplayer.R
 import com.example.code.exoplayer.databinding.FragmentSimpleExoPlayerBinding
 import com.example.code.exoplayer.features.transformMedia.core.TransformMediaExoplayerAction
 import com.example.code.exoplayer.features.transformMedia.core.TransformMediaExoplayerLifecycleObserver
-import com.example.code.exoplayer.types.simple.ui.SimplePlayerCallback
-import com.example.code.exoplayer.util.ToggleFullScreen
 import com.example.code.extensions.hide
 import com.example.code.extensions.show
 
