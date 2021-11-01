@@ -43,8 +43,7 @@ class TrackSelectionExoPlayerFragment : Fragment(), TrackSelectionCallback {
                 true
             }
             R.id.action_full_Screen -> {
-                ToggleFullScreen(activity,view).toggleSystemUI()
-                Toast.makeText(activity, "Full screen", Toast.LENGTH_SHORT).show()
+                initiateTrackSelection()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -86,6 +85,10 @@ class TrackSelectionExoPlayerFragment : Fragment(), TrackSelectionCallback {
 
     private fun handleProgressVisibilityOfPlayer(visible: Boolean) {
         if (visible) { binding.progressBar.show() } else { binding.progressBar.hide() }
+    }
+
+    private fun initiateTrackSelection() {
+        locationListener.trackSelectionList()
     }
 
 }
