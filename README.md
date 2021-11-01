@@ -24,3 +24,15 @@ This repository demonstrates how to use the ExoPlayer which is an application le
 | `Displaying the advertisements in exo player` |
 | `Providing the video segments in exoplayer chapter wise` |
 
+
+<p align="center">
+  <img width="220" height="400" src="https://github.com/devrath/droid-octo-exoplayer/blob/main/assets/gif/simple_exo_player.gif">
+  <img width="220" height="400" src="https://github.com/devrath/droid-octo-exoplayer/blob/main/assets/gif/custom_exo_player.gif">
+  <img width="220" height="400" src="https://github.com/devrath/droid-octo-exoplayer/blob/main/assets/gif/track_selection_exo_player.gif">
+  <img width="220" height="400" src="https://github.com/devrath/droid-octo-exoplayer/blob/main/assets/gif/playlist_exo_player.gif">
+</p>
+
+
+<p align="center">
+<a><img src="https://forthebadge.com/images/badges/built-for-android.svg"></a>
+</p>
