@@ -148,28 +148,25 @@ class TrackSelectionExoplayerLifecycleObserver(
         val mappedTrackInfo = Assertions.checkNotNull(trackSelector.currentMappedTrackInfo)
         val parameters = trackSelector.parameters
 
-      /*  val rendererCount = mappedTrackInfo.rendererCount
-        val unmappedTrackGroups = mappedTrackInfo.unmappedTrackGroups
-
-        Timber.tag(tag).d(rendererCount.toString())
-        Timber.tag(tag).d(unmappedTrackGroups.toString())
-
-*/
-        /*val builder: ParametersBuilder = parameters.buildUpon()
         for (rendererIndex in 0 until mappedTrackInfo.rendererCount) {
-
-        }
-        trackSelector.setParameters(builder)*/
-
-        for (rendererIndex in 0 until mappedTrackInfo.rendererCount) {
+            // ----> Returns the track type in int integer.
             val trackType = mappedTrackInfo.getRendererType(rendererIndex)
+            // ----> Returns the name of the track based on track type
+            val trackName = trackTypeToName(trackType)
+            // ----> Returns the TrackGroups mapped to the renderer at the specified index.
             val trackGroupArray = mappedTrackInfo.getTrackGroups(rendererIndex)
+            // ----> Returns whether the renderer is disabled.
             val isRendererDisabled = parameters.getRendererDisabled(rendererIndex)
             val selectionOverride = parameters.getSelectionOverride(rendererIndex, trackGroupArray)
 
-            Timber.tag(tag).d("--------------Track item $rendererIndex--------------")
-            Timber.tag(tag).d("track type: ".plus(trackTypeToName(trackType)))
-            Timber.tag(tag).d("track group array: ".plus(Gson().toJson(trackGroupArray)))
+            Timber.tag(tag).d("<----- Track item index: $rendererIndex -------------->")
+            Timber.tag(tag).d("<----- Track item  name: $trackName ------------------>")
+            Timber.tag(tag).d("<----- Track item  name: $trackName ------------------>")
+            Timber.tag(tag).d("<----- Track group Array ----------------------------->")
+            Timber.tag(tag).d(Gson().toJson(trackGroupArray))
+            Timber.tag(tag).d("<----- Track group Array ----------------------------->")
+
+
 
             for (groupIndex in 0 until trackGroupArray.length) {
                 for (trackIndex in 0 until trackGroupArray[groupIndex].length) {

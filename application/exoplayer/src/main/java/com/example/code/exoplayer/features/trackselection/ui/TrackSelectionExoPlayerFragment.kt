@@ -32,17 +32,17 @@ class TrackSelectionExoPlayerFragment : Fragment(), TrackSelectionCallback {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_video_options, menu)
+        inflater.inflate(R.menu.menu_track_selection, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_url_selection -> {
+            R.id.listSelection -> {
                 showUrlSelectionSheet()
                 true
             }
-            R.id.action_full_Screen -> {
+            R.id.printLog -> {
                 initiateTrackSelection()
                 true
             }
