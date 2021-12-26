@@ -41,6 +41,9 @@ class SelectionActivity : AppCompatActivity() {
             trackSelectionId.setOnClickListener {
                 launchActivity<TrackSelectionExoPlayerActivity>()
             }
+            exoPlayerListId.setOnClickListener {
+                launchActivity<ListExoPlayerActivity>()
+            }
         }
     }
 

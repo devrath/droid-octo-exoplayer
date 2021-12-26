@@ -55,4 +55,11 @@
         style="@style/SelectionButtonStyle"
         android:text="@string/track_selection" />
 
+    <Button
+        android:id="@+id/exoPlayerListId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/SelectionButtonStyle"
+        android:text="@string/exo_player_list" />
+
 </LinearLayout>

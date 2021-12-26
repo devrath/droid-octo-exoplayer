@@ -58,6 +58,11 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:theme="@style/Theme.Code"/>
 
+        <activity android:name=".exoplayers.ListExoPlayerActivity"
+            android:label="@string/exo_player_list"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:theme="@style/Theme.Code"/>
+
     </application>
 
 </manifest>

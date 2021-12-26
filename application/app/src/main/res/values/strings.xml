@@ -19,6 +19,7 @@
     <string name="playlist_exoplayer">Playlist Exoplayer</string>
     <string name="transform_media">Transform Media</string>
     <string name="track_selection">Track Selection</string>
+    <string name="exo_player_list">Exo Player List</string>
 
     <string-array name="videoFormatsSelectionList">
         <item>@string/str_mp4</item>
