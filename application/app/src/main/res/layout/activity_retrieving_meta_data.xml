@@ -6,7 +6,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
-        android:name="com.example.code.exoplayer.types.retrievingmetadata.ui.SimpleExoPlayerFragment"
+        android:name="com.example.code.exoplayer.types.retrievingmetadata.ui.RetrievingMetadataFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

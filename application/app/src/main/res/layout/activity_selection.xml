@@ -55,4 +55,11 @@
         style="@style/SelectionButtonStyle"
         android:text="@string/track_selection" />
 
+    <Button
+        android:id="@+id/retrieveMetaDataId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/SelectionButtonStyle"
+        android:text="@string/retrieve_meta_data" />
+
 </LinearLayout>

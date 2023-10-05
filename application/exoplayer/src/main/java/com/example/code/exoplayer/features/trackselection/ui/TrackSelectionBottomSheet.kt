@@ -6,23 +6,17 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.code.exoplayer.Constants
 import com.example.code.exoplayer.R
-import com.example.code.exoplayer.databinding.FragmentExoPlayerContentSelectionBinding
 import com.example.code.exoplayer.databinding.FragmentTrackSelectionBottomSheetBinding
 import com.example.code.exoplayer.features.trackselection.adapter.CustomAdapter
 import com.example.code.exoplayer.features.trackselection.model.TrackInfo
-import com.example.code.exoplayer.types.simple.ui.SimplePlayerCallback
-import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 @AndroidEntryPoint

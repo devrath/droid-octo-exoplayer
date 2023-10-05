@@ -10,54 +10,57 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Code">
-
         <activity
             android:name=".SelectionActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize"
-            android:label="@string/selection_screen">
+            android:label="@string/selection_screen"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".exoplayers.SimpleExoPlayerActivity"
+        <activity
+            android:name=".exoplayers.RetrievingMetaDataActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:label="@string/retrieve_meta_data"
+            android:theme="@style/Theme.Code" />
+        <activity
+            android:name=".exoplayers.SimpleExoPlayerActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:label="@string/simple_player"
+            android:theme="@style/Theme.Code" />
+        <activity
+            android:name=".exoplayers.CustomExoPlayerActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
-            android:theme="@style/Theme.Code"/>
-
-        <activity android:name=".exoplayers.CustomExoPlayerActivity"
             android:label="@string/custom_player"
+            android:theme="@style/Theme.Code" />
+        <activity
+            android:name=".exoplayers.StyledExoPlayerActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
-            android:theme="@style/Theme.Code"/>
-
-        <activity android:name=".exoplayers.StyledExoPlayerActivity"
             android:label="@string/styled_player"
+            android:theme="@style/Theme.Code" />
+        <activity
+            android:name=".exoplayers.AddsExoPlayerActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
-            android:theme="@style/Theme.Code"/>
-
-        <activity android:name=".exoplayers.AddsExoPlayerActivity"
             android:label="@string/adds_player"
+            android:theme="@style/Theme.Code" />
+        <activity
+            android:name=".exoplayers.PlaylistExoPlayerActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
-            android:theme="@style/Theme.Code"/>
-
-        <activity android:name=".exoplayers.PlaylistExoPlayerActivity"
             android:label="@string/playlist_exoplayer"
+            android:theme="@style/Theme.Code" />
+        <activity
+            android:name=".exoplayers.TransformMediaExoPlayerActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
-            android:theme="@style/Theme.Code"/>
-
-        <activity android:name=".exoplayers.TransformMediaExoPlayerActivity"
             android:label="@string/transform_media"
+            android:theme="@style/Theme.Code" />
+        <activity
+            android:name=".exoplayers.TrackSelectionExoPlayerActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
-            android:theme="@style/Theme.Code"/>
-
-        <activity android:name=".exoplayers.TrackSelectionExoPlayerActivity"
             android:label="@string/track_selection"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
-            android:theme="@style/Theme.Code"/>
-
+            android:theme="@style/Theme.Code" />
     </application>
 
 </manifest>
