@@ -69,7 +69,8 @@ class RetrievingMetafataSelFragment : BottomSheetDialogFragment(), CoroutineScop
             contentDashId.setOnClickListener {
                 lifecycleScope.launch {
                     dismissAllowingStateLoss()
-                    listener?.onClick(Constants.dashUrl, MimeTypes.APPLICATION_MPD)
+                    val url = "http://devimages.apple.com/samplecode/adDemo/ad.m3u8";
+                    listener?.onClick(url, MimeTypes.APPLICATION_MPD)
                 }
             }
         }

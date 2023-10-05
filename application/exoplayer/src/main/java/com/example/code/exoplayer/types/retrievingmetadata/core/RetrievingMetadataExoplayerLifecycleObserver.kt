@@ -7,8 +7,10 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.example.code.exoplayer.Constants
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.MediaMetadata
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.metadata.Metadata
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.exoplayer2.util.Util
@@ -120,7 +122,26 @@ class RetrievingMetadataExoplayerLifecycleObserver (
             callback.invoke(RetrievingMetadataExoplayerAction.ProgressBarVisibility(false))
     }
 
-    private fun printPlayerState(playbackState: Int) {
+    override fun onMetadata(metadata: Metadata) {
+        super.onMetadata(metadata)
+        Timber.tag(tag).i("onMetadata callback is invoked");
+        Timber.tag(tag).d(metadata.toString());
+    }
+
+    override fun onMediaMetadataChanged(mediaMetadata: MediaMetadata) {
+        super.onMediaMetadataChanged(mediaMetadata)
+        Timber.tag(tag).i("onMediaMetadataChanged callback is invoked");
+        Timber.tag(tag).d(mediaMetadata.toString());
+    }
+
+    override fun onPlaylistMetadataChanged(mediaMetadata: MediaMetadata) {
+        super.onPlaylistMetadataChanged(mediaMetadata)
+        Timber.tag(tag).i("onPlaylistMetadataChanged callback is invoked");
+        Timber.tag(tag).d(mediaMetadata.toString());
+    }
+
+
+            private fun printPlayerState(playbackState: Int) {
         val stateString: String = when (playbackState) {
             ExoPlayer.STATE_IDLE -> "ExoPlayer.STATE_IDLE"
             ExoPlayer.STATE_BUFFERING -> "ExoPlayer.STATE_BUFFERING"
